@@ -1,12 +1,12 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-16 11:49 UTC",
+  "fecha_ejecucion": "2026-09-16 12:14 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
     "H3 (perturbaciones)": "NO SUPERA LA PRUEBA",
     "H4 (externalización 2040)": "NO CONCLUYENTE",
-    "Ecuación General": "NO SUPERA LA PRUEBA"
+    "Ecuación General": "SUPERA LA PRUEBA"
   },
   "anios": {
     "CIDI": [
