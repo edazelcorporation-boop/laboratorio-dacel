@@ -1,0 +1,39 @@
+name: Actualizar Laboratorio Daçel
+
+on:
+  schedule:
+    - cron: "0 12 1 * *"   # día 1 de cada mes, 6:00 a. m. hora del centro de México
+  workflow_dispatch:        # botón "Run workflow" para correrlo a mano
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar librerías
+        run: pip install numpy pandas scipy matplotlib
+
+      - name: Descargar datos públicos
+        run: python actualizar_datos.py
+
+      - name: Correr las pruebas de falsación
+        run: |
+          python dacel_validacion.py --datos datos/datos_mundo.csv --salida docs/resultados
+          cp datos/estado_fuentes.json docs/resultados/
+          cp datos/datos_mundo.csv docs/resultados/
+
+      - name: Guardar y publicar resultados
+        run: |
+          git config user.name "Laboratorio Daçel"
+          git config user.email "actions@users.noreply.github.com"
+          git add datos docs/resultados
+          git diff --cached --quiet || git commit -m "Actualización automática $(date -u +%Y-%m-%d)"
+          git push
