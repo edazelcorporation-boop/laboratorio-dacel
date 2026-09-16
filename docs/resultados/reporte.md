@@ -34,7 +34,7 @@ Se usa solo la parte psicológica del HDF (ansiedad, soledad y/o depresión). In
 
 - Correlación en niveles: r = 0.893 (engañosa: dos series que suben juntas siempre correlacionan).
 - Correlación en cambios año a año: r = 0.650
-- Significancia contra 1000 surrogates IAAFT: p = 0.0430
+- Significancia contra 1000 surrogates IAAFT: p = 0.0310
 
 **Veredicto H2: SUPERA LA PRUEBA.** Cuando la conectividad sube más rápido, el desajuste psicológico también.
 
@@ -44,8 +44,8 @@ Estudio de eventos: crecimiento de I en los 5 años posteriores menos los 5 año
 
 - Eventos analizados: 3
 - Aceleración observada: +7.02 puntos porcentuales de crecimiento anual
-- Aceleración típica en años al azar: -6.51 pp
-- p = 0.0960
+- Aceleración típica en años al azar: -6.56 pp
+- p = 0.1024
 
 **Veredicto H3: NO SUPERA LA PRUEBA.** Las perturbaciones no muestran una aceleración distinta a la de años al azar.
 
