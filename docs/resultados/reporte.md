@@ -38,29 +38,22 @@ Se usa solo la parte psicológica del HDF (ansiedad, soledad y/o depresión). In
 
 **Veredicto H2: SUPERA LA PRUEBA.** Cuando la conectividad sube más rápido, el desajuste psicológico también.
 
-## H3 / F2 — Principio de transformación por perturbación
+## H3 / F2 — Perturbación, memoria y reorganización sistémica
 
-### H3-v5 principal — desviación de trayectoria, sin signo obligatorio
-Daçel no exige que una perturbación produzca progreso. La respuesta puede ser expansión, contracción, deterioro, sustitución, diversificación, adaptación o colapso. Por ello H3-v5 pregunta si una perturbación externa suficientemente intensa hace que el sistema se aparte de la trayectoria que habría sido esperable a partir de su propia historia previa.
+### H3-v4 principal — mecanismo dinámico Daçel
+La perturbación no se trata como crecimiento. Se separan cuatro conceptos: P_ext(t), perturbación externa; M(t), memoria acumulada de perturbaciones; A_cap(t), capacidad adaptativa existente antes de la respuesta; y R(t), magnitud de reorganización del sistema. La presión adaptativa es Q(t)=M(t)×A_cap(t). Una perturbación puede destruir unas variables y acelerar otras; por eso R mide magnitud de cambio de régimen y no crecimiento neto.
 
-La transformación T(t) se mide durante 3 años como el error absoluto estandarizado entre la trayectoria observada y una proyección contrafactual simple construida SOLO con los 10 años anteriores. Se promedian los dominios energía, información, externalización/conectividad y conocimiento, requiriendo al menos dos. El signo se conserva solo para diagnóstico: una caída fuerte y un aumento fuerte son ambos transformación. P_ext usa AI-GPR + disrupción macroeconómica ex-ante; M(t) conserva la memoria exponencial preregistrada de 3 años.
+P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones son ex-ante: cada año se compara solo con historia disponible hasta ese año. M usa memoria exponencial con vida media fija de 3 años. A_cap usa energía, externalización/conectividad y conocimiento, excluyendo I para evitar circularidad. R compara 5 años previos y 5 posteriores en los cuatro dominios Daçel.
 
-**Alcance:** con las fuentes actuales esta corrida prueba el mecanismo en el sistema histórico macro-tecnológico mundial. No se presenta como demostración universal en biología, ecología, individuos o astrofísica; esos dominios requieren baterías de datos independientes con el mismo criterio matemático.
+- Años evaluables: 35 (1986–2020)
+- Dominios de R por año: mediana 4.0; rango 2–4
+- Asociación Q(t)=M×A_cap → R(t): rho = +0.331
+- Nulo temporal: 34 desplazamientos circulares; p = 0.1714
 
-- Años evaluables: 38 (1986–2023)
-- Dominios de transformación por año: mediana 4.0; rango 2–4
-- Asociación M(t) → T(t): rho = +0.305
-- Nulo temporal: 37 desplazamientos circulares; p = 0.1579
+**Veredicto H3-v4: NO SUPERA LA PRUEBA.** La dirección es la prevista, pero no se distingue del nulo temporal al 5%.
 
-**Veredicto H3-v5: NO SUPERA LA PRUEBA.** La dirección es la prevista, pero la evidencia disponible no permite distinguirla del nulo temporal al 5%.
-
-### Diagnóstico de capacidad adaptativa
-Q(t)=M×A_cap frente a T(t): rho = +0.293. Este valor NO decide H3-v5: A_cap puede modificar el tipo de respuesta, pero una transformación destructiva también cuenta como transformación Daçel.
-
-### Falsación
-H3-v5 queda contradicha en esta batería si perturbaciones mayores no producen desviaciones de trayectoria mayores que el nulo temporal. Un resultado negativo se conserva; no se cambia el signo, horizonte ni definición después de observarlo.
 ### Auditoría
-H3-v2, H3-v3 y H3-v4 permanecen en el historial del repositorio. H3-v5 cambia la operacionalización porque la definición teórica se aclaró ANTES de esta corrida: perturbación implica transformación posible en cualquier dirección, no progreso.
+H3-v2 (eventos manuales) y H3-v3 (perturbación contemporánea continua) permanecen en el historial del repositorio. H3-v4 no reescribe esos resultados; prueba una formulación dinámica explícita de la teoría.
 
 ## H4 — La externalización cognitiva seguirá aumentando hasta 2040
 
@@ -91,7 +84,7 @@ Error fuera de muestra (menor es mejor):
 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
 - H2 (vacío humano): **SUPERA LA PRUEBA**
-- H3 (transformación por perturbación): **NO SUPERA LA PRUEBA**
+- H3 (perturbaciones): **NO SUPERA LA PRUEBA**
 - H4 (externalización 2040): **NO CONCLUYENTE**
 - Ecuación General: **SUPERA LA PRUEBA**
 
