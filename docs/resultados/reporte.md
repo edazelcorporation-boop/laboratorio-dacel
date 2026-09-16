@@ -55,6 +55,21 @@ P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones
 ### Auditoría
 H3-v2 (eventos manuales) y H3-v3 (perturbación contemporánea continua) permanecen en el historial del repositorio. H3-v4 no reescribe esos resultados; prueba una formulación dinámica explícita de la teoría.
 
+### H3-v5 — cobertura histórica causal
+
+Esta prueba conserva P_ext, vida media de 3 años, A_cap, R, ventana temporal, alfa y nulo circular de H3-v4. La única diferencia es que M conserva desde su primera observación válida la memoria causal ya construida, sin imponer un segundo calentamiento de 10 observaciones para repercentilizarla.
+
+#### Auditoría de cobertura
+- P_ext: 49 años (1977–2025)
+- M histórica: 49 años (1977–2025)
+- A_cap: 49 años (1977–2025)
+- R: 45 años (1976–2020)
+- Intersección R ∩ M ∩ A_cap: 44 años (1977–2020)
+- Asociación Q(t)=M_hist×A_cap → R(t): rho = +0.189
+- Nulo temporal: 43 desplazamientos circulares; p = 0.2500
+- Dominios de R: mediana 3.0; rango 2–4
+**Veredicto H3-v5: NO SUPERA LA PRUEBA.** La dirección es la prevista, pero no se distingue del nulo temporal al 5%.
+
 ## H4 — La externalización cognitiva seguirá aumentando hasta 2040
 
 - Crecimiento medio de X en los últimos 10 años: 1.29% anual.
@@ -114,6 +129,7 @@ El motor no produce un único 'H3 sí/no' universal con una sola serie mundial. 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
 - H2 (vacío humano): **SUPERA LA PRUEBA**
 - H3-v4 histórica (auditoría): **NO SUPERA LA PRUEBA**
+- H3-v5 cobertura histórica: **NO SUPERA LA PRUEBA**
 - H4 (externalización 2040): **NO CONCLUYENTE**
 - Ecuación General: **SUPERA LA PRUEBA**
 
