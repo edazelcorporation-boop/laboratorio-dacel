@@ -80,11 +80,35 @@ Error fuera de muestra (menor es mejor):
 
 **Veredicto Ecuación General dinámica: SUPERA LA PRUEBA.** Reduce el error 11% frente al mejor rival simple.
 
+## Motor Daçel multiescala v6 — formulación v1.2
+
+Núcleo: `R_s(t→t+h)=d_s[x(t),x(t+h)]/h`. R es magnitud de reorganización: expansión, contracción, deterioro, sustitución, adaptación o colapso cuentan como transformación.
+
+Modelo: `R_s(t+h)=α+β1P+β2P²+β3E+β4(P×E)+β5IOE(t−1)+β6L+ε`. No se exige que β1 sea positivo: la respuesta puede ser no lineal y depender de recursos/restricciones.
+
+### Civilizacional / tecnológico
+**SIN DATOS / ERROR DE CONSTRUCCIÓN:** too many values to unpack (expected 2)
+
+### Humano / cognitivo
+Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como prueba específica independiente.
+
+### Biológico / ecológico
+**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.
+
+### Físico / cosmológico
+**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.
+
+### Artificial / ia
+**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.
+
+### Lectura global
+El motor no produce un único 'H3 sí/no' universal con una sola serie mundial. Evalúa la misma arquitectura matemática por dominio y conserva los resultados negativos. La universalidad de Daçel solo puede sostenerse si el patrón reaparece en baterías independientes.
+
 ## Resumen
 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
 - H2 (vacío humano): **SUPERA LA PRUEBA**
-- H3 (perturbaciones): **NO SUPERA LA PRUEBA**
+- H3-v4 histórica (auditoría): **NO SUPERA LA PRUEBA**
 - H4 (externalización 2040): **NO CONCLUYENTE**
 - Ecuación General: **SUPERA LA PRUEBA**
 

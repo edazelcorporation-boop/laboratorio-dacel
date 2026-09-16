@@ -1,10 +1,10 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-16 16:36 UTC",
+  "fecha_ejecucion": "2026-09-16 17:03 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
-    "H3 (perturbaciones)": "NO SUPERA LA PRUEBA",
+    "H3-v4 histórica (auditoría)": "NO SUPERA LA PRUEBA",
     "H4 (externalización 2040)": "NO CONCLUYENTE",
     "Ecuación General": "SUPERA LA PRUEBA"
   },
