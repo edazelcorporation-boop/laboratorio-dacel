@@ -1,0 +1,18 @@
+{
+  "etiqueta": "datos reales",
+  "fecha_ejecucion": "2026-09-16 08:32 UTC",
+  "veredictos": {
+    "H1 (CIDI exponencial)": "NO CONCLUYENTE",
+    "H2 (vacío humano)": "NO CONCLUYENTE",
+    "H3 (perturbaciones)": "NO CONCLUYENTE",
+    "H4 (externalización 2040)": "NO CONCLUYENTE",
+    "Ecuación General": "NO CONCLUYENTE"
+  },
+  "anios": {
+    "CIDI": null,
+    "vacio_humano": null,
+    "perturbaciones": null
+  },
+  "cidi": {},
+  "hdf": {}
+}

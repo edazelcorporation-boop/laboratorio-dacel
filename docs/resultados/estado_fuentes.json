@@ -1,0 +1,63 @@
+{
+  "fuentes": {
+    "E": {
+      "nombre": "Consumo mundial de energía primaria (TWh)",
+      "ok": true,
+      "anios": [
+        1965,
+        2024
+      ]
+    },
+    "I": {
+      "nombre": "Potencia del supercomputador más rápido (FLOPS)",
+      "ok": false,
+      "error": "No encontré una columna con 'flop' en supercomputer-power-flops",
+      "nota": "sin datos"
+    },
+    "X": {
+      "nombre": "Suscripciones móviles por cada 100 personas",
+      "ok": true,
+      "anios": [
+        1960,
+        2025
+      ]
+    },
+    "K": {
+      "nombre": "Artículos científicos y técnicos publicados",
+      "ok": true,
+      "anios": [
+        1996,
+        2023
+      ]
+    },
+    "A": {
+      "nombre": "Población con trastornos de ansiedad (%)",
+      "ok": false,
+      "error": "HTTP Error 403: Forbidden",
+      "nota": "sin datos"
+    },
+    "Dp": {
+      "nombre": "Población con trastornos depresivos (%)",
+      "ok": false,
+      "error": "HTTP Error 403: Forbidden",
+      "nota": "sin datos"
+    },
+    "conexion": {
+      "nombre": "Población usuaria de internet (%)",
+      "ok": true,
+      "anios": [
+        2005,
+        2025
+      ]
+    }
+  },
+  "perturbaciones": {
+    "1973": "Crisis del petróleo",
+    "1987": "Lunes Negro bursátil",
+    "1991": "Disolución de la URSS",
+    "2001": "Atentados del 11 de septiembre",
+    "2008": "Crisis financiera global",
+    "2020": "Pandemia de COVID-19"
+  },
+  "cambios": []
+}
