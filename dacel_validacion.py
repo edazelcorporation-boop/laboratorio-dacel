@@ -515,7 +515,15 @@ def _rango(df, cols):
 
 def ejecutar(df, etiqueta, carpeta, semilla=42):
     os.makedirs(carpeta, exist_ok=True)
-    rng = np.random.default_rng(semilla)
+
+    # Corridas Monte Carlo reproducibles e independientes por hipótesis.
+    # Antes H2 y H3 compartían el mismo generador: si H2 no tenía datos,
+    # H3 recibía una secuencia aleatoria distinta. SeedSequence evita ese
+    # acoplamiento sin cambiar las hipótesis ni sus criterios.
+    ss = np.random.SeedSequence(semilla)
+    ss_h2, ss_h3 = ss.spawn(2)
+    rng_h2 = np.random.default_rng(ss_h2)
+    rng_h3 = np.random.default_rng(ss_h3)
     reporte = [f"# TEORÍA DAÇEL — Reporte de validación ({etiqueta})\n",
                f"Años en los datos: {int(df['anio'].min())}–{int(df['anio'].max())}\n",
                "Nivel de significancia: 5%. Cada hipótesis se enfrenta a un rival sin Daçel.\n"]
@@ -528,8 +536,8 @@ def ejecutar(df, etiqueta, carpeta, semilla=42):
 
     veredictos = {
         "H1 (CIDI exponencial)": prueba_h1(cidi, reporte, carpeta, etiqueta),
-        "H2 (vacío humano)": prueba_h2(df, reporte, carpeta, etiqueta, rng),
-        "H3 (perturbaciones)": prueba_h3(df, reporte, carpeta, etiqueta, rng),
+        "H2 (vacío humano)": prueba_h2(df, reporte, carpeta, etiqueta, rng_h2),
+        "H3 (perturbaciones)": prueba_h3(df, reporte, carpeta, etiqueta, rng_h3),
         "H4 (externalización 2040)": prueba_h4(df, reporte),
         "Ecuación General": prueba_ecuacion_general(df, reporte, carpeta, etiqueta),
     }
