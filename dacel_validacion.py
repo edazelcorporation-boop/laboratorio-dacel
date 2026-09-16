@@ -1005,7 +1005,7 @@ def prueba_dacel_multiescala(df,reporte,carpeta,etiqueta):
     # Módulo civilizacional/tecnológico con los datos reales hoy cargados.
     try:
         w=df.copy()
-        Pext,_=_presion_externa(df)
+        Pext = _presion_externa(df)[0]
         w['P']=w['anio'].map(Pext)
         w['Ecap']=_z_dacel(w['E']) if 'E' in w else np.nan
         w['IOE']=_comp_dacel(w,['I','X','K','K_patentes','conexion'])
