@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-TEORÍA DAÇEL — Programa de validación empírica (v4.0)
+TEORÍA DAÇEL — Motor multiescala v6 compatible — Programa de validación empírica (v4.0)
 Autor de la teoría: Edazel Fernández (Edazel Corporation)
 
 Qué hace este programa
@@ -941,6 +941,122 @@ def generar_mundo(con_dacel, semilla, anios=range(1900, 2026)):
     return df
 
 
+
+
+# ============================================================
+# 4B. MOTOR DAÇEL MULTIESCALA v6 — formulación v1.2
+# ============================================================
+
+def _z_dacel(s):
+    s = pd.to_numeric(pd.Series(s), errors="coerce")
+    sd = s.std(ddof=0)
+    return (s-s.mean())/sd if np.isfinite(sd) and sd > 1e-12 else s*np.nan
+
+
+def _comp_dacel(df, cols):
+    cols=[c for c in cols if c in df.columns]
+    if not cols:
+        return pd.Series(np.nan,index=df.index,dtype=float)
+    return pd.concat([_z_dacel(df[c]).rename(c) for c in cols],axis=1).mean(axis=1,skipna=True)
+
+
+def _R_estado(df, cols, h=3):
+    """R_s(t→t+h)=d_s[x(t),x(t+h)]/h. Magnitud, no progreso."""
+    cols=[c for c in cols if c in df.columns]
+    if not cols: return pd.DataFrame(columns=['anio','R','dims'])
+    z=pd.concat([_z_dacel(df[c]).rename(c) for c in cols],axis=1)
+    years=df['anio'].astype(int).to_numpy(); rows=[]
+    for i,a in enumerate(years):
+        jj=np.where(years==a+h)[0]
+        if not len(jj): continue
+        j=jj[0]; x=z.iloc[i].to_numpy(float); y=z.iloc[j].to_numpy(float)
+        ok=np.isfinite(x)&np.isfinite(y)
+        minimo=max(1,min(2,len(cols)))
+        if ok.sum()>=minimo:
+            rows.append((a,float(np.sqrt(np.mean((y[ok]-x[ok])**2))/h),int(ok.sum())))
+    return pd.DataFrame(rows,columns=['anio','R','dims'])
+
+
+def _ajuste_oos_dacel(m, features, train_frac=.80):
+    m=m[['anio','R']+features].replace([np.inf,-np.inf],np.nan).dropna().copy()
+    if len(m)<max(18,len(features)+6): return None,m
+    cut=max(len(features)+3,int(np.floor(len(m)*train_frac))); cut=min(cut,len(m)-3)
+    tr,te=m.iloc[:cut],m.iloc[cut:]
+    X=np.column_stack([np.ones(len(tr)),tr[features].to_numpy(float)])
+    b=np.linalg.lstsq(X,tr.R.to_numpy(float),rcond=None)[0]
+    pred=np.column_stack([np.ones(len(te)),te[features].to_numpy(float)])@b
+    const=np.repeat(tr.R.mean(),len(te))
+    pers=m.R.shift(1).iloc[cut:].fillna(tr.R.iloc[-1]).to_numpy()
+    rm=lambda a,p: float(np.sqrt(np.mean((np.asarray(a,float)-np.asarray(p,float))**2)))
+    ed,ec,ep=rm(te.R,pred),rm(te.R,const),rm(te.R,pers); best=min(ec,ep)
+    skill=1-ed/best if best>1e-12 else np.nan
+    sst=float(np.sum((te.R-te.R.mean())**2)); r2=1-float(np.sum((te.R.to_numpy()-pred)**2))/sst if sst>1e-12 else np.nan
+    return dict(b=b,ed=ed,ec=ec,ep=ep,skill=skill,r2=r2,n=len(m),train=len(tr),test=len(te)),m
+
+
+def prueba_dacel_multiescala(df,reporte,carpeta,etiqueta):
+    """Prueba directa de la arquitectura v1.2 sin reducir Daçel a una H3 binaria."""
+    reporte.append("## Motor Daçel multiescala v6 — formulación v1.2\n")
+    reporte.append("Núcleo: `R_s(t→t+h)=d_s[x(t),x(t+h)]/h`. R es magnitud de reorganización: expansión, contracción, deterioro, sustitución, adaptación o colapso cuentan como transformación.\n")
+    reporte.append("Modelo: `R_s(t+h)=α+β1P+β2P²+β3E+β4(P×E)+β5IOE(t−1)+β6L+ε`. No se exige que β1 sea positivo: la respuesta puede ser no lineal y depender de recursos/restricciones.\n")
+    resultados={}
+
+    # Módulo civilizacional/tecnológico con los datos reales hoy cargados.
+    try:
+        w=df.copy()
+        Pext,_=_presion_externa(df)
+        w['P']=w['anio'].map(Pext)
+        w['Ecap']=_z_dacel(w['E']) if 'E' in w else np.nan
+        w['IOE']=_comp_dacel(w,['I','X','K','K_patentes','conexion'])
+        w['IOEprev']=w['IOE'].shift(1)
+        w['Lcap']=_z_dacel(w['L']) if 'L' in w and pd.to_numeric(w['L'],errors='coerce').notna().sum()>=10 else 0.0
+        rr=_R_estado(w,['E','I','X','K','K_patentes','conexion'],h=3)
+        w=w.merge(rr,on='anio',how='inner')
+        w['P2']=w.P**2; w['PxE']=w.P*w.Ecap
+        features=['P','P2','Ecap','PxE','IOEprev','Lcap']
+        fit,m=_ajuste_oos_dacel(w,features)
+        if fit is None:
+            resultados['civilizacional_tecnologico']={'estado':'SIN DATOS','n':len(m)}
+            reporte.append(f"### Civilizacional / tecnológico\n**SIN DATOS SUFICIENTES** para el modelo completo (n={len(m)}).\n")
+        else:
+            rho=float(m.P.rank().corr(m.R.rank()))
+            coef=dict(zip(['intercept']+features,[float(x) for x in fit['b']]))
+            estado='SUPERA BASELINE' if fit['skill']>0 else 'NO SUPERA BASELINE'
+            resultados['civilizacional_tecnologico']={'estado':estado,'rho_P_R':rho,'skill':fit['skill'],'r2_oos':fit['r2'],'rmse_dacel':fit['ed'],'rmse_constante':fit['ec'],'rmse_persistencia':fit['ep'],'coeficientes':coef,'n':fit['n']}
+            reporte.append("### Civilizacional / tecnológico\n")
+            reporte.append(f"Años completos del modelo: {fit['n']} (entrenamiento {fit['train']}, prueba {fit['test']}). Spearman descriptivo P→R: rho={rho:+.3f}.\n")
+            reporte.append(f"RMSE Daçel={fit['ed']:.4f}; constante={fit['ec']:.4f}; persistencia={fit['ep']:.4f}; skill frente al mejor baseline={100*fit['skill']:+.1f}%; R² fuera de muestra={fit['r2']:+.3f}.\n")
+            reporte.append(f"**Resultado del módulo: {estado}.**\n")
+    except Exception as e:
+        resultados['civilizacional_tecnologico']={'estado':'SIN DATOS','error':str(e)}
+        reporte.append(f"### Civilizacional / tecnológico\n**SIN DATOS / ERROR DE CONSTRUCCIÓN:** {e}\n")
+
+    # Humano/cognitivo: transformación psicológica; X/conexión son perturbación/exposición.
+    try:
+        wh=df.copy(); rr=_R_estado(wh,['A','Dp'],h=3); wh=wh.merge(rr,on='anio',how='inner')
+        wh['P']=_comp_dacel(wh,['X','conexion']); wh['P2']=wh.P**2; wh['Ecap']=0.0; wh['PxE']=0.0; wh['IOEprev']=0.0; wh['Lcap']=0.0
+        fit,m=_ajuste_oos_dacel(wh,['P','P2','Ecap','PxE','IOEprev','Lcap'])
+        if fit is None:
+            resultados['humano_cognitivo']={'estado':'SIN DATOS','n':len(m)}
+            reporte.append(f"### Humano / cognitivo\n**SIN DATOS SUFICIENTES** para el modelo completo (n={len(m)}). H2 se conserva como prueba específica independiente.\n")
+        else:
+            resultados['humano_cognitivo']={'estado':'EXPLORATORIO','n':fit['n'],'skill':fit['skill'],'r2_oos':fit['r2']}
+            reporte.append(f"### Humano / cognitivo\nResultado exploratorio con n={fit['n']}; skill={100*fit['skill']:+.1f}%; R² OOS={fit['r2']:+.3f}. H2 permanece como prueba específica independiente.\n")
+    except Exception as e:
+        resultados['humano_cognitivo']={'estado':'SIN DATOS','error':str(e)}
+        reporte.append(f"### Humano / cognitivo\n**SIN DATOS:** {e}\n")
+
+    # Escalas universales que requieren bases independientes reales.
+    for nombre in ['biológico / ecológico','físico / cosmológico','artificial / IA']:
+        resultados[nombre]={'estado':'SIN DATOS'}
+        reporte.append(f"### {nombre.capitalize()}\n**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.\n")
+
+    reporte.append("### Lectura global\nEl motor no produce un único 'H3 sí/no' universal con una sola serie mundial. Evalúa la misma arquitectura matemática por dominio y conserva los resultados negativos. La universalidad de Daçel solo puede sostenerse si el patrón reaparece en baterías independientes.\n")
+    with open(os.path.join(carpeta,'resultados_multiescala.json'),'w',encoding='utf-8') as f:
+        json.dump(resultados,f,ensure_ascii=False,indent=2)
+    return resultados
+
+
 # ============================================================
 # 5. ORQUESTADOR
 # ============================================================
@@ -975,10 +1091,11 @@ def ejecutar(df, etiqueta, carpeta, semilla=42):
     veredictos = {
         "H1 (CIDI exponencial)": prueba_h1(cidi, reporte, carpeta, etiqueta),
         "H2 (vacío humano)": prueba_h2(df, reporte, carpeta, etiqueta, rng_h2),
-        "H3 (perturbaciones)": prueba_h3(df, reporte, carpeta, etiqueta, rng_h3),
+        "H3-v4 histórica (auditoría)": prueba_h3(df, reporte, carpeta, etiqueta, rng_h3),
         "H4 (externalización 2040)": prueba_h4(df, reporte),
         "Ecuación General": prueba_ecuacion_general(df, reporte, carpeta, etiqueta),
     }
+    multiescala = prueba_dacel_multiescala(df, reporte, carpeta, etiqueta)
     reporte.append("## Resumen\n")
     for k, v in veredictos.items():
         reporte.append(f"- {k}: **{v}**")
