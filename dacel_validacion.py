@@ -312,56 +312,279 @@ def prueba_h2(df, reporte, carpeta, etiqueta, rng, n_sur=1000):
     return v
 
 
-def prueba_h3(df, reporte, carpeta, etiqueta, rng, ventana=5, n_perm=2000):
-    """H3: tras una perturbación, la reorganización informacional se acelera."""
-    reporte.append("## H3 / F2 — Las perturbaciones aceleran la reorganización\n")
-    sub = df[["anio", "I", "P"]].dropna().reset_index(drop=True)
-    g = np.diff(np.log(sub["I"].values))          # tasa de crecimiento de I
-    anios_g = sub["anio"].values[1:]
-    eventos = sub.loc[sub["P"] > 0, "anio"].values
 
-    def efecto(lista):
+def _crecimiento_anual(df, columna):
+    """Tasa logarítmica anual. Si hay huecos, anualiza por la distancia entre años."""
+    sub = df[["anio", columna]].dropna().sort_values("anio")
+    sub = sub[sub[columna] > 0]
+    if len(sub) < 3:
+        return pd.Series(dtype=float)
+    anios = sub["anio"].to_numpy(dtype=int)
+    vals = sub[columna].to_numpy(dtype=float)
+    dt = np.diff(anios).astype(float)
+    g = np.diff(np.log(vals)) / dt
+    return pd.Series(g, index=anios[1:], name=columna)
+
+
+def _efecto_variable(g, evento, ventana, escala):
+    """Cambio post-pre en crecimiento, expresado en desviaciones estándar."""
+    if g.empty or not np.isfinite(escala) or escala <= 0:
+        return np.nan
+    pre_idx = np.arange(evento - ventana, evento, dtype=int)
+    post_idx = np.arange(evento + 1, evento + ventana + 1, dtype=int)
+    pre = g.reindex(pre_idx)
+    post = g.reindex(post_idx)
+    if pre.isna().any() or post.isna().any():
+        return np.nan
+    return float((post.mean() - pre.mean()) / escala)
+
+
+def _efectos_dominios_en_anio(anio, composicion, crecimientos, escalas, ventana):
+    """Devuelve el cambio estandarizado post-pre de cada dominio disponible."""
+    efectos = {}
+    for dominio, vars_dom in composicion.items():
+        efectos_vars = []
+        for var in vars_dom:
+            e = _efecto_variable(crecimientos[var], anio, ventana, escalas[var])
+            if np.isfinite(e):
+                efectos_vars.append(e)
+        if efectos_vars:
+            efectos[dominio] = float(np.mean(efectos_vars))
+    return efectos
+
+
+def _efecto_sistemico_en_anio(anio, composicion, crecimientos, escalas, ventana,
+                               modo="magnitud"):
+    """
+    Intensidad de reorganización entre el régimen pre y post.
+
+    modo="magnitud": promedio de |cambio estandarizado| entre dominios.
+    Esta es la métrica primaria de H3: reorganizar puede significar acelerar,
+    contraer o sustituir un dominio por otro; el signo no define si hubo
+    reconfiguración, sino su magnitud.
+
+    modo="direccion": promedio con signo (diagnóstico de aceleración neta).
+    """
+    efectos = _efectos_dominios_en_anio(
+        anio, composicion, crecimientos, escalas, ventana
+    )
+    if len(efectos) < 2:
+        return np.nan
+    vals = np.array(list(efectos.values()), dtype=float)
+    if modo == "direccion":
+        return float(np.mean(vals))
+    return float(np.mean(np.abs(vals)))
+
+
+def _composicion_evento(evento, dominios, crecimientos, escalas, ventana):
+    """Fija qué evidencia estaba realmente disponible para cada perturbación."""
+    comp = {}
+    for dominio, vars_dom in dominios.items():
+        validas = []
+        for var in vars_dom:
+            e = _efecto_variable(crecimientos[var], evento, ventana, escalas[var])
+            if np.isfinite(e):
+                validas.append(var)
+        if validas:
+            comp[dominio] = validas
+    return comp
+
+
+def prueba_h3(df, reporte, carpeta, etiqueta, rng, ventana=5, n_perm=5000):
+    """
+    H3 sistémica: una perturbación aumenta la intensidad de reorganización del sistema,
+    no solo el crecimiento de I.
+
+    Dominios Daçel:
+      - energía: E
+      - información procesada: I
+      - externalización/conectividad: X_fija, X y conexion (un solo dominio)
+      - conocimiento: K_patentes y K (un solo dominio)
+
+    Cada variable se convierte a crecimiento logarítmico anual y el efecto post-pre
+    se estandariza por la desviación estándar histórica de esa variable. Después se
+    promedian DOMINIOS para que X+conexion no dupliquen el peso de conectividad.
+
+    Para cada perturbación se conserva exactamente la composición de evidencia
+    disponible en ese año. La métrica primaria es la MAGNITUD del cambio de régimen
+    post-pre (valor absoluto estandarizado), porque una reorganización puede incluir
+    expansiones, contracciones o sustituciones entre dominios. El promedio con signo
+    se informa solo como diagnóstico de aceleración neta.
+
+    El placebo usa años donde esa misma composición tiene ventanas completas.
+    Se requieren >=2 dominios por evento y >=3 eventos.
+    """
+    reporte.append("## H3 / F2 — Las perturbaciones intensifican la reorganización sistémica\n")
+    reporte.append(
+        "Prueba principal ampliada y preregistrada: la reorganización se mide en los dominios "
+        "estructurales de Daçel — energía (E), información procesada (I), externalización/"
+        "conectividad (telefonía fija, móvil e internet, contadas como un solo dominio) y "
+        "conocimiento (patentes y artículos científicos, contados como un solo dominio). "
+        "Ansiedad y depresión no entran aquí porque pertenecen a H2.\n"
+    )
+    reporte.append(
+        f"Se conserva la ventana original de ±{ventana} años. Cada dominio compara su régimen "
+        "de crecimiento posterior con el anterior, estandarizado por su variabilidad histórica. "
+        "La prueba principal usa la magnitud absoluta del cambio: una crisis puede reorganizar "
+        "el sistema haciendo subir unos dominios y caer otros, por lo que promediar signos "
+        "opuestos cancelaría precisamente la reconfiguración que H3 intenta medir.\n"
+    )
+
+    dominios = {
+        "energía": ["E"],
+        "información": ["I"],
+        "externalización/conectividad": ["X_fija", "X", "conexion"],
+        "conocimiento": ["K_patentes", "K"],
+    }
+    variables = sorted({v for vs in dominios.values() for v in vs})
+    crecimientos = {}
+    escalas = {}
+    for v in variables:
+        if v in df:
+            g = _crecimiento_anual(df, v)
+        else:
+            g = pd.Series(dtype=float)
+        crecimientos[v] = g
+        escalas[v] = float(g.std(ddof=1)) if len(g) >= 3 else np.nan
+
+    eventos = sorted(int(a) for a in df.loc[df["P"] > 0, "anio"].dropna().unique())
+    detalles = []
+    for ev in eventos:
+        comp = _composicion_evento(ev, dominios, crecimientos, escalas, ventana)
+        magnitud = _efecto_sistemico_en_anio(
+            ev, comp, crecimientos, escalas, ventana, modo="magnitud"
+        )
+        direccion = _efecto_sistemico_en_anio(
+            ev, comp, crecimientos, escalas, ventana, modo="direccion"
+        )
+        efectos_dom = _efectos_dominios_en_anio(
+            ev, comp, crecimientos, escalas, ventana
+        )
+        if np.isfinite(magnitud) and len(comp) >= 2:
+            detalles.append((ev, comp, magnitud, direccion, efectos_dom))
+
+    if len(detalles) < 3:
+        reporte.append(
+            f"**Veredicto H3: {VEREDICTO_NC}.** Solo {len(detalles)} perturbaciones tienen "
+            "al menos 2 dominios con ventanas completas; se necesitan al menos 3.\n"
+        )
+        return VEREDICTO_NC
+
+    reporte.append("Perturbaciones evaluables y evidencia usada:")
+    for ev, comp, magnitud, direccion, efectos_dom in detalles:
+        desc = "; ".join(f"{d}: {','.join(vs)}" for d, vs in comp.items())
+        dom_txt = ", ".join(f"{d}={v:+.2f}" for d, v in efectos_dom.items())
+        reporte.append(
+            f"- {ev}: {len(comp)} dominios [{desc}] → intensidad {magnitud:.3f} DE; "
+            f"dirección neta {direccion:+.3f} DE ({dom_txt})"
+        )
+
+    obs = float(np.mean([x[2] for x in detalles]))
+    direccion_obs = float(np.mean([x[3] for x in detalles]))
+
+    # Placebo emparejado: para cada evento real se exige la MISMA composición de variables.
+    eventos_set = set(eventos)
+    candidatos_por_evento = {}
+    anio_min = int(df["anio"].min())
+    anio_max = int(df["anio"].max())
+    for ev, comp, _, _, _ in detalles:
+        candidatos = []
+        for a in range(anio_min + ventana, anio_max - ventana + 1):
+            if a in eventos_set:
+                continue
+            e = _efecto_sistemico_en_anio(
+                a, comp, crecimientos, escalas, ventana, modo="magnitud"
+            )
+            if np.isfinite(e):
+                candidatos.append((a, e))
+        candidatos_por_evento[ev] = candidatos
+
+    if any(len(candidatos_por_evento[ev]) < 5 for ev, _, _, _, _ in detalles):
+        reporte.append(
+            f"**Veredicto H3: {VEREDICTO_NC}.** No hay suficientes años placebo "
+            "comparables para todas las perturbaciones.\n"
+        )
+        return VEREDICTO_NC
+
+    nulos = np.empty(n_perm, dtype=float)
+    for i in range(n_perm):
+        vals = []
+        for ev, comp, _, _, _ in detalles:
+            cand = candidatos_por_evento[ev]
+            idx = int(rng.integers(0, len(cand)))
+            vals.append(cand[idx][1])
+        nulos[i] = float(np.mean(vals))
+
+    p = (np.sum(nulos >= obs) + 1) / (n_perm + 1)
+
+    reporte.append(
+        f"\nResultado sistémico: promedio de {len(detalles)} perturbaciones evaluables "
+        f"frente a {n_perm} panoramas placebo emparejados por disponibilidad de evidencia."
+    )
+    reporte.append(f"- Intensidad de reorganización observada: {obs:.3f} desviaciones estándar")
+    reporte.append(f"- Intensidad placebo media: {np.mean(nulos):.3f} DE")
+    reporte.append(f"- Dirección neta observada (diagnóstica): {direccion_obs:+.3f} DE")
+    reporte.append(f"- p = {p:.4f}")
+
+    if p < ALFA:
+        v = VEREDICTO_OK
+        txt = ("La intensidad de cambio del sistema después de las perturbaciones es mayor "
+               "que la esperada en años comparables al azar, considerando varios dominios Daçel.")
+    else:
+        v = VEREDICTO_NO
+        txt = ("La evidencia sistémica disponible no distingue la magnitud de reorganización "
+               "posterior a perturbaciones de la observada en años comparables al azar.")
+    reporte.append(f"\n**Veredicto H3: {v}.** {txt}\n")
+
+    # Diagnóstico histórico: conservar la prueba antigua basada solo en I para auditoría.
+    sub_i = df[["anio", "I", "P"]].dropna().reset_index(drop=True)
+    g_i = np.diff(np.log(sub_i["I"].values))
+    anios_g_i = sub_i["anio"].values[1:]
+    ev_i = sub_i.loc[sub_i["P"] > 0, "anio"].values
+
+    def efecto_i(lista):
         difs = []
         for e in lista:
-            pre = g[(anios_g < e) & (anios_g >= e - ventana)]
-            post = g[(anios_g > e) & (anios_g <= e + ventana)]
+            pre = g_i[(anios_g_i < e) & (anios_g_i >= e - ventana)]
+            post = g_i[(anios_g_i > e) & (anios_g_i <= e + ventana)]
             if len(pre) == ventana and len(post) == ventana:
                 difs.append(post.mean() - pre.mean())
         return (np.mean(difs) if difs else np.nan), len(difs)
 
-    obs, n_ev = efecto(eventos)
-    if n_ev < 3:
-        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** Solo {n_ev} eventos con ventana completa; se necesitan al menos 3.\n")
-        return VEREDICTO_NC
-    validos = anios_g[(anios_g >= anios_g[0] + ventana) & (anios_g <= anios_g[-1] - ventana)]
-    candidatos = np.setdiff1d(validos, eventos)
-    nulos = []
-    for _ in range(n_perm):
-        falsos = rng.choice(candidatos, size=n_ev, replace=False)
-        nulos.append(efecto(falsos)[0])
-    nulos = np.array(nulos)
-    p = (np.sum(nulos >= obs) + 1) / (n_perm + 1)
-
-    reporte.append(f"Estudio de eventos: crecimiento de I en los {ventana} años posteriores menos "
-                   f"los {ventana} años anteriores, comparado con {n_perm} conjuntos de años al azar (placebo).\n")
-    reporte.append(f"- Eventos analizados: {n_ev}")
-    reporte.append(f"- Aceleración observada: {obs*100:+.2f} puntos porcentuales de crecimiento anual")
-    reporte.append(f"- Aceleración típica en años al azar: {np.nanmean(nulos)*100:+.2f} pp")
-    reporte.append(f"- p = {p:.4f}")
-    if obs > 0 and p < ALFA:
-        v, txt = VEREDICTO_OK, "Después de las perturbaciones hay más reorganización que en años cualquiera."
+    obs_i, n_ev_i = efecto_i(ev_i)
+    reporte.append(
+        "### H3a diagnóstica — prueba histórica basada solo en I\n"
+        "Se conserva para auditoría y comparación, pero ya no representa por sí sola "
+        "el veredicto de H3 sistémica."
+    )
+    if n_ev_i >= 3:
+        validos_i = anios_g_i[(anios_g_i >= anios_g_i[0] + ventana) &
+                              (anios_g_i <= anios_g_i[-1] - ventana)]
+        candidatos_i = np.setdiff1d(validos_i, ev_i)
+        nulos_i = []
+        # subflujo determinista derivado del mismo RNG sin afectar el veredicto principal
+        for _ in range(2000):
+            falsos = rng.choice(candidatos_i, size=n_ev_i, replace=False)
+            nulos_i.append(efecto_i(falsos)[0])
+        nulos_i = np.asarray(nulos_i)
+        p_i = (np.sum(nulos_i >= obs_i) + 1) / (len(nulos_i) + 1)
+        reporte.append(
+            f"- Eventos evaluables: {n_ev_i}; efecto I: {obs_i*100:+.2f} pp; "
+            f"p diagnóstica = {p_i:.4f}"
+        )
     else:
-        v, txt = VEREDICTO_NO, "Las perturbaciones no muestran una aceleración distinta a la de años al azar."
-    reporte.append(f"\n**Veredicto H3: {v}.** {txt}\n")
+        reporte.append(f"- Solo {n_ev_i} eventos evaluables en I.")
 
     fig, ax = plt.subplots(figsize=(7, 5))
-    ax.hist(nulos * 100, bins=40, color="lightgray", label="años al azar")
-    ax.axvline(obs * 100, color="red", lw=2, label="perturbaciones reales")
-    ax.set_title(f"H3 — Aceleración tras perturbaciones ({etiqueta})")
-    ax.set_xlabel("cambio en crecimiento anual (pp)"); ax.legend()
-    fig.tight_layout(); fig.savefig(os.path.join(carpeta, "H3_perturbaciones.png"), dpi=130); plt.close(fig)
+    ax.hist(nulos, bins=45, color="lightgray", label="panoramas placebo")
+    ax.axvline(obs, color="red", lw=2, label="perturbaciones reales")
+    ax.set_title(f"H3 — Intensidad de reorganización sistémica ({etiqueta})")
+    ax.set_xlabel("magnitud del cambio de régimen (desviaciones estándar)")
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(os.path.join(carpeta, "H3_perturbaciones.png"), dpi=130)
+    plt.close(fig)
     return v
-
 
 def prueba_h4(df, reporte, anio_limite=2040):
     """H4: la externalización cognitiva seguirá creciendo hasta 2040 (proyección, no prueba)."""

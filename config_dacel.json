@@ -2,7 +2,10 @@
   "_nota": "Definido ANTES de ver resultados reales (16-sep-2026). Si cambias algo, anótalo en 'cambios'.",
   "cambios": [
     "16-sep-2026: Corrección técnica de la fuente I: búsqueda de columna actualizada de 'flop' a 'Computational capacity'. Indicador, fuente e hipótesis sin cambios.",
-    "16-sep-2026: A y Dp cambian solo el mecanismo de adquisición: de OWID bloqueado (HTTP 403) a archivos descargados directamente de IHME GBD 2023. Definición de variables e hipótesis sin cambios."
+    "16-sep-2026: A y Dp cambian solo el mecanismo de adquisición: de OWID bloqueado (HTTP 403) a archivos descargados directamente de IHME GBD 2023. Definición de variables e hipótesis sin cambios.",
+    "16-sep-2026: Corrección de reproducibilidad: H2 y H3 usan flujos aleatorios independientes derivados de la misma semilla fija. No se modificaron hipótesis, datos, umbral de significancia ni criterios de falsación.",
+    "16-sep-2026: Desarrollo exploratorio H3 sistémica: reorganización se define como magnitud del cambio de régimen post/pre en dominios Daçel, no como aceleración positiva de una sola variable. Se conserva H3a histórica basada en I para auditoría.",
+    "16-sep-2026: Se amplía la evidencia histórica de H3 con telefonía fija (Banco Mundial/ITU, IT.MLT.MAIN.P2) como proxy adicional de externalización/conectividad y solicitudes de patentes de residentes (Banco Mundial/WIPO, IP.PAT.RESD) como proxy adicional de conocimiento. H1, H2, H4 y la Ecuación General no cambian."
   ],
   "fuentes": {
     "E": {
@@ -16,6 +19,11 @@
       "slug": "supercomputer-power-flops",
       "palabra": "Computational capacity"
     },
+    "X_fija": {
+      "nombre": "Suscripciones de telefonía fija por cada 100 personas",
+      "tipo": "banco_mundial",
+      "codigo": "IT.MLT.MAIN.P2"
+    },
     "X": {
       "nombre": "Suscripciones móviles por cada 100 personas",
       "tipo": "banco_mundial",
@@ -25,6 +33,11 @@
       "nombre": "Artículos científicos y técnicos publicados",
       "tipo": "banco_mundial",
       "codigo": "IP.JRN.ARTC.SC"
+    },
+    "K_patentes": {
+      "nombre": "Solicitudes de patentes de residentes",
+      "tipo": "banco_mundial",
+      "codigo": "IP.PAT.RESD"
     },
     "A": {
       "nombre": "Población con trastornos de ansiedad (%)",
