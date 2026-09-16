@@ -1,0 +1,62 @@
+{
+  "version": "H3-v6",
+  "h_primario": 3,
+  "resultados": {
+    "conflicto": {
+      "estado": "SIN DATOS",
+      "n": 0
+    },
+    "geofísica": {
+      "estado": "SIN DATOS",
+      "n": 0
+    },
+    "económica": {
+      "estado": "SIN DATOS",
+      "n": 0
+    },
+    "ecológica": {
+      "estado": "SIN DATOS",
+      "n": 0
+    },
+    "tecnológica": {
+      "estado": "SIN DATOS",
+      "n": 0
+    },
+    "biológica": {
+      "estado": "SIN DATOS",
+      "n": 0
+    }
+  },
+  "auditoria": {
+    "conflicto": {
+      "UCDP": {
+        "estado": "SIN DATOS",
+        "fuente": "UCDP/PRIO"
+      },
+      "battle_deaths": {
+        "estado": "SIN DATOS",
+        "fuente": "UCDP Battle Deaths"
+      }
+    },
+    "geofísica": {
+      "estado": "SIN DATOS",
+      "fuente": "USGS"
+    },
+    "económica": {
+      "estado": "SIN DATOS",
+      "fuente": "World Bank WDI"
+    },
+    "ecológica": {
+      "estado": "SIN DATOS",
+      "fuente": "World Bank WDI"
+    },
+    "tecnológica": {
+      "estado": "SIN DATOS",
+      "fuente": "World Bank WDI"
+    },
+    "biológica": {
+      "estado": "SIN DATOS",
+      "fuente": "WHO Mortality Database"
+    }
+  }
+}

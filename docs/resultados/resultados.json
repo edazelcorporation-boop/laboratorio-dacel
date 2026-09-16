@@ -1,6 +1,6 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-16 19:04 UTC",
+  "fecha_ejecucion": "2026-09-16 22:14 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
@@ -8,6 +8,86 @@
     "H3-v5 cobertura histórica": "NO SUPERA LA PRUEBA",
     "H4 (externalización 2040)": "NO CONCLUYENTE",
     "Ecuación General": "SUPERA LA PRUEBA"
+  },
+  "H3_v6_multicausal": {
+    "version": "H3-v6",
+    "h_primario": 3,
+    "resultados": {
+      "conflicto": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
+      "geofísica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
+      "económica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
+      "ecológica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
+      "tecnológica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
+      "biológica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      }
+    },
+    "auditoria": {
+      "conflicto": {
+        "UCDP": {
+          "estado": "SIN DATOS",
+          "fuente": "UCDP/PRIO"
+        },
+        "battle_deaths": {
+          "estado": "SIN DATOS",
+          "fuente": "UCDP Battle Deaths"
+        }
+      },
+      "geofísica": {
+        "estado": "SIN DATOS",
+        "fuente": "USGS"
+      },
+      "económica": {
+        "estado": "SIN DATOS",
+        "fuente": "World Bank WDI"
+      },
+      "ecológica": {
+        "estado": "SIN DATOS",
+        "fuente": "World Bank WDI"
+      },
+      "tecnológica": {
+        "estado": "SIN DATOS",
+        "fuente": "World Bank WDI"
+      },
+      "biológica": {
+        "estado": "SIN DATOS",
+        "fuente": "WHO Mortality Database"
+      }
+    }
+  },
+  "H3_v7_replicacion": {
+    "familias_totales": 6,
+    "evaluables": 0,
+    "con_senal": 0,
+    "sin_senal": 0,
+    "no_evaluables": 6,
+    "familias_con_senal": [],
+    "familias_sin_senal": [],
+    "familias_no_evaluables": [
+      "conflicto",
+      "geofísica",
+      "económica",
+      "ecológica",
+      "tecnológica",
+      "biológica"
+    ],
+    "veredicto": "SÍNTESIS, NO VEREDICTO UNIVERSAL"
   },
   "anios": {
     "CIDI": [

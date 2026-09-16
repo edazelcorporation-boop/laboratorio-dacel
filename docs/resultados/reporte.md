@@ -95,6 +95,13 @@ Error fuera de muestra (menor es mejor):
 
 **Veredicto Ecuación General dinámica: SUPERA LA PRUEBA.** Reduce el error 11% frente al mejor rival simple.
 
+## Auditoría de datos maestros
+
+- UCDP conflicto: NO DETECTADO
+- UCDP muertes: NO DETECTADO
+- USGS sismos: NO DETECTADO
+- WDI: NO DETECTADO
+- WHO ICD: NO DETECTADO
 ## Motor Daçel multiescala v6 — formulación v1.2
 
 Núcleo: `R_s(t→t+h)=d_s[x(t),x(t+h)]/h`. R es magnitud de reorganización: expansión, contracción, deterioro, sustitución, adaptación o colapso cuentan como transformación.
@@ -123,6 +130,32 @@ Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como
 
 ### Lectura global
 El motor no produce un único 'H3 sí/no' universal con una sola serie mundial. Evalúa la misma arquitectura matemática por dominio y conserva los resultados negativos. La universalidad de Daçel solo puede sostenerse si el patrón reaparece en baterías independientes.
+
+## H3-v6 — Perturbación multicausal y reorganización
+
+Especificación congelada: horizonte primario h=3 años. Cada familia de perturbación se evalúa por separado contra la magnitud futura de reorganización. H3-v4/v5 permanecen intactas. Los faltantes se reportan SIN DATOS.
+
+### Auditoría de cobertura
+- R común h=3: 48 años (1975–2022)
+- conflicto: SIN DATOS
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- geofísica: SIN DATOS
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- económica: SIN DATOS
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- ecológica: SIN DATOS
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- tecnológica: SIN DATOS
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- biológica: SIN DATOS
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+## H3-v7 — Replicación entre familias independientes
+
+- Familias evaluables: 0/6
+- Con señal según criterio preregistrado: 0/6
+- Sin señal: 0/6
+- No evaluables: 6/6
+H3-v7 no convierte una mayoría en 'teoría demostrada'. Su función es mostrar replicación, heterogeneidad y límites sin ocultar resultados negativos.
 
 ## Resumen
 
