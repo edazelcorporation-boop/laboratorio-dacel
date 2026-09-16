@@ -390,7 +390,7 @@ def _composicion_evento(evento, dominios, crecimientos, escalas, ventana):
     return comp
 
 
-def prueba_h3(df, reporte, carpeta, etiqueta, rng, ventana=5, n_perm=5000):
+def prueba_h3_eventos_v2(df, reporte, carpeta, etiqueta, rng, ventana=5, n_perm=5000):
     """
     H3 sistémica: una perturbación aumenta la intensidad de reorganización del sistema,
     no solo el crecimiento de I.
@@ -581,6 +581,200 @@ def prueba_h3(df, reporte, carpeta, etiqueta, rng, ventana=5, n_perm=5000):
     ax.set_title(f"H3 — Intensidad de reorganización sistémica ({etiqueta})")
     ax.set_xlabel("magnitud del cambio de régimen (desviaciones estándar)")
     ax.legend()
+    fig.tight_layout()
+    fig.savefig(os.path.join(carpeta, "H3_perturbaciones.png"), dpi=130)
+    plt.close(fig)
+    return v
+
+
+
+def _h3_reorganizacion_continua(df, ventana=5):
+    """
+    Construye R(t), intensidad anual de reorganización sistémica.
+    1) calcula |cambio post-pre| por dominio;
+    2) normaliza la magnitud dentro de cada dominio para que ningún dominio
+       domine por escala histórica;
+    3) promedia los dominios disponibles. Exige >=2 dominios por año.
+    """
+    dominios = {
+        "energía": ["E"],
+        "información": ["I"],
+        "externalización/conectividad": ["X_fija", "X", "conexion"],
+        "conocimiento": ["K_patentes", "K"],
+    }
+    variables = sorted({v for vs in dominios.values() for v in vs})
+    crecimientos, escalas = {}, {}
+    for v in variables:
+        g = _crecimiento_anual(df, v) if v in df else pd.Series(dtype=float)
+        crecimientos[v] = g
+        escalas[v] = float(g.std(ddof=1)) if len(g) >= 3 else np.nan
+
+    anios = np.arange(int(df["anio"].min()) + ventana,
+                      int(df["anio"].max()) - ventana + 1)
+    bruto = pd.DataFrame(index=anios, columns=list(dominios), dtype=float)
+    for a in anios:
+        for dom, vars_dom in dominios.items():
+            vals = []
+            for v in vars_dom:
+                e = _efecto_variable(crecimientos[v], int(a), ventana, escalas[v])
+                if np.isfinite(e):
+                    vals.append(abs(e))
+            if vals:
+                bruto.loc[a, dom] = float(np.mean(vals))
+
+    # Normalización robusta por dominio: hace comparables magnitudes históricas.
+    norm = bruto.copy()
+    for c in norm.columns:
+        s = norm[c].dropna()
+        if len(s) >= 8:
+            med = float(s.median())
+            mad = float(np.median(np.abs(s - med)))
+            escala = 1.4826 * mad
+            if not np.isfinite(escala) or escala <= 0:
+                escala = float(s.std(ddof=1))
+            norm[c] = (norm[c] - med) / escala if escala > 0 else np.nan
+        else:
+            norm[c] = np.nan
+
+    n_dom = norm.notna().sum(axis=1)
+    R = norm.mean(axis=1, skipna=True)
+    R[n_dom < 2] = np.nan
+    return R.dropna(), n_dom.loc[R.dropna().index], bruto
+
+
+def _leer_gpr_anual(ruta="datos_fuente/ai_gpr_data_monthly.csv"):
+    """AI-GPR mensual -> promedio anual. Excluye años incompletos (<12 meses)."""
+    if not os.path.exists(ruta):
+        raise FileNotFoundError(f"No existe {ruta}")
+    g = pd.read_csv(ruta)
+    if "Date" not in g.columns or "GPR_AI" not in g.columns:
+        raise ValueError("AI-GPR requiere columnas Date y GPR_AI")
+    g["Date"] = pd.to_datetime(g["Date"], errors="coerce")
+    g["GPR_AI"] = pd.to_numeric(g["GPR_AI"], errors="coerce")
+    g = g.dropna(subset=["Date", "GPR_AI"])
+    g["anio"] = g["Date"].dt.year.astype(int)
+    agg = g.groupby("anio")["GPR_AI"].agg(["mean", "count"])
+    agg = agg[agg["count"] == 12]  # evita 2026 parcial u otros años incompletos
+    return agg["mean"].astype(float)
+
+
+def prueba_h3(df, reporte, carpeta, etiqueta, rng, ventana=5):
+    """
+    H3-v3 (principal): prueba continua, no depende de una lista manual de crisis.
+
+    Hipótesis preregistrada:
+      mayor intensidad de perturbación externa S(t) se asocia con mayor
+      intensidad de reorganización sistémica R(t).
+
+    S(t) combina con igual peso dos dimensiones externas:
+      - geopolítica: AI-GPR anual;
+      - macroeconómica: desviación absoluta del crecimiento del PIB mundial
+        respecto de su mediana histórica.
+    Cada dimensión se expresa como rango percentil antes de promediarse.
+
+    Estadístico primario: rho de Spearman entre S(t) y R(t).
+    Nulo: todos los desplazamientos circulares no nulos de S(t). Prueba
+    unilateral positiva. Umbral: alfa=0.05, definido antes de ejecutar H3-v3.
+    """
+    reporte.append("## H3 / F2 — Las perturbaciones intensifican la reorganización sistémica\n")
+    reporte.append(
+        "### H3-v3 principal — prueba continua, sin selección manual de acontecimientos\n"
+        "La perturbación externa S(t) combina con igual peso dos dimensiones independientes del "
+        "Laboratorio Daçel: (1) AI-GPR (Iacoviello y Tong), riesgo geopolítico mensual convertido "
+        "a promedio anual con años completos, y (2) disrupción macroeconómica, medida como la "
+        "desviación absoluta del crecimiento anual del PIB mundial respecto de su mediana histórica "
+        "(Banco Mundial). Cada dimensión se transforma a rango percentil antes de promediarse.\n"
+    )
+    reporte.append(
+        f"La reorganización R(t) se calcula para cada año posible como la magnitud del cambio "
+        f"de régimen entre los {ventana} años anteriores y los {ventana} posteriores en los "
+        "dominios energía, información, externalización/conectividad y conocimiento. Cada dominio "
+        "se normaliza por su propia historia y se requieren al menos 2 dominios. Ansiedad y "
+        "depresión quedan fuera porque pertenecen a H2.\n"
+    )
+    reporte.append(
+        "Criterio fijado antes de ejecutar esta versión: correlación de Spearman positiva entre "
+        "S(t) y R(t), contrastada contra todos los desplazamientos circulares no nulos de S(t). "
+        "Este placebo conserva la estructura temporal de la perturbación y elimina la alineación "
+        "concreta con la reorganización. Nivel de significancia: 5%.\n"
+    )
+
+    try:
+        R, n_dom, bruto = _h3_reorganizacion_continua(df, ventana=ventana)
+        gpr = _leer_gpr_anual()
+    except Exception as e:
+        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** No se pudo construir H3-v3: {e}\n")
+        return VEREDICTO_NC
+
+    if "G_mundo" not in df.columns:
+        reporte.append(
+            f"**Veredicto H3: {VEREDICTO_NC}.** Falta la serie G_mundo "
+            "(crecimiento anual del PIB mundial).\n"
+        )
+        return VEREDICTO_NC
+
+    pib = df.set_index("anio")["G_mundo"].dropna().astype(float)
+    comunes = R.index.intersection(gpr.index).intersection(pib.index)
+    if len(comunes) < 20:
+        reporte.append(
+            f"**Veredicto H3: {VEREDICTO_NC}.** Solo {len(comunes)} años continuos evaluables; "
+            "se requieren al menos 20.\n"
+        )
+        return VEREDICTO_NC
+
+    r = R.loc[comunes].astype(float).to_numpy()
+
+    # Dos dimensiones, igual peso, sin calibración posterior al resultado.
+    geo = pd.Series(np.log1p(gpr.loc[comunes].astype(float).to_numpy()), index=comunes)
+    macro_raw = (pib.loc[comunes] - float(pib.median())).abs()
+    geo_pct = geo.rank(method="average", pct=True)
+    macro_pct = macro_raw.rank(method="average", pct=True)
+    S = (geo_pct + macro_pct) / 2.0
+    s = S.to_numpy(dtype=float)
+    rho = float(stats.spearmanr(s, r).statistic)
+
+    # Todos los desplazamientos circulares posibles: determinista y reproducible.
+    nulos = np.array([
+        stats.spearmanr(np.roll(s, k), r).statistic
+        for k in range(1, len(s))
+    ], dtype=float)
+    p = float((np.sum(nulos >= rho) + 1) / (len(nulos) + 1))
+
+    reporte.append(f"- Años evaluables: {len(comunes)} ({int(comunes.min())}–{int(comunes.max())})")
+    reporte.append(
+        f"- Dominios disponibles por año: mediana {float(n_dom.loc[comunes].median()):.1f}; "
+        f"rango {int(n_dom.loc[comunes].min())}–{int(n_dom.loc[comunes].max())}"
+    )
+    reporte.append(f"- Asociación S(t) → reorganización: rho = {rho:+.3f}")
+    reporte.append(f"- Placebo temporal: {len(nulos)} desplazamientos circulares; p = {p:.4f}")
+
+    if rho > 0 and p < ALFA:
+        v = VEREDICTO_OK
+        txt = ("Los años de mayor perturbación geopolítica externa se alinean con una "
+               "reorganización sistémica significativamente mayor que bajo alineaciones "
+               "temporales placebo.")
+    elif rho > 0:
+        v = VEREDICTO_NO
+        txt = ("La asociación observada es positiva, pero no alcanza el umbral preregistrado "
+               "del 5%; la evidencia continua disponible no basta para distinguirla del placebo.")
+    else:
+        v = VEREDICTO_NO
+        txt = ("La asociación observada no tiene la dirección positiva predicha por H3.")
+    reporte.append(f"\n**Veredicto H3: {v}.** {txt}\n")
+
+    # Auditoría: conserva la prueba H3-v2 por eventos, pero nunca decide el veredicto principal.
+    reporte.append(
+        "### H3-v2 diagnóstica — prueba por acontecimientos previamente usada\n"
+        "La versión por eventos se conserva en el historial del repositorio para auditoría. "
+        "No interviene en el veredicto de H3-v3, que usa todos los años evaluables y un índice "
+        "externo continuo.\n"
+    )
+
+    fig, ax = plt.subplots(figsize=(7, 5))
+    ax.scatter(s, r, alpha=0.75)
+    ax.set_xlabel("S(t): intensidad externa de perturbación")
+    ax.set_ylabel("R(t): intensidad de reorganización sistémica")
+    ax.set_title(f"H3-v3 — Perturbación externa y reorganización ({etiqueta})")
     fig.tight_layout()
     fig.savefig(os.path.join(carpeta, "H3_perturbaciones.png"), dpi=130)
     plt.close(fig)
