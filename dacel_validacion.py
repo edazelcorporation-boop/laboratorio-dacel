@@ -701,7 +701,23 @@ def _memoria_perturbacion(Pext, vida_media=3.0):
     # escala interpretable 0..1 dentro de la historia ya observada, ex-ante
     return _percentil_expansivo(out, min_hist=10).dropna()
 
-
+def _memoria_perturbacion_historica(Pext, vida_media=3.0):
+    """
+    Memoria causal de cobertura histórica para H3-v5.
+    Conserva toda observación válida de P_ext.
+    No repercentiliza M ni introduce información futura.
+    """
+    lam = np.exp(-np.log(2.0) / float(vida_media))
+    out = pd.Series(index=Pext.index, dtype=float)
+    m = 0.0
+    previo = None
+    for a, p in Pext.sort_index().items():
+        if previo is not None:
+            m *= lam ** max(int(a-previo), 1)
+        m = float(p) + m
+        out.loc[a] = m
+        previo = a
+    return out.dropna()
 def _capacidad_adaptativa(df):
     """
     A_cap(t): capacidad previa para absorber/reorganizarse.
@@ -807,6 +823,107 @@ def prueba_h3(df, reporte, carpeta, etiqueta, rng=None, ventana=5):
     ax.set_ylabel("R(t): intensidad de reorganización")
     ax.set_title(f"H3-v4 — mecanismo dinámico Daçel ({etiqueta})")
     fig.tight_layout(); fig.savefig(os.path.join(carpeta,"H3_perturbaciones.png"),dpi=130); plt.close(fig)
+    return v
+
+def prueba_h3_v5_historica(df, reporte, carpeta, etiqueta, ventana=5):
+    """
+    H3-v5 — cobertura histórica causal.
+    Prueba registrada para ampliar la cobertura temporal sin imputar datos,
+    sin usar información futura adicional y sin modificar H3-v4.
+    La formulación se fija antes de observar su resultado.
+    """
+    reporte.append("### H3-v5 — cobertura histórica causal\n")
+    reporte.append(
+        "Esta prueba conserva P_ext, vida media de 3 años, A_cap, R, "
+        "ventana temporal, alfa y nulo circular de H3-v4. "
+        "La única diferencia es que M conserva desde su primera observación "
+        "válida la memoria causal ya construida, sin imponer un segundo "
+        "calentamiento de 10 observaciones para repercentilizarla.\n"
+    )
+
+    try:
+        R, n_dom, _ = _h3_reorganizacion_continua(df, ventana)
+        Pext = _presion_externa(df)
+        M = _memoria_perturbacion_historica(Pext, 3.0)
+        A = _capacidad_adaptativa(df)
+    except Exception as e:
+        reporte.append(
+            f"**H3-v5 SIN DATOS / ERROR DE CONSTRUCCIÓN:** "
+            f"{type(e).__name__}: {e}\n"
+        )
+        return VEREDICTO_NC
+
+    idx = R.index.intersection(M.index).intersection(A.index)
+
+    def cobertura(nombre, s):
+        if len(s) == 0:
+            reporte.append(f"- {nombre}: sin años disponibles")
+        else:
+            reporte.append(
+                f"- {nombre}: {len(s)} años "
+                f"({int(s.index.min())}–{int(s.index.max())})"
+            )
+
+    reporte.append("#### Auditoría de cobertura")
+    cobertura("P_ext", Pext)
+    cobertura("M histórica", M)
+    cobertura("A_cap", A)
+    cobertura("R", R)
+
+    if len(idx):
+        reporte.append(
+            f"- Intersección R ∩ M ∩ A_cap: {len(idx)} años "
+            f"({int(idx.min())}–{int(idx.max())})"
+        )
+
+    if len(idx) < 20:
+        reporte.append(
+            f"**Veredicto H3-v5: {VEREDICTO_NC}.** "
+            f"Solo {len(idx)} años evaluables; se requieren al menos 20.\n"
+        )
+        return VEREDICTO_NC
+
+    q = (M.loc[idx] * A.loc[idx]).astype(float)
+    r = R.loc[idx].astype(float)
+
+    stat = lambda x, y: float(stats.spearmanr(x, y).statistic)
+    rho, p, nulos = _p_circular(q.values, r.values, stat)
+
+    reporte.append(
+        f"- Asociación Q(t)=M_hist×A_cap → R(t): rho = {rho:+.3f}"
+    )
+    reporte.append(
+        f"- Nulo temporal: {len(nulos)} desplazamientos circulares; "
+        f"p = {p:.4f}"
+    )
+    reporte.append(
+        f"- Dominios de R: mediana "
+        f"{float(n_dom.loc[idx].median()):.1f}; "
+        f"rango {int(n_dom.loc[idx].min())}–"
+        f"{int(n_dom.loc[idx].max())}"
+    )
+
+    if rho > 0 and p < ALFA:
+        v = VEREDICTO_OK
+        txt = (
+            "La presión adaptativa acumulada se asocia con una "
+            "reorganización mayor que bajo alineaciones temporales placebo."
+        )
+    elif rho > 0:
+        v = VEREDICTO_NO
+        txt = (
+            "La dirección es la prevista, pero no se distingue "
+            "del nulo temporal al 5%."
+        )
+    else:
+        v = VEREDICTO_NO
+        txt = (
+            "La relación observada no tiene la dirección prevista "
+            "por el mecanismo dinámico."
+        )
+
+    reporte.append(f"**Veredicto H3-v5: {v}.** {txt}\n")
+
     return v
 
 def prueba_h4(df, reporte, anio_limite=2040):
@@ -1093,6 +1210,7 @@ def ejecutar(df, etiqueta, carpeta, semilla=42):
         "H1 (CIDI exponencial)": prueba_h1(cidi, reporte, carpeta, etiqueta),
         "H2 (vacío humano)": prueba_h2(df, reporte, carpeta, etiqueta, rng_h2),
         "H3-v4 histórica (auditoría)": prueba_h3(df, reporte, carpeta, etiqueta, rng_h3),
+      "H3-v5 cobertura histórica": prueba_h3_v5_historica(df, reporte, carpeta, etiqueta),
         "H4 (externalización 2040)": prueba_h4(df, reporte),
         "Ecuación General": prueba_ecuacion_general(df, reporte, carpeta, etiqueta),
     }
