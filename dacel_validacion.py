@@ -28,6 +28,7 @@ Las celdas vacías se permiten; cada prueba usa los años que tengan datos.
 """
 
 import argparse
+import json
 import os
 import sys
 import warnings
