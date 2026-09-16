@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-TEORÍA DAÇEL — Programa de validación empírica (v5.0)
+TEORÍA DAÇEL — Programa de validación empírica (v4.0)
 Autor de la teoría: Edazel Fernández (Edazel Corporation)
 
 Qué hace este programa
@@ -9,9 +9,6 @@ Qué hace este programa
 No "demuestra" la teoría: la SOMETE A PRUEBA. Toma series históricas,
 calcula los índices CIDI y HDF con fórmulas explícitas y evalúa las
 hipótesis H1–H4 y la Ecuación General contra modelos rivales más simples.
-H3-v5 prueba transformación, no progreso: una perturbación debe producir
-una desviación medible respecto de la trayectoria esperada del sistema,
-sin imponer que esa desviación sea positiva.
 Si Daçel no supera a los rivales, el programa lo dice.
 
 Uso
@@ -748,179 +745,68 @@ def _p_circular(x, y, estadistico):
     return obs,p,nul
 
 
-def _h3_desviacion_trayectoria(df, horizonte=3, min_hist=10):
-    """
-    T(t): transformación observada como desviación ABSOLUTA de la trayectoria
-    contrafactual esperada sin perturbación.
-
-    Para cada dominio y año t:
-      1) usa únicamente historia <= t-1;
-      2) estima un modelo local simple de crecimiento (media robusta de los
-         últimos min_hist años disponibles);
-      3) proyecta el crecimiento acumulado esperado para t..t+horizonte-1;
-      4) compara con el crecimiento acumulado realmente observado;
-      5) divide el error absoluto por la volatilidad histórica previa.
-
-    El signo NO entra en T: expansión, contracción, colapso o aceleración
-    cuentan como transformación si desvían la trayectoria más de lo esperable.
-    """
-    dominios = _h3_dominios(df)
-    gs = {}
-    for dom, vars_ in dominios.items():
-        partes = []
-        for v in vars_:
-            if v in df.columns:
-                g = _crecimiento_anual(df, v)
-                if len(g) >= min_hist + horizonte:
-                    partes.append(g.rename(v))
-        if partes:
-            gs[dom] = pd.concat(partes, axis=1).mean(axis=1, skipna=True)
-
-    if not gs:
-        return pd.Series(dtype=float), pd.Series(dtype=float), pd.DataFrame()
-
-    anios = range(int(df["anio"].min()) + min_hist,
-                  int(df["anio"].max()) - horizonte + 2)
-    bruto = pd.DataFrame(index=list(anios), columns=list(gs), dtype=float)
-    direccion = pd.DataFrame(index=list(anios), columns=list(gs), dtype=float)
-
-    for t in bruto.index:
-        for dom, g in gs.items():
-            hist = g.loc[g.index <= t-1].dropna().tail(min_hist)
-            fut = g.loc[(g.index >= t) & (g.index <= t+horizonte-1)].dropna()
-            if len(hist) < max(7, min_hist-2) or len(fut) < horizonte:
-                continue
-            esperado = float(hist.median()) * horizonte
-            observado = float(fut.sum())
-            escala = float(hist.std(ddof=1)) * (horizonte ** 0.5)
-            if not np.isfinite(escala) or escala <= 1e-12:
-                continue
-            resid = observado - esperado
-            bruto.loc[t, dom] = abs(resid) / escala
-            direccion.loc[t, dom] = np.sign(resid)
-
-    n_dom = bruto.notna().sum(axis=1)
-    T = bruto.mean(axis=1, skipna=True)
-    T[n_dom < 2] = np.nan
-    return T.dropna(), n_dom.loc[T.dropna().index], direccion
-
-
 def prueba_h3(df, reporte, carpeta, etiqueta, rng=None, ventana=5):
     """
-    H3-v5 — Principio Daçel de transformación por perturbación.
-
-    Proposición operacional:
-      P_ext/M altos -> mayor |desviación respecto de la trayectoria contrafactual|.
-
-    No presupone progreso, crecimiento ni adaptación exitosa.
-    La capacidad adaptativa NO forma parte del criterio primario; se conserva
-    únicamente como diagnóstico secundario del tipo/intensidad de respuesta.
+    H3-v4: mecanismo Daçel dinámico.
+      P_ext -> M (memoria) ; Q=M*A_cap -> R (reorganización).
+    Separa perturbación, capacidad y reorganización. No exige que un shock produzca
+    crecimiento inmediato ni que todas las variables cambien con el mismo signo.
     """
-    horizonte = 3
-    reporte.append("## H3 / F2 — Principio de transformación por perturbación\n")
+    reporte.append("## H3 / F2 — Perturbación, memoria y reorganización sistémica\n")
     reporte.append(
-        "### H3-v5 principal — desviación de trayectoria, sin signo obligatorio\n"
-        "Daçel no exige que una perturbación produzca progreso. La respuesta puede ser "
-        "expansión, contracción, deterioro, sustitución, diversificación, adaptación o "
-        "colapso. Por ello H3-v5 pregunta si una perturbación externa suficientemente "
-        "intensa hace que el sistema se aparte de la trayectoria que habría sido esperable "
-        "a partir de su propia historia previa.\n"
+        "### H3-v4 principal — mecanismo dinámico Daçel\n"
+        "La perturbación no se trata como crecimiento. Se separan cuatro conceptos: "
+        "P_ext(t), perturbación externa; M(t), memoria acumulada de perturbaciones; "
+        "A_cap(t), capacidad adaptativa existente antes de la respuesta; y R(t), magnitud "
+        "de reorganización del sistema. La presión adaptativa es Q(t)=M(t)×A_cap(t). "
+        "Una perturbación puede destruir unas variables y acelerar otras; por eso R mide "
+        "magnitud de cambio de régimen y no crecimiento neto.\n"
     )
     reporte.append(
-        f"La transformación T(t) se mide durante {horizonte} años como el error absoluto "
-        "estandarizado entre la trayectoria observada y una proyección contrafactual simple "
-        "construida SOLO con los 10 años anteriores. Se promedian los dominios energía, "
-        "información, externalización/conectividad y conocimiento, requiriendo al menos dos. "
-        "El signo se conserva solo para diagnóstico: una caída fuerte y un aumento fuerte "
-        "son ambos transformación. P_ext usa AI-GPR + disrupción macroeconómica ex-ante; "
-        "M(t) conserva la memoria exponencial preregistrada de 3 años.\n"
+        "P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones "
+        "son ex-ante: cada año se compara solo con historia disponible hasta ese año. "
+        "M usa memoria exponencial con vida media fija de 3 años. A_cap usa energía, "
+        "externalización/conectividad y conocimiento, excluyendo I para evitar circularidad. "
+        f"R compara {ventana} años previos y {ventana} posteriores en los cuatro dominios Daçel.\n"
     )
-    reporte.append(
-        "**Alcance:** con las fuentes actuales esta corrida prueba el mecanismo en el "
-        "sistema histórico macro-tecnológico mundial. No se presenta como demostración "
-        "universal en biología, ecología, individuos o astrofísica; esos dominios requieren "
-        "baterías de datos independientes con el mismo criterio matemático.\n"
-    )
-
     try:
-        T, n_dom, direccion = _h3_desviacion_trayectoria(df, horizonte=horizonte, min_hist=10)
-        Pext = _presion_externa(df)
-        M = _memoria_perturbacion(Pext, 3.0)
-        A = _capacidad_adaptativa(df)
+        R,n_dom,_=_h3_reorganizacion_continua(df,ventana)
+        Pext=_presion_externa(df)
+        M=_memoria_perturbacion(Pext,3.0)
+        A=_capacidad_adaptativa(df)
     except Exception as e:
-        reporte.append(f"**Veredicto H3-v5: {VEREDICTO_NC}.** No se pudo construir la prueba: {e}\n")
+        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** No se pudo construir H3-v4: {e}\n")
         return VEREDICTO_NC
-
-    idx = T.index.intersection(M.index)
-    if len(idx) < 20:
-        reporte.append(
-            f"**Veredicto H3-v5: {VEREDICTO_NC}.** Solo {len(idx)} años evaluables; "
-            "se requieren al menos 20.\n"
-        )
+    idx=R.index.intersection(M.index).intersection(A.index)
+    if len(idx)<20:
+        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** Solo {len(idx)} años evaluables; se requieren al menos 20.\n")
         return VEREDICTO_NC
-
-    x = M.loc[idx].astype(float)
-    y = T.loc[idx].astype(float)
-    stat = lambda a,b: float(stats.spearmanr(a,b).statistic)
-    rho, p, nulos = _p_circular(x.values, y.values, stat)
-
+    q=(M.loc[idx]*A.loc[idx]).astype(float)
+    r=R.loc[idx].astype(float)
+    stat=lambda x,y: float(stats.spearmanr(x,y).statistic)
+    rho,p,nulos=_p_circular(q.values,r.values,stat)
     reporte.append(f"- Años evaluables: {len(idx)} ({int(idx.min())}–{int(idx.max())})")
-    reporte.append(
-        f"- Dominios de transformación por año: mediana {float(n_dom.loc[idx].median()):.1f}; "
-        f"rango {int(n_dom.loc[idx].min())}–{int(n_dom.loc[idx].max())}"
-    )
-    reporte.append(f"- Asociación M(t) → T(t): rho = {rho:+.3f}")
+    reporte.append(f"- Dominios de R por año: mediana {float(n_dom.loc[idx].median()):.1f}; rango {int(n_dom.loc[idx].min())}–{int(n_dom.loc[idx].max())}")
+    reporte.append(f"- Asociación Q(t)=M×A_cap → R(t): rho = {rho:+.3f}")
     reporte.append(f"- Nulo temporal: {len(nulos)} desplazamientos circulares; p = {p:.4f}")
-
-    if rho > 0 and p < ALFA:
-        v = VEREDICTO_OK
-        txt = ("Las perturbaciones con memoria se asocian con desviaciones de trayectoria "
-               "mayores que las obtenidas por alineaciones temporales placebo.")
-    elif rho > 0:
-        v = VEREDICTO_NO
-        txt = ("La dirección es la prevista, pero la evidencia disponible no permite "
-               "distinguirla del nulo temporal al 5%.")
+    if rho>0 and p<ALFA:
+        v=VEREDICTO_OK; txt="La presión adaptativa acumulada se asocia con una reorganización mayor que bajo alineaciones temporales placebo."
+    elif rho>0:
+        v=VEREDICTO_NO; txt="La dirección es la prevista, pero no se distingue del nulo temporal al 5%."
     else:
-        v = VEREDICTO_NO
-        txt = ("Las perturbaciones no se asocian con mayor desviación de trayectoria "
-               "en esta batería de datos.")
-
-    reporte.append(f"\n**Veredicto H3-v5: {v}.** {txt}\n")
-
-    # Diagnóstico secundario: ¿la capacidad previa modifica la intensidad?
-    ia = idx.intersection(A.index)
-    if len(ia) >= 20:
-        q = (M.loc[ia] * A.loc[ia]).astype(float)
-        rr = T.loc[ia].astype(float)
-        rho_q = float(stats.spearmanr(q, rr).statistic)
-        reporte.append(
-            f"### Diagnóstico de capacidad adaptativa\n"
-            f"Q(t)=M×A_cap frente a T(t): rho = {rho_q:+.3f}. "
-            "Este valor NO decide H3-v5: A_cap puede modificar el tipo de respuesta, "
-            "pero una transformación destructiva también cuenta como transformación Daçel.\n"
-        )
-
+        v=VEREDICTO_NO; txt="La relación observada no tiene la dirección prevista por el mecanismo dinámico."
+    reporte.append(f"\n**Veredicto H3-v4: {v}.** {txt}\n")
     reporte.append(
-        "### Falsación\n"
-        "H3-v5 queda contradicha en esta batería si perturbaciones mayores no producen "
-        "desviaciones de trayectoria mayores que el nulo temporal. Un resultado negativo "
-        "se conserva; no se cambia el signo, horizonte ni definición después de observarlo.\n"
-        "### Auditoría\n"
-        "H3-v2, H3-v3 y H3-v4 permanecen en el historial del repositorio. H3-v5 cambia "
-        "la operacionalización porque la definición teórica se aclaró ANTES de esta corrida: "
-        "perturbación implica transformación posible en cualquier dirección, no progreso.\n"
+        "### Auditoría\nH3-v2 (eventos manuales) y H3-v3 (perturbación contemporánea continua) "
+        "permanecen en el historial del repositorio. H3-v4 no reescribe esos resultados; "
+        "prueba una formulación dinámica explícita de la teoría.\n"
     )
-
-    fig, ax = plt.subplots(figsize=(8,5))
-    ax.scatter(x.values, y.values, s=28)
-    ax.set_xlabel("M(t): memoria/intensidad de perturbación")
-    ax.set_ylabel("T(t): |desviación de trayectoria|")
-    ax.set_title(f"H3-v5 — transformación por perturbación ({etiqueta})")
-    fig.tight_layout()
-    fig.savefig(os.path.join(carpeta, "H3_perturbaciones.png"), dpi=130)
-    plt.close(fig)
+    fig,ax=plt.subplots(figsize=(7,5)); ax.scatter(q.values,r.values,alpha=.75)
+    ax.set_xlabel("Q(t)=memoria de perturbación × capacidad adaptativa previa")
+    ax.set_ylabel("R(t): intensidad de reorganización")
+    ax.set_title(f"H3-v4 — mecanismo dinámico Daçel ({etiqueta})")
+    fig.tight_layout(); fig.savefig(os.path.join(carpeta,"H3_perturbaciones.png"),dpi=130); plt.close(fig)
     return v
-
 
 def prueba_h4(df, reporte, anio_limite=2040):
     """H4: la externalización cognitiva seguirá creciendo hasta 2040 (proyección, no prueba)."""
@@ -1089,7 +975,7 @@ def ejecutar(df, etiqueta, carpeta, semilla=42):
     veredictos = {
         "H1 (CIDI exponencial)": prueba_h1(cidi, reporte, carpeta, etiqueta),
         "H2 (vacío humano)": prueba_h2(df, reporte, carpeta, etiqueta, rng_h2),
-        "H3 (transformación por perturbación)": prueba_h3(df, reporte, carpeta, etiqueta, rng_h3),
+        "H3 (perturbaciones)": prueba_h3(df, reporte, carpeta, etiqueta, rng_h3),
         "H4 (externalización 2040)": prueba_h4(df, reporte),
         "Ecuación General": prueba_ecuacion_general(df, reporte, carpeta, etiqueta),
     }
