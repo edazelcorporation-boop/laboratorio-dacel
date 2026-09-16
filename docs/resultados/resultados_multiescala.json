@@ -1,7 +1,22 @@
 {
   "civilizacional_tecnologico": {
-    "estado": "SIN DATOS",
-    "error": "0"
+    "estado": "SUPERA BASELINE",
+    "rho_P_R": 0.26315140302189327,
+    "skill": 0.06747189787925267,
+    "r2_oos": 0.24725636442087873,
+    "rmse_dacel": 0.0910849616110631,
+    "rmse_constante": 0.19120127011076407,
+    "rmse_persistencia": 0.09767529944021898,
+    "coeficientes": {
+      "intercept": 0.05635217844617131,
+      "P": 0.12378548200075451,
+      "P2": -0.10447686160013772,
+      "Ecap": 0.02596937974077785,
+      "PxE": 0.056758330466820425,
+      "IOEprev": 0.032434912998349164,
+      "Lcap": 0.0
+    },
+    "n": 46
   },
   "humano_cognitivo": {
     "estado": "EXPLORATORIO",

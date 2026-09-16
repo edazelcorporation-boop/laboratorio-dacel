@@ -87,7 +87,12 @@ Núcleo: `R_s(t→t+h)=d_s[x(t),x(t+h)]/h`. R es magnitud de reorganización: ex
 Modelo: `R_s(t+h)=α+β1P+β2P²+β3E+β4(P×E)+β5IOE(t−1)+β6L+ε`. No se exige que β1 sea positivo: la respuesta puede ser no lineal y depender de recursos/restricciones.
 
 ### Civilizacional / tecnológico
-**SIN DATOS / ERROR DE CONSTRUCCIÓN:** 0
+
+Años completos del modelo: 46 (entrenamiento 36, prueba 10). Spearman descriptivo P→R: rho=+0.263.
+
+RMSE Daçel=0.0911; constante=0.1912; persistencia=0.0977; skill frente al mejor baseline=+6.7%; R² fuera de muestra=+0.247.
+
+**Resultado del módulo: SUPERA BASELINE.**
 
 ### Humano / cognitivo
 Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como prueba específica independiente.
