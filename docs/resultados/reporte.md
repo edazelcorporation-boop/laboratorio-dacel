@@ -87,7 +87,7 @@ Núcleo: `R_s(t→t+h)=d_s[x(t),x(t+h)]/h`. R es magnitud de reorganización: ex
 Modelo: `R_s(t+h)=α+β1P+β2P²+β3E+β4(P×E)+β5IOE(t−1)+β6L+ε`. No se exige que β1 sea positivo: la respuesta puede ser no lineal y depender de recursos/restricciones.
 
 ### Civilizacional / tecnológico
-**SIN DATOS / ERROR DE CONSTRUCCIÓN:** too many values to unpack (expected 2)
+**SIN DATOS / ERROR DE CONSTRUCCIÓN:** 0
 
 ### Humano / cognitivo
 Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como prueba específica independiente.

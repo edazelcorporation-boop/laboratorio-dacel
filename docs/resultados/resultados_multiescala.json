@@ -1,13 +1,13 @@
 {
   "civilizacional_tecnologico": {
     "estado": "SIN DATOS",
-    "error": "too many values to unpack (expected 2)"
+    "error": "0"
   },
   "humano_cognitivo": {
     "estado": "EXPLORATORIO",
     "n": 26,
-    "skill": -0.7061270948591185,
-    "r2_oos": -1.4828624103133348
+    "skill": -0.7061270948591187,
+    "r2_oos": -1.4828624103133352
   },
   "biológico / ecológico": {
     "estado": "SIN DATOS"
