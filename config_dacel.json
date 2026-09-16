@@ -1,9 +1,9 @@
 {
   "_nota": "Definido ANTES de ver resultados reales (16-sep-2026). Si cambias algo, anótalo en 'cambios'.",
-  "cambios": [],
+  "cambios": ["16-sep-2026: Corrección técnica de la fuente I: búsqueda de columna actualizada de 'flop' a 'Computational capacity'. Indicador, fuente e hipótesis sin cambios."],
   "fuentes": {
     "E": {"nombre": "Consumo mundial de energía primaria (TWh)", "tipo": "owid_github_energia", "columna": "primary_energy_consumption"},
-    "I": {"nombre": "Potencia del supercomputador más rápido (FLOPS)", "tipo": "owid", "slug": "supercomputer-power-flops", "palabra": "flop"},
+    "I": {"nombre": "Potencia del supercomputador más rápido (FLOPS)", "tipo": "owid", "slug": "supercomputer-power-flops", "palabra": "Computational capacity"},
     "X": {"nombre": "Suscripciones móviles por cada 100 personas", "tipo": "banco_mundial", "codigo": "IT.CEL.SETS.P2"},
     "K": {"nombre": "Artículos científicos y técnicos publicados", "tipo": "banco_mundial", "codigo": "IP.JRN.ARTC.SC"},
     "A": {"nombre": "Población con trastornos de ansiedad (%)", "tipo": "owid", "slug": "anxiety-disorders-prevalence-vs-gdp", "palabra": "anxiety"},
