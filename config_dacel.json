@@ -6,7 +6,8 @@
     "16-sep-2026: Corrección de reproducibilidad: H2 y H3 usan flujos aleatorios independientes derivados de la misma semilla fija. No se modificaron hipótesis, datos, umbral de significancia ni criterios de falsación.",
     "16-sep-2026: Desarrollo exploratorio H3 sistémica: reorganización se define como magnitud del cambio de régimen post/pre en dominios Daçel, no como aceleración positiva de una sola variable. Se conserva H3a histórica basada en I para auditoría.",
     "16-sep-2026: Se amplía la evidencia histórica de H3 con telefonía fija (Banco Mundial/ITU, IT.MLT.MAIN.P2) como proxy adicional de externalización/conectividad y solicitudes de patentes de residentes (Banco Mundial/WIPO, IP.PAT.RESD) como proxy adicional de conocimiento. H1, H2, H4 y la Ecuación General no cambian.",
-    "16-sep-2026: H3-v3 reemplaza como prueba principal la selección manual de perturbaciones por una prueba continua anual. La perturbación externa S(t) se define ANTES de ejecutar esta versión como dos dimensiones independientes con igual peso: (1) riesgo geopolítico anual AI-GPR (Iacoviello y Tong) y (2) disrupción macroeconómica, medida por la desviación absoluta del crecimiento anual del PIB mundial respecto de su mediana histórica (Banco Mundial, NY.GDP.MKTP.KD.ZG). Cada dimensión se transforma a rango percentil y S(t) es su promedio. La reorganización R(t) usa los dominios Daçel. Estadístico preregistrado: Spearman positivo S(t)-R(t), nulo de todos los desplazamientos circulares no nulos de S(t), alfa=0.05. H3-v2 queda para auditoría; H1, H2, H4 y la Ecuación General no cambian."
+    "16-sep-2026: H3-v3 reemplaza como prueba principal la selección manual de perturbaciones por una prueba continua anual. La perturbación externa S(t) se define ANTES de ejecutar esta versión como dos dimensiones independientes con igual peso: (1) riesgo geopolítico anual AI-GPR (Iacoviello y Tong) y (2) disrupción macroeconómica, medida por la desviación absoluta del crecimiento anual del PIB mundial respecto de su mediana histórica (Banco Mundial, NY.GDP.MKTP.KD.ZG). Cada dimensión se transforma a rango percentil y S(t) es su promedio. La reorganización R(t) usa los dominios Daçel. Estadístico preregistrado: Spearman positivo S(t)-R(t), nulo de todos los desplazamientos circulares no nulos de S(t), alfa=0.05. H3-v2 queda para auditoría; H1, H2, H4 y la Ecuación General no cambian.",
+    "16-sep-2026: Daçel-v4 separa perturbación, memoria, capacidad adaptativa y reorganización. H3-v4 define P_ext con AI-GPR + disrupción macro ex-ante; M como memoria exponencial de vida media 3 años; A_cap como capacidad previa basada en energía, externalización/conectividad y conocimiento (I excluida para evitar circularidad); Q=M×A_cap; R como magnitud multidominio del cambio de régimen. La Ecuación General dinámica predice gI(t+1) con predictores fechados en t y Q sustituye al antiguo P binario. H3-v2/v3 y la ecuación anterior quedan preservadas en el historial; esta modificación no borra sus resultados."
   ],
   "fuentes": {
     "E": {
@@ -68,5 +69,19 @@
     "2001": "Atentados del 11 de septiembre",
     "2008": "Crisis financiera global",
     "2020": "Pandemia de COVID-19"
+  },
+  "modelo_dinamico": {
+    "version": "Daçel-v4",
+    "definiciones": {
+      "P_ext": "Perturbación externa continua: promedio de percentiles ex-ante de AI-GPR y disrupción del crecimiento mundial.",
+      "M": "Memoria acumulada de P_ext con decaimiento exponencial.",
+      "A_cap": "Capacidad adaptativa previa: energía + externalización/conectividad + conocimiento; excluye I.",
+      "Q": "Presión adaptativa Q(t)=M(t)*A_cap(t).",
+      "R": "Magnitud multidominio del cambio de régimen pre/post; no crecimiento neto."
+    },
+    "vida_media_memoria_anios": 3,
+    "ventana_reorganizacion_anios": 5,
+    "alfa": 0.05,
+    "criterio_ecuacion": "Debe reducir RMSE fuera de muestra >10% frente al mejor rival simple."
   }
 }
