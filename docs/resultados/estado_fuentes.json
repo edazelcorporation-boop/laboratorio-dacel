@@ -10,9 +10,11 @@
     },
     "I": {
       "nombre": "Potencia del supercomputador más rápido (FLOPS)",
-      "ok": false,
-      "error": "No encontré una columna con 'flop' en supercomputer-power-flops",
-      "nota": "sin datos"
+      "ok": true,
+      "anios": [
+        1993,
+        2025
+      ]
     },
     "X": {
       "nombre": "Suscripciones móviles por cada 100 personas",
@@ -59,5 +61,7 @@
     "2008": "Crisis financiera global",
     "2020": "Pandemia de COVID-19"
   },
-  "cambios": []
+  "cambios": [
+    "16-sep-2026: Corrección técnica de la fuente I: búsqueda de columna actualizada de 'flop' a 'Computational capacity'. Indicador, fuente e hipótesis sin cambios."
+  ]
 }
