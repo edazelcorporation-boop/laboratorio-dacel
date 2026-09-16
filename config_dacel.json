@@ -1,0 +1,21 @@
+{
+  "_nota": "Definido ANTES de ver resultados reales (16-sep-2026). Si cambias algo, anótalo en 'cambios'.",
+  "cambios": [],
+  "fuentes": {
+    "E": {"nombre": "Consumo mundial de energía primaria (TWh)", "tipo": "owid_github_energia", "columna": "primary_energy_consumption"},
+    "I": {"nombre": "Potencia del supercomputador más rápido (FLOPS)", "tipo": "owid", "slug": "supercomputer-power-flops", "palabra": "flop"},
+    "X": {"nombre": "Suscripciones móviles por cada 100 personas", "tipo": "banco_mundial", "codigo": "IT.CEL.SETS.P2"},
+    "K": {"nombre": "Artículos científicos y técnicos publicados", "tipo": "banco_mundial", "codigo": "IP.JRN.ARTC.SC"},
+    "A": {"nombre": "Población con trastornos de ansiedad (%)", "tipo": "owid", "slug": "anxiety-disorders-prevalence-vs-gdp", "palabra": "anxiety"},
+    "Dp": {"nombre": "Población con trastornos depresivos (%)", "tipo": "owid", "slug": "depressive-disorders-prevalence-vs-gdp-per-capita", "palabra": "depress"},
+    "conexion": {"nombre": "Población usuaria de internet (%)", "tipo": "banco_mundial", "codigo": "IT.NET.USER.ZS"}
+  },
+  "perturbaciones": {
+    "1973": "Crisis del petróleo",
+    "1987": "Lunes Negro bursátil",
+    "1991": "Disolución de la URSS",
+    "2001": "Atentados del 11 de septiembre",
+    "2008": "Crisis financiera global",
+    "2020": "Pandemia de COVID-19"
+  }
+}
