@@ -38,17 +38,30 @@ Se usa solo la parte psicológica del HDF (ansiedad, soledad y/o depresión). In
 
 **Veredicto H2: SUPERA LA PRUEBA.** Cuando la conectividad sube más rápido, el desajuste psicológico también.
 
-## H3 / F2 — Las perturbaciones aceleran la reorganización
+## H3 / F2 — Las perturbaciones intensifican la reorganización sistémica
 
-Estudio de eventos: crecimiento de I en los 5 años posteriores menos los 5 años anteriores, comparado con 2000 conjuntos de años al azar (placebo).
+Prueba principal ampliada y preregistrada: la reorganización se mide en los dominios estructurales de Daçel — energía (E), información procesada (I), externalización/conectividad (telefonía fija, móvil e internet, contadas como un solo dominio) y conocimiento (patentes y artículos científicos, contados como un solo dominio). Ansiedad y depresión no entran aquí porque pertenecen a H2.
 
-- Eventos analizados: 3
-- Aceleración observada: +7.02 puntos porcentuales de crecimiento anual
-- Aceleración típica en años al azar: -6.56 pp
-- p = 0.1024
+Se conserva la ventana original de ±5 años. Cada dominio compara su régimen de crecimiento posterior con el anterior, estandarizado por su variabilidad histórica. La prueba principal usa la magnitud absoluta del cambio: una crisis puede reorganizar el sistema haciendo subir unos dominios y caer otros, por lo que promediar signos opuestos cancelaría precisamente la reconfiguración que H3 intenta medir.
 
-**Veredicto H3: NO SUPERA LA PRUEBA.** Las perturbaciones no muestran una aceleración distinta a la de años al azar.
+Perturbaciones evaluables y evidencia usada:
+- 1987: 2 dominios [energía: E; externalización/conectividad: X_fija,X] → intensidad 0.186 DE; dirección neta -0.186 DE (energía=-0.21, externalización/conectividad=-0.16)
+- 1991: 3 dominios [energía: E; externalización/conectividad: X_fija,X; conocimiento: K_patentes] → intensidad 0.313 DE; dirección neta -0.027 DE (energía=-0.51, externalización/conectividad=+0.01, conocimiento=+0.42)
+- 2001: 4 dominios [energía: E; información: I; externalización/conectividad: X_fija; conocimiento: K_patentes] → intensidad 0.446 DE; dirección neta +0.009 DE (energía=+0.79, información=+0.12, externalización/conectividad=-0.73, conocimiento=-0.14)
+- 2008: 4 dominios [energía: E; información: I; externalización/conectividad: X_fija; conocimiento: K_patentes,K] → intensidad 0.688 DE; dirección neta -0.515 DE (energía=-0.88, información=+0.35, externalización/conectividad=-1.23, conocimiento=-0.29)
+- 2020: 2 dominios [información: I; externalización/conectividad: X_fija,X,conexion] → intensidad 0.101 DE; dirección neta -0.101 DE (información=-0.03, externalización/conectividad=-0.17)
 
+Resultado sistémico: promedio de 5 perturbaciones evaluables frente a 5000 panoramas placebo emparejados por disponibilidad de evidencia.
+- Intensidad de reorganización observada: 0.347 desviaciones estándar
+- Intensidad placebo media: 0.530 DE
+- Dirección neta observada (diagnóstica): -0.164 DE
+- p = 0.9620
+
+**Veredicto H3: NO SUPERA LA PRUEBA.** La evidencia sistémica disponible no distingue la magnitud de reorganización posterior a perturbaciones de la observada en años comparables al azar.
+
+### H3a diagnóstica — prueba histórica basada solo en I
+Se conserva para auditoría y comparación, pero ya no representa por sí sola el veredicto de H3 sistémica.
+- Eventos evaluables: 3; efecto I: +7.02 pp; p diagnóstica = 0.0990
 ## H4 — La externalización cognitiva seguirá aumentando hasta 2040
 
 - Crecimiento medio de X en los últimos 10 años: 1.29% anual.
