@@ -40,28 +40,23 @@ Se usa solo la parte psicológica del HDF (ansiedad, soledad y/o depresión). In
 
 ## H3 / F2 — Las perturbaciones intensifican la reorganización sistémica
 
-Prueba principal ampliada y preregistrada: la reorganización se mide en los dominios estructurales de Daçel — energía (E), información procesada (I), externalización/conectividad (telefonía fija, móvil e internet, contadas como un solo dominio) y conocimiento (patentes y artículos científicos, contados como un solo dominio). Ansiedad y depresión no entran aquí porque pertenecen a H2.
+### H3-v3 principal — prueba continua, sin selección manual de acontecimientos
+La perturbación externa S(t) combina con igual peso dos dimensiones independientes del Laboratorio Daçel: (1) AI-GPR (Iacoviello y Tong), riesgo geopolítico mensual convertido a promedio anual con años completos, y (2) disrupción macroeconómica, medida como la desviación absoluta del crecimiento anual del PIB mundial respecto de su mediana histórica (Banco Mundial). Cada dimensión se transforma a rango percentil antes de promediarse.
 
-Se conserva la ventana original de ±5 años. Cada dominio compara su régimen de crecimiento posterior con el anterior, estandarizado por su variabilidad histórica. La prueba principal usa la magnitud absoluta del cambio: una crisis puede reorganizar el sistema haciendo subir unos dominios y caer otros, por lo que promediar signos opuestos cancelaría precisamente la reconfiguración que H3 intenta medir.
+La reorganización R(t) se calcula para cada año posible como la magnitud del cambio de régimen entre los 5 años anteriores y los 5 posteriores en los dominios energía, información, externalización/conectividad y conocimiento. Cada dominio se normaliza por su propia historia y se requieren al menos 2 dominios. Ansiedad y depresión quedan fuera porque pertenecen a H2.
 
-Perturbaciones evaluables y evidencia usada:
-- 1987: 2 dominios [energía: E; externalización/conectividad: X_fija,X] → intensidad 0.186 DE; dirección neta -0.186 DE (energía=-0.21, externalización/conectividad=-0.16)
-- 1991: 3 dominios [energía: E; externalización/conectividad: X_fija,X; conocimiento: K_patentes] → intensidad 0.313 DE; dirección neta -0.027 DE (energía=-0.51, externalización/conectividad=+0.01, conocimiento=+0.42)
-- 2001: 4 dominios [energía: E; información: I; externalización/conectividad: X_fija; conocimiento: K_patentes] → intensidad 0.446 DE; dirección neta +0.009 DE (energía=+0.79, información=+0.12, externalización/conectividad=-0.73, conocimiento=-0.14)
-- 2008: 4 dominios [energía: E; información: I; externalización/conectividad: X_fija; conocimiento: K_patentes,K] → intensidad 0.688 DE; dirección neta -0.515 DE (energía=-0.88, información=+0.35, externalización/conectividad=-1.23, conocimiento=-0.29)
-- 2020: 2 dominios [información: I; externalización/conectividad: X_fija,X,conexion] → intensidad 0.101 DE; dirección neta -0.101 DE (información=-0.03, externalización/conectividad=-0.17)
+Criterio fijado antes de ejecutar esta versión: correlación de Spearman positiva entre S(t) y R(t), contrastada contra todos los desplazamientos circulares no nulos de S(t). Este placebo conserva la estructura temporal de la perturbación y elimina la alineación concreta con la reorganización. Nivel de significancia: 5%.
 
-Resultado sistémico: promedio de 5 perturbaciones evaluables frente a 5000 panoramas placebo emparejados por disponibilidad de evidencia.
-- Intensidad de reorganización observada: 0.347 desviaciones estándar
-- Intensidad placebo media: 0.530 DE
-- Dirección neta observada (diagnóstica): -0.164 DE
-- p = 0.9620
+- Años evaluables: 45 (1976–2020)
+- Dominios disponibles por año: mediana 3.0; rango 2–4
+- Asociación S(t) → reorganización: rho = +0.003
+- Placebo temporal: 44 desplazamientos circulares; p = 0.4889
 
-**Veredicto H3: NO SUPERA LA PRUEBA.** La evidencia sistémica disponible no distingue la magnitud de reorganización posterior a perturbaciones de la observada en años comparables al azar.
+**Veredicto H3: NO SUPERA LA PRUEBA.** La asociación observada es positiva, pero no alcanza el umbral preregistrado del 5%; la evidencia continua disponible no basta para distinguirla del placebo.
 
-### H3a diagnóstica — prueba histórica basada solo en I
-Se conserva para auditoría y comparación, pero ya no representa por sí sola el veredicto de H3 sistémica.
-- Eventos evaluables: 3; efecto I: +7.02 pp; p diagnóstica = 0.0990
+### H3-v2 diagnóstica — prueba por acontecimientos previamente usada
+La versión por eventos se conserva en el historial del repositorio para auditoría. No interviene en el veredicto de H3-v3, que usa todos los años evaluables y un índice externo continuo.
+
 ## H4 — La externalización cognitiva seguirá aumentando hasta 2040
 
 - Crecimiento medio de X en los últimos 10 años: 1.29% anual.
