@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-TEORÍA DAÇEL — Programa de validación empírica (v2.0)
+TEORÍA DAÇEL — Programa de validación empírica (v4.0)
 Autor de la teoría: Edazel Fernández (Edazel Corporation)
 
 Qué hace este programa
@@ -588,20 +588,18 @@ def prueba_h3_eventos_v2(df, reporte, carpeta, etiqueta, rng, ventana=5, n_perm=
 
 
 
-def _h3_reorganizacion_continua(df, ventana=5):
-    """
-    Construye R(t), intensidad anual de reorganización sistémica.
-    1) calcula |cambio post-pre| por dominio;
-    2) normaliza la magnitud dentro de cada dominio para que ningún dominio
-       domine por escala histórica;
-    3) promedia los dominios disponibles. Exige >=2 dominios por año.
-    """
-    dominios = {
+def _h3_dominios(df):
+    return {
         "energía": ["E"],
         "información": ["I"],
         "externalización/conectividad": ["X_fija", "X", "conexion"],
         "conocimiento": ["K_patentes", "K"],
     }
+
+
+def _h3_reorganizacion_continua(df, ventana=5):
+    """R(t): magnitud del cambio de régimen pre/post en dominios Daçel."""
+    dominios = _h3_dominios(df)
     variables = sorted({v for vs in dominios.values() for v in vs})
     crecimientos, escalas = {}, {}
     for v in variables:
@@ -622,20 +620,19 @@ def _h3_reorganizacion_continua(df, ventana=5):
             if vals:
                 bruto.loc[a, dom] = float(np.mean(vals))
 
-    # Normalización robusta por dominio: hace comparables magnitudes históricas.
+    # Escala robusta por dominio. NO se centra en cero: R es intensidad >=0.
     norm = bruto.copy()
     for c in norm.columns:
-        s = norm[c].dropna()
-        if len(s) >= 8:
-            med = float(s.median())
-            mad = float(np.median(np.abs(s - med)))
-            escala = 1.4826 * mad
-            if not np.isfinite(escala) or escala <= 0:
-                escala = float(s.std(ddof=1))
-            norm[c] = (norm[c] - med) / escala if escala > 0 else np.nan
+        ss = norm[c].dropna()
+        if len(ss) >= 8:
+            med = float(ss.median())
+            mad = float(np.median(np.abs(ss - med)))
+            esc = 1.4826 * mad
+            if not np.isfinite(esc) or esc <= 0:
+                esc = float(ss.std(ddof=1))
+            norm[c] = norm[c] / esc if esc > 0 else np.nan
         else:
             norm[c] = np.nan
-
     n_dom = norm.notna().sum(axis=1)
     R = norm.mean(axis=1, skipna=True)
     R[n_dom < 2] = np.nan
@@ -643,7 +640,7 @@ def _h3_reorganizacion_continua(df, ventana=5):
 
 
 def _leer_gpr_anual(ruta="datos_fuente/ai_gpr_data_monthly.csv"):
-    """AI-GPR mensual -> promedio anual. Excluye años incompletos (<12 meses)."""
+    """AI-GPR mensual -> promedio anual; excluye años incompletos."""
     if not os.path.exists(ruta):
         raise FileNotFoundError(f"No existe {ruta}")
     g = pd.read_csv(ruta)
@@ -654,130 +651,161 @@ def _leer_gpr_anual(ruta="datos_fuente/ai_gpr_data_monthly.csv"):
     g = g.dropna(subset=["Date", "GPR_AI"])
     g["anio"] = g["Date"].dt.year.astype(int)
     agg = g.groupby("anio")["GPR_AI"].agg(["mean", "count"])
-    agg = agg[agg["count"] == 12]  # evita 2026 parcial u otros años incompletos
-    return agg["mean"].astype(float)
+    return agg.loc[agg["count"] == 12, "mean"].astype(float)
 
 
-def prueba_h3(df, reporte, carpeta, etiqueta, rng, ventana=5):
-    """
-    H3-v3 (principal): prueba continua, no depende de una lista manual de crisis.
+def _percentil_expansivo(s, min_hist=10):
+    """Percentil ex-ante: en t solo usa observaciones <=t; evita mirar el futuro."""
+    s = pd.Series(s, dtype=float).sort_index()
+    out = pd.Series(index=s.index, dtype=float)
+    for i, (a, v) in enumerate(s.items()):
+        hist = s.iloc[:i+1].dropna()
+        if len(hist) >= min_hist and np.isfinite(v):
+            out.loc[a] = float(stats.percentileofscore(hist.values, v, kind="mean") / 100.0)
+    return out
 
-    Hipótesis preregistrada:
-      mayor intensidad de perturbación externa S(t) se asocia con mayor
-      intensidad de reorganización sistémica R(t).
 
-    S(t) combina con igual peso dos dimensiones externas:
-      - geopolítica: AI-GPR anual;
-      - macroeconómica: desviación absoluta del crecimiento del PIB mundial
-        respecto de su mediana histórica.
-    Cada dimensión se expresa como rango percentil antes de promediarse.
-
-    Estadístico primario: rho de Spearman entre S(t) y R(t).
-    Nulo: todos los desplazamientos circulares no nulos de S(t). Prueba
-    unilateral positiva. Umbral: alfa=0.05, definido antes de ejecutar H3-v3.
-    """
-    reporte.append("## H3 / F2 — Las perturbaciones intensifican la reorganización sistémica\n")
-    reporte.append(
-        "### H3-v3 principal — prueba continua, sin selección manual de acontecimientos\n"
-        "La perturbación externa S(t) combina con igual peso dos dimensiones independientes del "
-        "Laboratorio Daçel: (1) AI-GPR (Iacoviello y Tong), riesgo geopolítico mensual convertido "
-        "a promedio anual con años completos, y (2) disrupción macroeconómica, medida como la "
-        "desviación absoluta del crecimiento anual del PIB mundial respecto de su mediana histórica "
-        "(Banco Mundial). Cada dimensión se transforma a rango percentil antes de promediarse.\n"
-    )
-    reporte.append(
-        f"La reorganización R(t) se calcula para cada año posible como la magnitud del cambio "
-        f"de régimen entre los {ventana} años anteriores y los {ventana} posteriores en los "
-        "dominios energía, información, externalización/conectividad y conocimiento. Cada dominio "
-        "se normaliza por su propia historia y se requieren al menos 2 dominios. Ansiedad y "
-        "depresión quedan fuera porque pertenecen a H2.\n"
-    )
-    reporte.append(
-        "Criterio fijado antes de ejecutar esta versión: correlación de Spearman positiva entre "
-        "S(t) y R(t), contrastada contra todos los desplazamientos circulares no nulos de S(t). "
-        "Este placebo conserva la estructura temporal de la perturbación y elimina la alineación "
-        "concreta con la reorganización. Nivel de significancia: 5%.\n"
-    )
-
-    try:
-        R, n_dom, bruto = _h3_reorganizacion_continua(df, ventana=ventana)
-        gpr = _leer_gpr_anual()
-    except Exception as e:
-        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** No se pudo construir H3-v3: {e}\n")
-        return VEREDICTO_NC
-
+def _presion_externa(df):
+    """P_ext(t): perturbación externa continua, sin lista manual de eventos."""
+    gpr = _leer_gpr_anual()
     if "G_mundo" not in df.columns:
-        reporte.append(
-            f"**Veredicto H3: {VEREDICTO_NC}.** Falta la serie G_mundo "
-            "(crecimiento anual del PIB mundial).\n"
-        )
-        return VEREDICTO_NC
-
+        raise ValueError("Falta G_mundo (crecimiento anual del PIB mundial)")
     pib = df.set_index("anio")["G_mundo"].dropna().astype(float)
-    comunes = R.index.intersection(gpr.index).intersection(pib.index)
-    if len(comunes) < 20:
-        reporte.append(
-            f"**Veredicto H3: {VEREDICTO_NC}.** Solo {len(comunes)} años continuos evaluables; "
-            "se requieren al menos 20.\n"
-        )
+    idx = gpr.index.intersection(pib.index)
+    geo = np.log1p(gpr.loc[idx].clip(lower=0))
+    # Disrupción macro ex-ante: desviación respecto a la mediana de los 10 años PREVIOS.
+    macro = pd.Series(index=idx, dtype=float)
+    for a in idx:
+        prev = pib.loc[(pib.index >= a-10) & (pib.index <= a-1)].dropna()
+        if len(prev) >= 7:
+            macro.loc[a] = abs(float(pib.loc[a]) - float(prev.median()))
+    geo_p = _percentil_expansivo(geo)
+    mac_p = _percentil_expansivo(macro)
+    Pext = pd.concat([geo_p.rename("geo"), mac_p.rename("macro")], axis=1).mean(axis=1, skipna=False)
+    return Pext.dropna()
+
+
+def _memoria_perturbacion(Pext, vida_media=3.0):
+    """M(t): presión acumulada con memoria exponencial; vida media en años."""
+    lam = np.exp(-np.log(2.0) / float(vida_media))
+    out = pd.Series(index=Pext.index, dtype=float)
+    m = 0.0
+    previo = None
+    for a, p in Pext.sort_index().items():
+        if previo is not None:
+            m *= lam ** max(int(a-previo), 1)
+        m = float(p) + m
+        out.loc[a] = m
+        previo = a
+    # escala interpretable 0..1 dentro de la historia ya observada, ex-ante
+    return _percentil_expansivo(out, min_hist=10).dropna()
+
+
+def _capacidad_adaptativa(df):
+    """
+    A_cap(t): capacidad previa para absorber/reorganizarse.
+    Usa niveles E, X/conexión y K/patentes; EXCLUYE I para no construir el predictor
+    con la variable que luego queremos explicar en la ecuación general.
+    Cada dominio se expresa como percentil ex-ante y se promedian >=2 dominios.
+    """
+    d = df.set_index("anio").sort_index()
+    dominios = {
+        "energía": ["E"],
+        "externalización": ["X_fija", "X", "conexion"],
+        "conocimiento": ["K_patentes", "K"],
+    }
+    dom_series = {}
+    for dom, vars_ in dominios.items():
+        partes=[]
+        for v in vars_:
+            if v in d.columns and d[v].notna().sum() >= 10:
+                x = pd.to_numeric(d[v], errors="coerce")
+                # log para magnitudes positivas; percentil ex-ante elimina unidades.
+                x = np.log1p(x.clip(lower=0))
+                partes.append(_percentil_expansivo(x).rename(v))
+        if partes:
+            dom_series[dom] = pd.concat(partes, axis=1).mean(axis=1, skipna=True)
+    if not dom_series:
+        return pd.Series(dtype=float)
+    tab = pd.DataFrame(dom_series)
+    n = tab.notna().sum(axis=1)
+    A = tab.mean(axis=1, skipna=True)
+    A[n < 2] = np.nan
+    # lag 1: la capacidad debe existir ANTES de la respuesta observada.
+    return A.shift(1).dropna()
+
+
+def _p_circular(x, y, estadistico):
+    """p unilateral con todos los desplazamientos circulares no nulos."""
+    x=np.asarray(x,float); y=np.asarray(y,float)
+    obs=float(estadistico(x,y))
+    nul=np.array([estadistico(np.roll(x,k),y) for k in range(1,len(x))],float)
+    nul=nul[np.isfinite(nul)]
+    p=float((np.sum(nul >= obs)+1)/(len(nul)+1)) if len(nul) else np.nan
+    return obs,p,nul
+
+
+def prueba_h3(df, reporte, carpeta, etiqueta, rng=None, ventana=5):
+    """
+    H3-v4: mecanismo Daçel dinámico.
+      P_ext -> M (memoria) ; Q=M*A_cap -> R (reorganización).
+    Separa perturbación, capacidad y reorganización. No exige que un shock produzca
+    crecimiento inmediato ni que todas las variables cambien con el mismo signo.
+    """
+    reporte.append("## H3 / F2 — Perturbación, memoria y reorganización sistémica\n")
+    reporte.append(
+        "### H3-v4 principal — mecanismo dinámico Daçel\n"
+        "La perturbación no se trata como crecimiento. Se separan cuatro conceptos: "
+        "P_ext(t), perturbación externa; M(t), memoria acumulada de perturbaciones; "
+        "A_cap(t), capacidad adaptativa existente antes de la respuesta; y R(t), magnitud "
+        "de reorganización del sistema. La presión adaptativa es Q(t)=M(t)×A_cap(t). "
+        "Una perturbación puede destruir unas variables y acelerar otras; por eso R mide "
+        "magnitud de cambio de régimen y no crecimiento neto.\n"
+    )
+    reporte.append(
+        "P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones "
+        "son ex-ante: cada año se compara solo con historia disponible hasta ese año. "
+        "M usa memoria exponencial con vida media fija de 3 años. A_cap usa energía, "
+        "externalización/conectividad y conocimiento, excluyendo I para evitar circularidad. "
+        f"R compara {ventana} años previos y {ventana} posteriores en los cuatro dominios Daçel.\n"
+    )
+    try:
+        R,n_dom,_=_h3_reorganizacion_continua(df,ventana)
+        Pext=_presion_externa(df)
+        M=_memoria_perturbacion(Pext,3.0)
+        A=_capacidad_adaptativa(df)
+    except Exception as e:
+        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** No se pudo construir H3-v4: {e}\n")
         return VEREDICTO_NC
-
-    r = R.loc[comunes].astype(float).to_numpy()
-
-    # Dos dimensiones, igual peso, sin calibración posterior al resultado.
-    geo = pd.Series(np.log1p(gpr.loc[comunes].astype(float).to_numpy()), index=comunes)
-    macro_raw = (pib.loc[comunes] - float(pib.median())).abs()
-    geo_pct = geo.rank(method="average", pct=True)
-    macro_pct = macro_raw.rank(method="average", pct=True)
-    S = (geo_pct + macro_pct) / 2.0
-    s = S.to_numpy(dtype=float)
-    rho = float(stats.spearmanr(s, r).statistic)
-
-    # Todos los desplazamientos circulares posibles: determinista y reproducible.
-    nulos = np.array([
-        stats.spearmanr(np.roll(s, k), r).statistic
-        for k in range(1, len(s))
-    ], dtype=float)
-    p = float((np.sum(nulos >= rho) + 1) / (len(nulos) + 1))
-
-    reporte.append(f"- Años evaluables: {len(comunes)} ({int(comunes.min())}–{int(comunes.max())})")
-    reporte.append(
-        f"- Dominios disponibles por año: mediana {float(n_dom.loc[comunes].median()):.1f}; "
-        f"rango {int(n_dom.loc[comunes].min())}–{int(n_dom.loc[comunes].max())}"
-    )
-    reporte.append(f"- Asociación S(t) → reorganización: rho = {rho:+.3f}")
-    reporte.append(f"- Placebo temporal: {len(nulos)} desplazamientos circulares; p = {p:.4f}")
-
-    if rho > 0 and p < ALFA:
-        v = VEREDICTO_OK
-        txt = ("Los años de mayor perturbación geopolítica externa se alinean con una "
-               "reorganización sistémica significativamente mayor que bajo alineaciones "
-               "temporales placebo.")
-    elif rho > 0:
-        v = VEREDICTO_NO
-        txt = ("La asociación observada es positiva, pero no alcanza el umbral preregistrado "
-               "del 5%; la evidencia continua disponible no basta para distinguirla del placebo.")
+    idx=R.index.intersection(M.index).intersection(A.index)
+    if len(idx)<20:
+        reporte.append(f"**Veredicto H3: {VEREDICTO_NC}.** Solo {len(idx)} años evaluables; se requieren al menos 20.\n")
+        return VEREDICTO_NC
+    q=(M.loc[idx]*A.loc[idx]).astype(float)
+    r=R.loc[idx].astype(float)
+    stat=lambda x,y: float(stats.spearmanr(x,y).statistic)
+    rho,p,nulos=_p_circular(q.values,r.values,stat)
+    reporte.append(f"- Años evaluables: {len(idx)} ({int(idx.min())}–{int(idx.max())})")
+    reporte.append(f"- Dominios de R por año: mediana {float(n_dom.loc[idx].median()):.1f}; rango {int(n_dom.loc[idx].min())}–{int(n_dom.loc[idx].max())}")
+    reporte.append(f"- Asociación Q(t)=M×A_cap → R(t): rho = {rho:+.3f}")
+    reporte.append(f"- Nulo temporal: {len(nulos)} desplazamientos circulares; p = {p:.4f}")
+    if rho>0 and p<ALFA:
+        v=VEREDICTO_OK; txt="La presión adaptativa acumulada se asocia con una reorganización mayor que bajo alineaciones temporales placebo."
+    elif rho>0:
+        v=VEREDICTO_NO; txt="La dirección es la prevista, pero no se distingue del nulo temporal al 5%."
     else:
-        v = VEREDICTO_NO
-        txt = ("La asociación observada no tiene la dirección positiva predicha por H3.")
-    reporte.append(f"\n**Veredicto H3: {v}.** {txt}\n")
-
-    # Auditoría: conserva la prueba H3-v2 por eventos, pero nunca decide el veredicto principal.
+        v=VEREDICTO_NO; txt="La relación observada no tiene la dirección prevista por el mecanismo dinámico."
+    reporte.append(f"\n**Veredicto H3-v4: {v}.** {txt}\n")
     reporte.append(
-        "### H3-v2 diagnóstica — prueba por acontecimientos previamente usada\n"
-        "La versión por eventos se conserva en el historial del repositorio para auditoría. "
-        "No interviene en el veredicto de H3-v3, que usa todos los años evaluables y un índice "
-        "externo continuo.\n"
+        "### Auditoría\nH3-v2 (eventos manuales) y H3-v3 (perturbación contemporánea continua) "
+        "permanecen en el historial del repositorio. H3-v4 no reescribe esos resultados; "
+        "prueba una formulación dinámica explícita de la teoría.\n"
     )
-
-    fig, ax = plt.subplots(figsize=(7, 5))
-    ax.scatter(s, r, alpha=0.75)
-    ax.set_xlabel("S(t): intensidad externa de perturbación")
-    ax.set_ylabel("R(t): intensidad de reorganización sistémica")
-    ax.set_title(f"H3-v3 — Perturbación externa y reorganización ({etiqueta})")
-    fig.tight_layout()
-    fig.savefig(os.path.join(carpeta, "H3_perturbaciones.png"), dpi=130)
-    plt.close(fig)
+    fig,ax=plt.subplots(figsize=(7,5)); ax.scatter(q.values,r.values,alpha=.75)
+    ax.set_xlabel("Q(t)=memoria de perturbación × capacidad adaptativa previa")
+    ax.set_ylabel("R(t): intensidad de reorganización")
+    ax.set_title(f"H3-v4 — mecanismo dinámico Daçel ({etiqueta})")
+    fig.tight_layout(); fig.savefig(os.path.join(carpeta,"H3_perturbaciones.png"),dpi=130); plt.close(fig)
     return v
 
 def prueba_h4(df, reporte, anio_limite=2040):
@@ -799,72 +827,65 @@ def prueba_h4(df, reporte, anio_limite=2040):
 
 def prueba_ecuacion_general(df, reporte, carpeta, etiqueta):
     """
-    Ecuación General Daçel, en forma de tasas para evitar la colinealidad:
-        g_I(t) = c + α·g_E(t) + β·P̃(t) + γ·g_X(t) − δ·L(t)
-    donde P̃(t) = 1 si hubo una perturbación en los 5 años previos (efecto que dura).
-    Rivales: (a) crecimiento constante, (b) persistencia g_I(t) = g_I(t−1).
-    Daçel debe predecir MEJOR que ambos en años que no vio.
+    Ecuación Daçel dinámica (v2):
+      gI(t+1) = c + α gE(t) + γ gX(t) + β Q(t) - δ L(t)
+      Q(t)=M(t)*A_cap(t)
+    Q sustituye al viejo P binario: una perturbación es presión, no desarrollo directo.
+    Todo predictor está fechado antes del objetivo para evitar fuga temporal.
     """
-    reporte.append("## Ecuación General — dI/dt = αE + βP + γX − δL\n")
-    cols = ["anio", "I", "E", "X", "P"] + (["L"] if "L" in df and df["L"].notna().any() else [])
-    sub = df[cols].dropna().reset_index(drop=True)
-    if len(sub) < 27:
-        reporte.append(f"**Veredicto Ecuación General: {VEREDICTO_NC}.** Solo {len(sub)} años completos; "
-                       "se necesitan al menos 27 para validar fuera de muestra con un mínimo de 5 años.\n")
+    reporte.append("## Ecuación General dinámica — gI(t+1) = c + αgE(t) + γgX(t) + βQ(t) − δL(t)\n")
+    try:
+        Pext=_presion_externa(df); M=_memoria_perturbacion(Pext,3.0); A=_capacidad_adaptativa(df)
+    except Exception as e:
+        reporte.append(f"**Veredicto Ecuación General: {VEREDICTO_NC}.** No se pudo construir Q(t): {e}\n")
         return VEREDICTO_NC
-    gI = np.diff(np.log(sub["I"].values))
-    gE = np.diff(np.log(sub["E"].values))
-    gX = np.diff(np.log(sub["X"].values))
-    anios_s = sub["anio"].values
-    ev = anios_s[sub["P"].values > 0]
-    P_vent = np.array([float(np.any((ev < a) & (ev >= a - 5))) for a in anios_s[1:]])
-    columnas = [np.ones_like(gI), gE, P_vent, gX]
-    nombres = ["c", "α (energía)", "β (perturbación)", "γ (externalización)"]
-    if "L" in sub:
-        columnas.append(-sub["L"].values[1:]); nombres.append("δ (pérdidas)")
-    M = np.column_stack(columnas)
-
-    # quitamos el primer año para poder usar la persistencia
-    y, M = gI[1:], M[1:]
-    persistencia = gI[:-1]
-    n = len(y); n_ent = int(n * 0.8)
-
-    coef, *_ = np.linalg.lstsq(M[:n_ent], y[:n_ent], rcond=None)
-    pred_dacel = M[n_ent:] @ coef
-    pred_const = np.full(n - n_ent, y[:n_ent].mean())
-    pred_pers = persistencia[n_ent:]
-    e_dacel = rmse(y[n_ent:], pred_dacel)
-    e_const = rmse(y[n_ent:], pred_const)
-    e_pers = rmse(y[n_ent:], pred_pers)
-    ss_tot = np.sum((y[n_ent:] - y[:n_ent].mean()) ** 2)
-    r2_fuera = 1 - np.sum((y[n_ent:] - pred_dacel) ** 2) / ss_tot
-
-    reporte.append("Parámetros estimados con el 80% inicial de los años:\n")
-    for nm, cf in zip(nombres, coef):
-        reporte.append(f"- {nm} = {cf:+.4f}")
-    reporte.append("\nError de predicción en el 20% final (menor es mejor):\n")
-    reporte.append(f"- Ecuación Daçel:        {e_dacel*100:.3f}")
-    reporte.append(f"- Crecimiento constante: {e_const*100:.3f}")
-    reporte.append(f"- Persistencia:          {e_pers*100:.3f}")
-    reporte.append(f"- R² fuera de muestra de Daçel: {r2_fuera:.3f}")
-    mejora = 1 - e_dacel / min(e_const, e_pers)
-    if mejora > 0.10:
-        v, txt = VEREDICTO_OK, f"La ecuación reduce el error {mejora*100:.0f}% respecto al mejor rival."
-    elif mejora > 0:
-        v, txt = VEREDICTO_NC, f"Mejora solo {mejora*100:.0f}% respecto al mejor rival; no basta para afirmar nada."
-    else:
-        v, txt = VEREDICTO_NO, "Un modelo sin Daçel predice igual o mejor."
-    reporte.append(f"\n**Veredicto Ecuación General: {v}.** {txt}\n")
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    anios = sub["anio"].values[2:]
-    ax.plot(anios, y * 100, "k-", lw=1, label="real")
-    ax.plot(anios[n_ent:], pred_dacel * 100, "r-", label="Daçel")
-    ax.plot(anios[n_ent:], pred_const * 100, "b--", label="constante")
-    ax.plot(anios[n_ent:], pred_pers * 100, "g:", label="persistencia")
-    ax.set_title(f"Ecuación General — crecimiento de I ({etiqueta})")
-    ax.set_xlabel("Año"); ax.set_ylabel("% anual"); ax.legend()
-    fig.tight_layout(); fig.savefig(os.path.join(carpeta, "Ecuacion_General.png"), dpi=130); plt.close(fig)
+    d=df.set_index("anio").sort_index()
+    gI=_crecimiento_anual(df,"I"); gE=_crecimiento_anual(df,"E"); gX=_crecimiento_anual(df,"X")
+    Q=(M*A).rename("Q")
+    # objetivo del año siguiente: crecimiento I observado en t+1
+    rows=[]
+    for t in sorted(set(gE.index)&set(gX.index)&set(Q.index)):
+        if t+1 not in gI.index: continue
+        row=[int(t),float(gI.loc[t+1]),float(gE.loc[t]),float(gX.loc[t]),float(Q.loc[t])]
+        if "L" in d.columns and pd.notna(d["L"].get(t,np.nan)):
+            row.append(float(d.loc[t,"L"]))
+        else: row.append(0.0)
+        if np.all(np.isfinite(row[1:])): rows.append(row)
+    tab=pd.DataFrame(rows,columns=["t","y","gE","gX","Q","L"])
+    if len(tab)<20:
+        reporte.append(f"**Veredicto Ecuación General: {VEREDICTO_NC}.** Solo {len(tab)} transiciones completas; se requieren al menos 20.\n")
+        return VEREDICTO_NC
+    Mx=np.column_stack([np.ones(len(tab)),tab.gE,tab.gX,tab.Q,-tab.L])
+    y=tab.y.to_numpy(float); n_ent=max(12,int(len(y)*.8)); n_ent=min(n_ent,len(y)-4)
+    coef,*_=np.linalg.lstsq(Mx[:n_ent],y[:n_ent],rcond=None)
+    pred=Mx[n_ent:]@coef
+    pred_const=np.full(len(y)-n_ent,y[:n_ent].mean())
+    # persistencia: último crecimiento I conocido en t
+    pers=[]
+    for t in tab.t.iloc[n_ent:]: pers.append(float(gI.loc[t]) if t in gI.index else y[:n_ent].mean())
+    pers=np.array(pers)
+    e=rmse(y[n_ent:],pred); ec=rmse(y[n_ent:],pred_const); ep=rmse(y[n_ent:],pers)
+    ss=np.sum((y[n_ent:]-y[:n_ent].mean())**2)
+    r2=1-np.sum((y[n_ent:]-pred)**2)/ss if ss>0 else np.nan
+    nombres=["c","α (energía)","γ (externalización)","β (presión adaptativa Q)","δ (pérdidas)"]
+    reporte.append(f"Transiciones evaluables: {len(tab)}; entrenamiento {n_ent}, prueba {len(tab)-n_ent}.\n")
+    reporte.append("Parámetros estimados solo con el tramo de entrenamiento:")
+    for nm,cf in zip(nombres,coef): reporte.append(f"- {nm} = {cf:+.4f}")
+    reporte.append("\nError fuera de muestra (menor es mejor):")
+    reporte.append(f"- Ecuación Daçel dinámica: {e*100:.3f}")
+    reporte.append(f"- Crecimiento constante: {ec*100:.3f}")
+    reporte.append(f"- Persistencia: {ep*100:.3f}")
+    reporte.append(f"- R² fuera de muestra: {r2:.3f}")
+    mejora=1-e/min(ec,ep)
+    if mejora>.10: v=VEREDICTO_OK; txt=f"Reduce el error {mejora*100:.0f}% frente al mejor rival simple."
+    elif mejora>0: v=VEREDICTO_NC; txt=f"Mejora {mejora*100:.0f}% frente al mejor rival, insuficiente para el criterio del 10%."
+    else: v=VEREDICTO_NO; txt="Un rival simple predice igual o mejor."
+    reporte.append(f"\n**Veredicto Ecuación General dinámica: {v}.** {txt}\n")
+    fig,ax=plt.subplots(figsize=(8,5)); years=(tab.t+1).to_numpy()
+    ax.plot(years,y*100,"k-",lw=1,label="real"); ax.plot(years[n_ent:],pred*100,"r-",label="Daçel dinámica")
+    ax.plot(years[n_ent:],pred_const*100,"b--",label="constante"); ax.plot(years[n_ent:],pers*100,"g:",label="persistencia")
+    ax.set_title(f"Ecuación General dinámica — crecimiento futuro de I ({etiqueta})"); ax.set_xlabel("Año"); ax.set_ylabel("% anual"); ax.legend()
+    fig.tight_layout(); fig.savefig(os.path.join(carpeta,"Ecuacion_General.png"),dpi=130); plt.close(fig)
     return v
 
 
