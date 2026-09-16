@@ -34,15 +34,19 @@
     },
     "A": {
       "nombre": "Población con trastornos de ansiedad (%)",
-      "ok": false,
-      "error": "HTTP Error 403: Forbidden",
-      "nota": "sin datos"
+      "ok": true,
+      "anios": [
+        1990,
+        2023
+      ]
     },
     "Dp": {
       "nombre": "Población con trastornos depresivos (%)",
-      "ok": false,
-      "error": "HTTP Error 403: Forbidden",
-      "nota": "sin datos"
+      "ok": true,
+      "anios": [
+        1990,
+        2023
+      ]
     },
     "conexion": {
       "nombre": "Población usuaria de internet (%)",
@@ -62,6 +66,7 @@
     "2020": "Pandemia de COVID-19"
   },
   "cambios": [
-    "16-sep-2026: Corrección técnica de la fuente I: búsqueda de columna actualizada de 'flop' a 'Computational capacity'. Indicador, fuente e hipótesis sin cambios."
+    "16-sep-2026: Corrección técnica de la fuente I: búsqueda de columna actualizada de 'flop' a 'Computational capacity'. Indicador, fuente e hipótesis sin cambios.",
+    "16-sep-2026: A y Dp cambian solo el mecanismo de adquisición: de OWID bloqueado (HTTP 403) a archivos descargados directamente de IHME GBD 2023. Definición de variables e hipótesis sin cambios."
   ]
 }
