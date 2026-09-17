@@ -197,11 +197,23 @@ Especificación congelada: horizonte primario h=3 años. Cada familia de perturb
   - n=14; rho=-0.134; IC95 descriptivo [-0.706, +0.580]; p circular=0.8571; **NO SUPERA LA PRUEBA**
 - biológica: 65 años (1958–2022)
   - n=48; rho=+0.646; IC95 descriptivo [+0.428, +0.785]; p circular=0.0417; **SUPERA LA PRUEBA**
+### H3-v6 Biológica — Robustez (secundaria, no cambia el resultado primario)
+- Horizonte h=1: n=48; rho=+0.670; p circular=0.0208; SUPERA LA PRUEBA. secundario
+- Horizonte h=3: n=48; rho=+0.646; p circular=0.0417; SUPERA LA PRUEBA. **PRIMARIO**
+- Horizonte h=5: n=48; rho=+0.555; p circular=0.0833; NO SUPERA LA PRUEBA. secundario
+- Cobertura ≥3 países: n=48; rho=+0.646; p circular=0.0417; SUPERA LA PRUEBA.
+- Cobertura ≥5 países: n=46; rho=+0.611; p circular=0.0652; NO SUPERA LA PRUEBA.
+- Cobertura ≥10 países: n=40; rho=+0.518; p circular=0.0750; NO SUPERA LA PRUEBA.
+- Cobertura ≥20 países: n=29; rho=+0.194; p circular=0.3448; NO SUPERA LA PRUEBA.
+- Periodo temprano: 1975–1998; n=24; rho=-0.084; p circular=0.7083; NO SUPERA LA PRUEBA.
+- Periodo tardio: 1999–2022; n=24; rho=+0.558; p circular=0.0417; SUPERA LA PRUEBA.
+- Sin ±1 año alrededor de 1968/1979/1999: n=42; rho=+0.721; p circular=0.0238; SUPERA LA PRUEBA.
+- Interpretación: estos controles son de robustez y no pueden convertir un resultado primario negativo en positivo ni borrar el resultado primario registrado.
 ## H3-v7 — Replicación entre familias independientes
 
 - Familias evaluables: 5/6
-- Con señal según criterio preregistrado: 1/6
-- Sin señal: 4/6
+- Con señal según criterio preregistrado: 1/5 entre evaluables; 1/6 del universo preregistrado
+- Sin señal: 4/5 entre evaluables; 4/6 del universo preregistrado
 - No evaluables: 1/6
 H3-v7 no convierte una mayoría en 'teoría demostrada'. Su función es mostrar replicación, heterogeneidad y límites sin ocultar resultados negativos.
 

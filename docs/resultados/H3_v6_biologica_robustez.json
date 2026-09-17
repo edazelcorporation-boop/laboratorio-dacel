@@ -1,0 +1,148 @@
+{
+  "nota": "Análisis secundario. El primario permanece h=3, cobertura mínima 3 países.",
+  "horizontes": {
+    "1": {
+      "estado": "SUPERA LA PRUEBA",
+      "n": 48,
+      "desde": 1975,
+      "hasta": 2022,
+      "rho": 0.6702852337801047,
+      "p_circular": 0.020833333333333332,
+      "ic95_rho": [
+        0.4840881599788323,
+        0.7950348385417989
+      ],
+      "n_placebos": 47
+    },
+    "3": {
+      "estado": "SUPERA LA PRUEBA",
+      "n": 48,
+      "desde": 1975,
+      "hasta": 2022,
+      "rho": 0.646022742930667,
+      "p_circular": 0.041666666666666664,
+      "ic95_rho": [
+        0.4283128473848719,
+        0.7852800841827468
+      ],
+      "n_placebos": 47
+    },
+    "5": {
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 48,
+      "desde": 1965,
+      "hasta": 2020,
+      "rho": 0.5545091868408414,
+      "p_circular": 0.08333333333333333,
+      "ic95_rho": [
+        0.29179516878406264,
+        0.743378629281695
+      ],
+      "n_placebos": 47
+    }
+  },
+  "cobertura_minima": {
+    "3": {
+      "estado": "SUPERA LA PRUEBA",
+      "n": 48,
+      "desde": 1975,
+      "hasta": 2022,
+      "rho": 0.646022742930667,
+      "p_circular": 0.041666666666666664,
+      "ic95_rho": [
+        0.4283128473848719,
+        0.7852800841827468
+      ],
+      "n_placebos": 47
+    },
+    "5": {
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 46,
+      "desde": 1975,
+      "hasta": 2020,
+      "rho": 0.610626291572815,
+      "p_circular": 0.06521739130434782,
+      "ic95_rho": [
+        0.3600080898598104,
+        0.7783132140086733
+      ],
+      "n_placebos": 45
+    },
+    "10": {
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 40,
+      "desde": 1975,
+      "hasta": 2014,
+      "rho": 0.5178479296470389,
+      "p_circular": 0.075,
+      "ic95_rho": [
+        0.21128872837762766,
+        0.7465909777523366
+      ],
+      "n_placebos": 39
+    },
+    "20": {
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 29,
+      "desde": 1975,
+      "hasta": 2003,
+      "rho": 0.19359605911330044,
+      "p_circular": 0.3448275862068966,
+      "ic95_rho": [
+        -0.21188563266271704,
+        0.5585553113972823
+      ],
+      "n_placebos": 28
+    }
+  },
+  "corte_temporal": 1999,
+  "estabilidad_temporal": {
+    "temprano": {
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 24,
+      "desde": 1975,
+      "hasta": 1998,
+      "rho": -0.08436616855234394,
+      "p_circular": 0.7083333333333334,
+      "ic95_rho": [
+        -0.46726675761780073,
+        0.3642405892309208
+      ],
+      "n_placebos": 23
+    },
+    "tardio": {
+      "estado": "SUPERA LA PRUEBA",
+      "n": 24,
+      "desde": 1999,
+      "hasta": 2022,
+      "rho": 0.5582608695652173,
+      "p_circular": 0.041666666666666664,
+      "ic95_rho": [
+        0.1408631528504867,
+        0.8098263457633301
+      ],
+      "n_placebos": 23
+    }
+  },
+  "sin_entorno_transiciones_icd": {
+    "anios_centrales": [
+      1968,
+      1979,
+      1999
+    ],
+    "ventana_excluida": "+/-1 año",
+    "resultado": {
+      "estado": "SUPERA LA PRUEBA",
+      "n": 42,
+      "desde": 1975,
+      "hasta": 2022,
+      "rho": 0.7206353071025885,
+      "p_circular": 0.023809523809523808,
+      "ic95_rho": [
+        0.5221449085211043,
+        0.8463662256674347
+      ],
+      "n_placebos": 41
+    }
+  }
+}
