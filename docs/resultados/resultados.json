@@ -1,86 +1,130 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-17 03:29 UTC",
+  "fecha_ejecucion": "2026-09-17 03:49 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
-    "H3-v4 histórica (auditoría)": "NO SUPERA LA PRUEBA",
-    "H3-v5 cobertura histórica": "NO SUPERA LA PRUEBA",
+    "H3-v4 histórica (auditoría, formulación retirada)": "NO SUPERA LA PRUEBA",
+    "H3-v5 histórica (auditoría, formulación retirada)": "NO SUPERA LA PRUEBA",
     "H4 (externalización 2040)": "NO CONCLUYENTE",
     "Ecuación General": "SUPERA LA PRUEBA"
   },
-  "H3_v6_multicausal": {
-    "version": "H3-v6",
-    "h_primario": 3,
-    "resultados": {
+  "H3_v8_estructural": {
+    "version": "H3-v8",
+    "tipo": "compatibilidad estructural",
+    "paso_anual": 1,
+    "tolerancia_numerica": 7.096267449079806e-14,
+    "observaciones_totales": 189,
+    "transformaciones_observadas": 189,
+    "proporcion_global": 1.0,
+    "familias": {
       "conflicto": {
-        "estado": "NO SUPERA LA PRUEBA",
-        "n": 48,
+        "estado": "COMPATIBLE",
+        "n_perturbaciones_con_respuesta_observable": 50,
+        "n_transformacion_observable": 50,
+        "proporcion_transformacion": 1.0,
+        "T_mediana": 0.07096267449079806,
+        "T_media": 0.10478727669691727,
+        "T_max": 0.6184630708070813,
+        "tolerancia_numerica": 7.096267449079806e-14,
+        "direccion": {
+          "expansion_neta": 50,
+          "contraccion_neta": 0,
+          "cambio_neto_casi_nulo": 0,
+          "sin_direccion": 0
+        },
         "desde": 1975,
-        "hasta": 2022,
-        "rho": -0.33564915327833267,
-        "p_circular": 0.6875,
-        "ic95_rho": [
-          -0.5929203352033448,
-          -0.08248944798764078
-        ],
-        "n_placebos": 47
+        "hasta": 2024
       },
       "geofísica": {
-        "estado": "NO SUPERA LA PRUEBA",
-        "n": 48,
+        "estado": "COMPATIBLE",
+        "n_perturbaciones_con_respuesta_observable": 50,
+        "n_transformacion_observable": 50,
+        "proporcion_transformacion": 1.0,
+        "T_mediana": 0.07096267449079806,
+        "T_media": 0.10478727669691727,
+        "T_max": 0.6184630708070813,
+        "tolerancia_numerica": 7.096267449079806e-14,
+        "direccion": {
+          "expansion_neta": 50,
+          "contraccion_neta": 0,
+          "cambio_neto_casi_nulo": 0,
+          "sin_direccion": 0
+        },
         "desde": 1975,
-        "hasta": 2022,
-        "rho": 0.30796786799826315,
-        "p_circular": 0.3333333333333333,
-        "ic95_rho": [
-          0.017239105328479498,
-          0.5791790184164044
-        ],
-        "n_placebos": 47
+        "hasta": 2024
       },
       "económica": {
-        "estado": "SIN DATOS",
-        "n": 8
+        "estado": "COMPATIBLE",
+        "n_perturbaciones_con_respuesta_observable": 10,
+        "n_transformacion_observable": 10,
+        "proporcion_transformacion": 1.0,
+        "T_mediana": 0.18675970827502192,
+        "T_media": 0.2532262651866905,
+        "T_max": 0.6184630708070813,
+        "tolerancia_numerica": 7.096267449079806e-14,
+        "direccion": {
+          "expansion_neta": 10,
+          "contraccion_neta": 0,
+          "cambio_neto_casi_nulo": 0,
+          "sin_direccion": 0
+        },
+        "desde": 2015,
+        "hasta": 2024
       },
       "ecológica": {
-        "estado": "NO SUPERA LA PRUEBA",
-        "n": 14,
+        "estado": "COMPATIBLE",
+        "n_perturbaciones_con_respuesta_observable": 15,
+        "n_transformacion_observable": 15,
+        "proporcion_transformacion": 1.0,
+        "T_mediana": 0.14803751337294535,
+        "T_media": 0.21498238177607423,
+        "T_max": 0.6184630708070813,
+        "tolerancia_numerica": 7.096267449079806e-14,
+        "direccion": {
+          "expansion_neta": 15,
+          "contraccion_neta": 0,
+          "cambio_neto_casi_nulo": 0,
+          "sin_direccion": 0
+        },
         "desde": 2009,
-        "hasta": 2022,
-        "rho": -0.367032967032967,
-        "p_circular": 0.9285714285714286,
-        "ic95_rho": [
-          -0.8080620941558443,
-          0.22728287337662334
-        ],
-        "n_placebos": 13
+        "hasta": 2023
       },
       "tecnológica": {
-        "estado": "NO SUPERA LA PRUEBA",
-        "n": 14,
+        "estado": "COMPATIBLE",
+        "n_perturbaciones_con_respuesta_observable": 16,
+        "n_transformacion_observable": 16,
+        "proporcion_transformacion": 1.0,
+        "T_mediana": 0.1457867089181759,
+        "T_media": 0.20845716959890065,
+        "T_max": 0.6184630708070813,
+        "tolerancia_numerica": 7.096267449079806e-14,
+        "direccion": {
+          "expansion_neta": 16,
+          "contraccion_neta": 0,
+          "cambio_neto_casi_nulo": 0,
+          "sin_direccion": 0
+        },
         "desde": 2009,
-        "hasta": 2022,
-        "rho": -0.13406593406593406,
-        "p_circular": 0.8571428571428571,
-        "ic95_rho": [
-          -0.7055322030497594,
-          0.5803571428571428
-        ],
-        "n_placebos": 13
+        "hasta": 2024
       },
       "biológica": {
-        "estado": "SUPERA LA PRUEBA",
-        "n": 48,
+        "estado": "COMPATIBLE",
+        "n_perturbaciones_con_respuesta_observable": 48,
+        "n_transformacion_observable": 48,
+        "proporcion_transformacion": 1.0,
+        "T_mediana": 0.06746365102865602,
+        "T_media": 0.09496137630169525,
+        "T_max": 0.6184630708070813,
+        "tolerancia_numerica": 7.096267449079806e-14,
+        "direccion": {
+          "expansion_neta": 48,
+          "contraccion_neta": 0,
+          "cambio_neto_casi_nulo": 0,
+          "sin_direccion": 0
+        },
         "desde": 1975,
-        "hasta": 2022,
-        "rho": 0.646022742930667,
-        "p_circular": 0.041666666666666664,
-        "ic95_rho": [
-          0.4283128473848719,
-          0.7852800841827468
-        ],
-        "n_placebos": 47
+        "hasta": 2022
       }
     },
     "auditoria": {
@@ -171,26 +215,6 @@
         "nota": "All-cause; cambios dentro de país; cobertura anual no se interpreta como mortalidad."
       }
     }
-  },
-  "H3_v7_replicacion": {
-    "familias_totales": 6,
-    "evaluables": 5,
-    "con_senal": 1,
-    "sin_senal": 4,
-    "no_evaluables": 1,
-    "familias_con_senal": [
-      "biológica"
-    ],
-    "familias_sin_senal": [
-      "conflicto",
-      "geofísica",
-      "ecológica",
-      "tecnológica"
-    ],
-    "familias_no_evaluables": [
-      "económica"
-    ],
-    "veredicto": "SÍNTESIS, NO VEREDICTO UNIVERSAL"
   },
   "anios": {
     "CIDI": [

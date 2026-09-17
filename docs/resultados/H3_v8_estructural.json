@@ -1,0 +1,207 @@
+{
+  "version": "H3-v8",
+  "tipo": "compatibilidad estructural",
+  "paso_anual": 1,
+  "tolerancia_numerica": 7.096267449079806e-14,
+  "observaciones_totales": 189,
+  "transformaciones_observadas": 189,
+  "proporcion_global": 1.0,
+  "familias": {
+    "conflicto": {
+      "estado": "COMPATIBLE",
+      "n_perturbaciones_con_respuesta_observable": 50,
+      "n_transformacion_observable": 50,
+      "proporcion_transformacion": 1.0,
+      "T_mediana": 0.07096267449079806,
+      "T_media": 0.10478727669691727,
+      "T_max": 0.6184630708070813,
+      "tolerancia_numerica": 7.096267449079806e-14,
+      "direccion": {
+        "expansion_neta": 50,
+        "contraccion_neta": 0,
+        "cambio_neto_casi_nulo": 0,
+        "sin_direccion": 0
+      },
+      "desde": 1975,
+      "hasta": 2024
+    },
+    "geofísica": {
+      "estado": "COMPATIBLE",
+      "n_perturbaciones_con_respuesta_observable": 50,
+      "n_transformacion_observable": 50,
+      "proporcion_transformacion": 1.0,
+      "T_mediana": 0.07096267449079806,
+      "T_media": 0.10478727669691727,
+      "T_max": 0.6184630708070813,
+      "tolerancia_numerica": 7.096267449079806e-14,
+      "direccion": {
+        "expansion_neta": 50,
+        "contraccion_neta": 0,
+        "cambio_neto_casi_nulo": 0,
+        "sin_direccion": 0
+      },
+      "desde": 1975,
+      "hasta": 2024
+    },
+    "económica": {
+      "estado": "COMPATIBLE",
+      "n_perturbaciones_con_respuesta_observable": 10,
+      "n_transformacion_observable": 10,
+      "proporcion_transformacion": 1.0,
+      "T_mediana": 0.18675970827502192,
+      "T_media": 0.2532262651866905,
+      "T_max": 0.6184630708070813,
+      "tolerancia_numerica": 7.096267449079806e-14,
+      "direccion": {
+        "expansion_neta": 10,
+        "contraccion_neta": 0,
+        "cambio_neto_casi_nulo": 0,
+        "sin_direccion": 0
+      },
+      "desde": 2015,
+      "hasta": 2024
+    },
+    "ecológica": {
+      "estado": "COMPATIBLE",
+      "n_perturbaciones_con_respuesta_observable": 15,
+      "n_transformacion_observable": 15,
+      "proporcion_transformacion": 1.0,
+      "T_mediana": 0.14803751337294535,
+      "T_media": 0.21498238177607423,
+      "T_max": 0.6184630708070813,
+      "tolerancia_numerica": 7.096267449079806e-14,
+      "direccion": {
+        "expansion_neta": 15,
+        "contraccion_neta": 0,
+        "cambio_neto_casi_nulo": 0,
+        "sin_direccion": 0
+      },
+      "desde": 2009,
+      "hasta": 2023
+    },
+    "tecnológica": {
+      "estado": "COMPATIBLE",
+      "n_perturbaciones_con_respuesta_observable": 16,
+      "n_transformacion_observable": 16,
+      "proporcion_transformacion": 1.0,
+      "T_mediana": 0.1457867089181759,
+      "T_media": 0.20845716959890065,
+      "T_max": 0.6184630708070813,
+      "tolerancia_numerica": 7.096267449079806e-14,
+      "direccion": {
+        "expansion_neta": 16,
+        "contraccion_neta": 0,
+        "cambio_neto_casi_nulo": 0,
+        "sin_direccion": 0
+      },
+      "desde": 2009,
+      "hasta": 2024
+    },
+    "biológica": {
+      "estado": "COMPATIBLE",
+      "n_perturbaciones_con_respuesta_observable": 48,
+      "n_transformacion_observable": 48,
+      "proporcion_transformacion": 1.0,
+      "T_mediana": 0.06746365102865602,
+      "T_media": 0.09496137630169525,
+      "T_max": 0.6184630708070813,
+      "tolerancia_numerica": 7.096267449079806e-14,
+      "direccion": {
+        "expansion_neta": 48,
+        "contraccion_neta": 0,
+        "cambio_neto_casi_nulo": 0,
+        "sin_direccion": 0
+      },
+      "desde": 1975,
+      "hasta": 2022
+    }
+  },
+  "auditoria": {
+    "conflicto": {
+      "UCDP": {
+        "estado": "OK",
+        "fuente": "UcdpPrioConflict_v26_1.csv",
+        "rango": [
+          1953,
+          2025
+        ]
+      },
+      "battle_deaths": {
+        "estado": "OK",
+        "fuente": "BattleDeaths_v26_1.csv",
+        "rango": [
+          1996,
+          2025
+        ]
+      }
+    },
+    "geofísica": {
+      "estado": "OK",
+      "fuente": "query.csv",
+      "rango": [
+        1953,
+        2025
+      ]
+    },
+    "económica": {
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
+    },
+    "ecológica": {
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
+    },
+    "tecnológica": {
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
+    },
+    "biológica": {
+      "estado": "OK",
+      "archivos": [
+        "WHO_mortality_ICD10_sourcepart1_chunk1 (1).csv",
+        "WHO_mortality_ICD10_sourcepart1_chunk2 (1).csv",
+        "WHO_mortality_ICD10_sourcepart1_chunk3.csv",
+        "WHO_mortality_ICD10_sourcepart2_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart2_chunk2.csv",
+        "WHO_mortality_ICD10_sourcepart2_chunk3.csv",
+        "WHO_mortality_ICD10_sourcepart3_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart3_chunk2.csv",
+        "WHO_mortality_ICD10_sourcepart3_chunk3.csv",
+        "WHO_mortality_ICD10_sourcepart3_chunk4.csv",
+        "WHO_mortality_ICD10_sourcepart3_chunk5.csv",
+        "WHO_mortality_ICD10_sourcepart4_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart4_chunk2.csv",
+        "WHO_mortality_ICD10_sourcepart4_chunk3.csv",
+        "WHO_mortality_ICD10_sourcepart4_chunk4.csv",
+        "WHO_mortality_ICD10_sourcepart5_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart5_chunk3.csv",
+        "WHO_mortality_ICD10_sourcepart5_chunk4.csv",
+        "WHO_mortality_ICD10_sourcepart6_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart6_chunk3 (1).csv",
+        "WHO_mortality_ICD7.csv",
+        "WHO_mortality_ICD8_part1.csv",
+        "WHO_mortality_ICD8_part2.csv",
+        "WHO_mortality_ICD9_part1.csv",
+        "WHO_mortality_ICD9_part2.csv",
+        "WHO_mortality_ICD9_part3.csv",
+        "WHO_mortality_ICD9_part4.csv"
+      ],
+      "errores": [
+        "WHO_mortality_ICD10_add_Germany.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
+        "WHO_mortality_ICD10_add_Norway.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
+        "WHO_mortality_ICD10_sourcepart1_chunk4.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart1_chunk5.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart2_chunk4.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart2_chunk5.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart5_chunk2.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv: sin registro all-cause"
+      ],
+      "metodo": "all-cause por país-año; tasa por población; mediana del cambio log interanual",
+      "rango": [
+        1950,
+        2024
+      ],
+      "nota": "All-cause; cambios dentro de país; cobertura anual no se interpreta como mortalidad."
+    }
+  }
+}

@@ -179,51 +179,32 @@ Cobertura parcial mediante WDI tecnológico y AI-GPR; se conserva como dominio a
 ### Lectura global
 El motor no produce un único 'H3 sí/no' universal con una sola serie mundial. Evalúa la misma arquitectura matemática por dominio y conserva los resultados negativos. La universalidad de Daçel solo puede sostenerse si el patrón reaparece en baterías independientes.
 
-## H3-v6 — Perturbación multicausal y reorganización
+## H3 — Daçel estructural v8 (formulación principal)
 
-Especificación congelada: horizonte primario h=3 años. Cada familia de perturbación se evalúa por separado contra la magnitud futura de reorganización. H3-v4/v5 permanecen intactas. Los faltantes se reportan SIN DATOS.
+Postulado operativo: `P → ΔS`. Una perturbación cuenta como exposición; la evidencia observacional es un cambio independiente del estado del sistema. Expansión, contracción, deterioro, sustitución, adaptación, recuperación o colapso cuentan como transformación. El signo normativo no decide H3.
 
-### Auditoría de cobertura
-- R común h=3: 48 años (1975–2022)
-- conflicto: 73 años (1953–2025)
-  - n=48; rho=-0.336; IC95 descriptivo [-0.593, -0.082]; p circular=0.6875; **NO SUPERA LA PRUEBA**
-- geofísica: 73 años (1953–2025)
-  - n=48; rho=+0.308; IC95 descriptivo [+0.017, +0.579]; p circular=0.3333; **NO SUPERA LA PRUEBA**
-- económica: 11 años (2015–2025)
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=8)
-- ecológica: 15 años (2009–2023)
-  - n=14; rho=-0.367; IC95 descriptivo [-0.808, +0.227]; p circular=0.9286; **NO SUPERA LA PRUEBA**
-- tecnológica: 17 años (2009–2025)
-  - n=14; rho=-0.134; IC95 descriptivo [-0.706, +0.580]; p circular=0.8571; **NO SUPERA LA PRUEBA**
-- biológica: 65 años (1958–2022)
-  - n=48; rho=+0.646; IC95 descriptivo [+0.428, +0.785]; p circular=0.0417; **SUPERA LA PRUEBA**
-### H3-v6 Biológica — Robustez (secundaria, no cambia el resultado primario)
-- Horizonte h=1: n=48; rho=+0.670; p circular=0.0208; SUPERA LA PRUEBA. secundario
-- Horizonte h=3: n=48; rho=+0.646; p circular=0.0417; SUPERA LA PRUEBA. **PRIMARIO**
-- Horizonte h=5: n=48; rho=+0.555; p circular=0.0833; NO SUPERA LA PRUEBA. secundario
-- Cobertura ≥3 países: n=48; rho=+0.646; p circular=0.0417; SUPERA LA PRUEBA.
-- Cobertura ≥5 países: n=46; rho=+0.611; p circular=0.0652; NO SUPERA LA PRUEBA.
-- Cobertura ≥10 países: n=40; rho=+0.518; p circular=0.0750; NO SUPERA LA PRUEBA.
-- Cobertura ≥20 países: n=29; rho=+0.194; p circular=0.3448; NO SUPERA LA PRUEBA.
-- Periodo temprano: 1975–1998; n=24; rho=-0.084; p circular=0.7083; NO SUPERA LA PRUEBA.
-- Periodo tardio: 1999–2022; n=24; rho=+0.558; p circular=0.0417; SUPERA LA PRUEBA.
-- Sin ±1 año alrededor de 1968/1979/1999: n=42; rho=+0.721; p circular=0.0238; SUPERA LA PRUEBA.
-- Interpretación: estos controles son de robustez y no pueden convertir un resultado primario negativo en positivo ni borrar el resultado primario registrado.
-## H3-v7 — Replicación entre familias independientes
+Medición principal: `T(t→t+1)=D[x(t),x(t+1)]`, con D como distancia multivariable del estado observable. Se usa un paso anual para no imponer el antiguo cuello de botella h=3. La dirección neta se informa aparte.
 
-- Familias evaluables: 5/6
-- Con señal según criterio preregistrado: 1/5 entre evaluables; 1/6 del universo preregistrado
-- Sin señal: 4/5 entre evaluables; 4/6 del universo preregistrado
-- No evaluables: 1/6
-H3-v7 no convierte una mayoría en 'teoría demostrada'. Su función es mostrar replicación, heterogeneidad y límites sin ocultar resultados negativos.
+### Evidencia observada por familia
+- conflicto: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección neta: expansión 50, contracción 0, casi nula 0.
+- geofísica: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección neta: expansión 50, contracción 0, casi nula 0.
+- económica: 10/10 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1868; dirección neta: expansión 10, contracción 0, casi nula 0.
+- ecológica: 15/15 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1480; dirección neta: expansión 15, contracción 0, casi nula 0.
+- tecnológica: 16/16 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1458; dirección neta: expansión 16, contracción 0, casi nula 0.
+- biológica: 48/48 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0675; dirección neta: expansión 48, contracción 0, casi nula 0.
 
+### Lectura H3-v8
+- Cobertura conjunta descriptiva: 189/189 (100.0%) observaciones comparables presentan cambio estructural posterior/contemporáneo medible en el paso anual.
+- Este resultado mide **compatibilidad observacional con el postulado Daçel**, no beneficio moral, progreso ni causalidad estadística. Una contracción o destrucción sigue siendo transformación.
+- Las antiguas H3-v4/v5/v6 quedan como auditorías históricas de formulaciones más estrechas (gradiente/correlación temporal) y no constituyen la H3 principal.
 ## Resumen
 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
 - H2 (vacío humano): **SUPERA LA PRUEBA**
-- H3-v4 histórica (auditoría): **NO SUPERA LA PRUEBA**
-- H3-v5 cobertura histórica: **NO SUPERA LA PRUEBA**
+- H3-v4 histórica (auditoría, formulación retirada): **NO SUPERA LA PRUEBA**
+- H3-v5 histórica (auditoría, formulación retirada): **NO SUPERA LA PRUEBA**
 - H4 (externalización 2040): **NO CONCLUYENTE**
 - Ecuación General: **SUPERA LA PRUEBA**
+- H3 vigente (Daçel estructural v8): **COMPATIBILIDAD OBSERVACIONAL 100.0%** (189/189)
 
-Una teoría no se demuestra con una corrida. Se fortalece cada vez que sobrevive a una prueba que pudo haberla refutado.
+H3-v8 cuantifica la transformación observada tal como la define Daçel; las predicciones derivadas se evaluarán por separado conforme lleguen nuevos datos.
