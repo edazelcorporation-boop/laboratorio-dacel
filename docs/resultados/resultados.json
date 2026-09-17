@@ -1,6 +1,6 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-17 15:19 UTC",
+  "fecha_ejecucion": "2026-09-17 15:29 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
@@ -11,7 +11,7 @@
     "H3 (postulado base)": "CUMPLE EL POSTULADO BASE (100%)",
     "H3-v9 (intensidad)": "NO SUPERA LA PRUEBA",
     "H5 (IA y vacío humano)": "NO SUPERA LA PRUEBA",
-    "H2-países (vacío humano)": "NO CONCLUYENTE",
+    "H2-países (vacío humano)": "NO SUPERA LA PRUEBA",
     "H5-países (IA)": "NO CONCLUYENTE"
   },
   "H3_postulado_base": {
@@ -203,9 +203,9 @@
   },
   "H5": {
     "n": 27,
-    "r_parcial": 0.21903954054851585,
+    "r_parcial": 0.21903954054851577,
     "p": 0.18518518518518517,
-    "r_simple": 0.176301152226647,
+    "r_simple": 0.17630115222664694,
     "fuente_ia": {
       "estado": "OK",
       "fuente": "owid",
@@ -218,7 +218,19 @@
     "registrada": "2026-09-17"
   },
   "H2_paises": {
-    "paises": 34
+    "veredicto": "NO SUPERA LA PRUEBA",
+    "beta": 0.00015014237974994815,
+    "p": 0.3916083916083916,
+    "paises": 163,
+    "periodo": [
+      1998,
+      2023
+    ],
+    "valores_rellenados": 21,
+    "observaciones": 4075,
+    "paises_positivos": 83,
+    "paises_evaluados": 163,
+    "registrada": "2026-09-17"
   },
   "H5_paises": {
     "estado": "esperando datos"

@@ -1,0 +1,15 @@
+{
+  "veredicto": "NO SUPERA LA PRUEBA",
+  "beta": 0.00015014237974994815,
+  "p": 0.3916083916083916,
+  "paises": 163,
+  "periodo": [
+    1998,
+    2023
+  ],
+  "valores_rellenados": 21,
+  "observaciones": 4075,
+  "paises_positivos": 83,
+  "paises_evaluados": 163,
+  "registrada": "2026-09-17"
+}

@@ -240,7 +240,15 @@ Límite actual: las series mundiales de salud mental suelen terminar años antes
 
 Registrada el 17-sep-2026 antes de correrse con datos reales. Compara, dentro de cada país, los años de mayor crecimiento de internet con los cambios de ansiedad y depresión. Se descuentan las tendencias propias de cada país y cualquier cambio que afecte a todo el mundo el mismo año.
 
-**Veredicto H2-países: NO CONCLUYENTE.** Solo 34 países con todos los años; se necesitan 50.
+- Periodo común: 1998–2023 (cambios 1999–2023); países completos: 163 de 200 con datos de internet; valores de internet rellenados por huecos de 1–2 años: 21 de 4238.
+- Observaciones país-año: 4075 (1999–2023)
+- Pendiente β: +0.00015 puntos de vacío humano por cada punto de internet
+- Nulo con 1000 intercambios de historias entre países: p = 0.3916
+- Países con relación positiva dentro de su propia historia: 83 de 163 (descriptivo)
+
+**Veredicto H2-países: NO SUPERA LA PRUEBA.** La dirección es la prevista, pero no se distingue del azar.
+
+Límite: las cifras por país del IHME son estimaciones de un modelo, suaves y en parte construidas con información de países vecinos; eso puede influir en la prueba.
 
 ## H5-países — La IA aumenta el vacío humano, país por país
 
@@ -257,7 +265,7 @@ Registrada el 17-sep-2026. Diseño fijo: se activa cuando existan datos de uso d
 - H3 (postulado base): **CUMPLE EL POSTULADO BASE (100%)**
 - H3-v9 (intensidad): **NO SUPERA LA PRUEBA**
 - H5 (IA y vacío humano): **NO SUPERA LA PRUEBA**
-- H2-países (vacío humano): **NO CONCLUYENTE**
+- H2-países (vacío humano): **NO SUPERA LA PRUEBA**
 - H5-países (IA): **NO CONCLUYENTE**
 
 H3 postulado base: verificación con datos del principio de reestructuración (calificación = % de años de perturbación alta con transformación medible). H3-v9 y H5 fueron registradas el 17-sep-2026 antes de correrse con datos reales. H3-v2 a v5 permanecen en el historial.
