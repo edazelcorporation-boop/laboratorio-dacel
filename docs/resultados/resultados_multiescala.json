@@ -26,20 +26,16 @@
   },
   "biológico": {
     "estado": "DATOS DISPONIBLES",
-    "n": 67,
+    "n": 65,
     "auditoria": {
       "estado": "OK",
       "archivos": [
         "WHO_mortality_ICD10_sourcepart1_chunk1 (1).csv",
         "WHO_mortality_ICD10_sourcepart1_chunk2 (1).csv",
         "WHO_mortality_ICD10_sourcepart1_chunk3.csv",
-        "WHO_mortality_ICD10_sourcepart1_chunk4.csv",
-        "WHO_mortality_ICD10_sourcepart1_chunk5.csv",
         "WHO_mortality_ICD10_sourcepart2_chunk1.csv",
         "WHO_mortality_ICD10_sourcepart2_chunk2.csv",
         "WHO_mortality_ICD10_sourcepart2_chunk3.csv",
-        "WHO_mortality_ICD10_sourcepart2_chunk4.csv",
-        "WHO_mortality_ICD10_sourcepart2_chunk5.csv",
         "WHO_mortality_ICD10_sourcepart3_chunk1.csv",
         "WHO_mortality_ICD10_sourcepart3_chunk2.csv",
         "WHO_mortality_ICD10_sourcepart3_chunk3.csv",
@@ -50,11 +46,9 @@
         "WHO_mortality_ICD10_sourcepart4_chunk3.csv",
         "WHO_mortality_ICD10_sourcepart4_chunk4.csv",
         "WHO_mortality_ICD10_sourcepart5_chunk1.csv",
-        "WHO_mortality_ICD10_sourcepart5_chunk2.csv",
         "WHO_mortality_ICD10_sourcepart5_chunk3.csv",
         "WHO_mortality_ICD10_sourcepart5_chunk4.csv",
         "WHO_mortality_ICD10_sourcepart6_chunk1.csv",
-        "WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv",
         "WHO_mortality_ICD10_sourcepart6_chunk3 (1).csv",
         "WHO_mortality_ICD7.csv",
         "WHO_mortality_ICD8_part1.csv",
@@ -66,13 +60,20 @@
       ],
       "errores": [
         "WHO_mortality_ICD10_add_Germany.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
-        "WHO_mortality_ICD10_add_Norway.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package."
+        "WHO_mortality_ICD10_add_Norway.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
+        "WHO_mortality_ICD10_sourcepart1_chunk4.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart1_chunk5.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart2_chunk4.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart2_chunk5.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart5_chunk2.csv: sin registro all-cause",
+        "WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv: sin registro all-cause"
       ],
+      "metodo": "all-cause por país-año; tasa por población; mediana del cambio log interanual",
       "rango": [
         1950,
         2024
       ],
-      "nota": "Magnitud de cambio biológico; no interpreta muerte como progreso."
+      "nota": "All-cause; cambios dentro de país; cobertura anual no se interpreta como mortalidad."
     }
   },
   "ecológico": {

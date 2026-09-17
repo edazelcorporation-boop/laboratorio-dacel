@@ -1,16 +1,17 @@
 {
   "familias_totales": 6,
   "evaluables": 5,
-  "con_senal": 0,
-  "sin_senal": 5,
+  "con_senal": 1,
+  "sin_senal": 4,
   "no_evaluables": 1,
-  "familias_con_senal": [],
+  "familias_con_senal": [
+    "biológica"
+  ],
   "familias_sin_senal": [
     "conflicto",
     "geofísica",
     "ecológica",
-    "tecnológica",
-    "biológica"
+    "tecnológica"
   ],
   "familias_no_evaluables": [
     "económica"

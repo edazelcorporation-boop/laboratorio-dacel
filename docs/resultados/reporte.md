@@ -165,7 +165,7 @@ RMSE Daçel=0.0911; constante=0.1912; persistencia=0.0977; skill frente al mejor
 Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como prueba específica independiente.
 
 ### Biológico
-WHO aporta una serie de transformación biológica de 67 años. Se integra en H3-v6 como familia independiente; no se interpreta mortalidad como progreso.
+WHO aporta una serie de transformación biológica de 65 años. Se integra en H3-v6 como familia independiente; no se interpreta mortalidad como progreso.
 
 ### Ecológico
 WDI aporta 15 años de señal ecológica evaluable en H3-v6.
@@ -195,13 +195,13 @@ Especificación congelada: horizonte primario h=3 años. Cada familia de perturb
   - n=14; rho=-0.367; IC95 descriptivo [-0.808, +0.227]; p circular=0.9286; **NO SUPERA LA PRUEBA**
 - tecnológica: 17 años (2009–2025)
   - n=14; rho=-0.134; IC95 descriptivo [-0.706, +0.580]; p circular=0.8571; **NO SUPERA LA PRUEBA**
-- biológica: 67 años (1958–2024)
-  - n=48; rho=-0.382; IC95 descriptivo [-0.649, -0.059]; p circular=0.9167; **NO SUPERA LA PRUEBA**
+- biológica: 65 años (1958–2022)
+  - n=48; rho=+0.646; IC95 descriptivo [+0.428, +0.785]; p circular=0.0417; **SUPERA LA PRUEBA**
 ## H3-v7 — Replicación entre familias independientes
 
 - Familias evaluables: 5/6
-- Con señal según criterio preregistrado: 0/6
-- Sin señal: 5/6
+- Con señal según criterio preregistrado: 1/6
+- Sin señal: 4/6
 - No evaluables: 1/6
 H3-v7 no convierte una mayoría en 'teoría demostrada'. Su función es mostrar replicación, heterogeneidad y límites sin ocultar resultados negativos.
 
