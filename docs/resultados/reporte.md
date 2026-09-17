@@ -97,11 +97,51 @@ Error fuera de muestra (menor es mejor):
 
 ## Auditoría de datos maestros
 
-- UCDP conflicto: NO DETECTADO
-- UCDP muertes: NO DETECTADO
-- USGS sismos: NO DETECTADO
-- WDI: NO DETECTADO
-- WHO ICD: NO DETECTADO
+- UCDP conflicto: OK — 1 archivo(s)
+  - datos_fuente/UcdpPrioConflict_v26_1.csv
+- UCDP muertes: OK — 1 archivo(s)
+  - datos_fuente/BattleDeaths_v26_1.csv
+- USGS sismos: OK — 1 archivo(s)
+  - datos_fuente/query.csv
+- WDI: OK — 1 archivo(s)
+  - datos_fuente/P_Data_Extract_From_World_Development_Indicators%20%283%29.zip
+- WHO población: OK — 1 archivo(s)
+  - datos_fuente/WHO_population_live_births.csv
+- WHO códigos: OK — 1 archivo(s)
+  - datos_fuente/WHO_country_codes.csv
+- WHO disponibilidad: OK — 1 archivo(s)
+  - datos_fuente/WHO_mortality_availability_feb2026.xls
+- WHO ICD: OK — 30 archivo(s)
+  - datos_fuente/WHO_mortality_ICD10_add_Germany.xlsx
+  - datos_fuente/WHO_mortality_ICD10_add_Norway.xlsx
+  - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk3.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk4.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk5.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart2_chunk1.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart2_chunk2.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart2_chunk3.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart2_chunk4.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart2_chunk5.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart3_chunk1.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart3_chunk2.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart3_chunk3.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart3_chunk4.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart3_chunk5.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart4_chunk1.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart4_chunk2.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart4_chunk3.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart4_chunk4.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk1.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk2.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk3.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk4.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk1.csv
+  - datos_fuente/WHO_mortality_ICD7.csv
+  - datos_fuente/WHO_mortality_ICD8_part1.csv
+  - datos_fuente/WHO_mortality_ICD8_part2.csv
+  - datos_fuente/WHO_mortality_ICD9_part1.csv
+  - datos_fuente/WHO_mortality_ICD9_part3.csv
+  - datos_fuente/WHO_mortality_ICD9_part4.csv
 ## Motor Daçel multiescala v6 — formulación v1.2
 
 Núcleo: `R_s(t→t+h)=d_s[x(t),x(t+h)]/h`. R es magnitud de reorganización: expansión, contracción, deterioro, sustitución, adaptación o colapso cuentan como transformación.
@@ -119,14 +159,14 @@ RMSE Daçel=0.0911; constante=0.1912; persistencia=0.0977; skill frente al mejor
 ### Humano / cognitivo
 Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como prueba específica independiente.
 
-### Biológico / ecológico
-**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.
+### Biológico
+WHO aporta una serie de transformación biológica de 67 años. Se integra en H3-v6 como familia independiente; no se interpreta mortalidad como progreso.
 
 ### Físico / cosmológico
-**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.
+**SIN DATOS específicos en esta corrida.** No se extrapola desde sismos terrestres al origen del universo.
 
-### Artificial / ia
-**SIN DATOS.** Esta corrida no fabrica proxies. Requiere una batería independiente de estados, perturbaciones, recursos y restricciones del dominio.
+### Artificial / IA
+Cobertura parcial mediante WDI tecnológico y AI-GPR; se conserva como dominio abierto a nuevas series independientes.
 
 ### Lectura global
 El motor no produce un único 'H3 sí/no' universal con una sola serie mundial. Evalúa la misma arquitectura matemática por dominio y conserva los resultados negativos. La universalidad de Daçel solo puede sostenerse si el patrón reaparece en baterías independientes.
@@ -137,24 +177,24 @@ Especificación congelada: horizonte primario h=3 años. Cada familia de perturb
 
 ### Auditoría de cobertura
 - R común h=3: 48 años (1975–2022)
-- conflicto: SIN DATOS
+- conflicto: 73 años (1953–2025)
+  - n=48; rho=-0.336; IC95 descriptivo [-0.593, -0.082]; p circular=0.6875; **NO SUPERA LA PRUEBA**
+- geofísica: 73 años (1953–2025)
+  - n=48; rho=+0.308; IC95 descriptivo [+0.017, +0.579]; p circular=0.3333; **NO SUPERA LA PRUEBA**
+- económica: ERROR
   - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- geofísica: SIN DATOS
+- ecológica: ERROR
   - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- económica: SIN DATOS
+- tecnológica: ERROR
   - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- ecológica: SIN DATOS
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- tecnológica: SIN DATOS
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- biológica: SIN DATOS
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- biológica: 67 años (1958–2024)
+  - n=48; rho=-0.290; IC95 descriptivo [-0.567, +0.043]; p circular=0.8333; **NO SUPERA LA PRUEBA**
 ## H3-v7 — Replicación entre familias independientes
 
-- Familias evaluables: 0/6
+- Familias evaluables: 3/6
 - Con señal según criterio preregistrado: 0/6
-- Sin señal: 0/6
-- No evaluables: 6/6
+- Sin señal: 3/6
+- No evaluables: 3/6
 H3-v7 no convierte una mayoría en 'teoría demostrada'. Su función es mostrar replicación, heterogeneidad y límites sin ocultar resultados negativos.
 
 ## Resumen

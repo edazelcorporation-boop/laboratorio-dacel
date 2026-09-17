@@ -1,6 +1,6 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-16 22:14 UTC",
+  "fecha_ejecucion": "2026-09-17 01:44 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
@@ -14,12 +14,30 @@
     "h_primario": 3,
     "resultados": {
       "conflicto": {
-        "estado": "SIN DATOS",
-        "n": 0
+        "estado": "NO SUPERA LA PRUEBA",
+        "n": 48,
+        "desde": 1975,
+        "hasta": 2022,
+        "rho": -0.33564915327833267,
+        "p_circular": 0.6875,
+        "ic95_rho": [
+          -0.5929203352033448,
+          -0.08248944798764078
+        ],
+        "n_placebos": 47
       },
       "geofísica": {
-        "estado": "SIN DATOS",
-        "n": 0
+        "estado": "NO SUPERA LA PRUEBA",
+        "n": 48,
+        "desde": 1975,
+        "hasta": 2022,
+        "rho": 0.30796786799826315,
+        "p_circular": 0.3333333333333333,
+        "ic95_rho": [
+          0.017239105328479498,
+          0.5791790184164044
+        ],
+        "n_placebos": 47
       },
       "económica": {
         "estado": "SIN DATOS",
@@ -34,58 +52,118 @@
         "n": 0
       },
       "biológica": {
-        "estado": "SIN DATOS",
-        "n": 0
+        "estado": "NO SUPERA LA PRUEBA",
+        "n": 48,
+        "desde": 1975,
+        "hasta": 2022,
+        "rho": -0.2896922329621801,
+        "p_circular": 0.8333333333333334,
+        "ic95_rho": [
+          -0.5667940761758171,
+          0.04299251159818291
+        ],
+        "n_placebos": 47
       }
     },
     "auditoria": {
       "conflicto": {
         "UCDP": {
-          "estado": "SIN DATOS",
-          "fuente": "UCDP/PRIO"
+          "estado": "OK",
+          "fuente": "UcdpPrioConflict_v26_1.csv",
+          "rango": [
+            1953,
+            2025
+          ]
         },
         "battle_deaths": {
-          "estado": "SIN DATOS",
-          "fuente": "UCDP Battle Deaths"
+          "estado": "OK",
+          "fuente": "BattleDeaths_v26_1.csv",
+          "rango": [
+            1996,
+            2025
+          ]
         }
       },
       "geofísica": {
-        "estado": "SIN DATOS",
-        "fuente": "USGS"
+        "estado": "OK",
+        "fuente": "query.csv",
+        "rango": [
+          1953,
+          2025
+        ]
       },
       "económica": {
-        "estado": "SIN DATOS",
-        "fuente": "World Bank WDI"
+        "estado": "ERROR",
+        "error": "WDI detectado pero no interpretable: name 're' is not defined"
       },
       "ecológica": {
-        "estado": "SIN DATOS",
-        "fuente": "World Bank WDI"
+        "estado": "ERROR",
+        "error": "WDI detectado pero no interpretable: name 're' is not defined"
       },
       "tecnológica": {
-        "estado": "SIN DATOS",
-        "fuente": "World Bank WDI"
+        "estado": "ERROR",
+        "error": "WDI detectado pero no interpretable: name 're' is not defined"
       },
       "biológica": {
-        "estado": "SIN DATOS",
-        "fuente": "WHO Mortality Database"
+        "estado": "OK",
+        "archivos": [
+          "WHO_mortality_ICD10_sourcepart1_chunk3.csv",
+          "WHO_mortality_ICD10_sourcepart1_chunk4.csv",
+          "WHO_mortality_ICD10_sourcepart1_chunk5.csv",
+          "WHO_mortality_ICD10_sourcepart2_chunk1.csv",
+          "WHO_mortality_ICD10_sourcepart2_chunk2.csv",
+          "WHO_mortality_ICD10_sourcepart2_chunk3.csv",
+          "WHO_mortality_ICD10_sourcepart2_chunk4.csv",
+          "WHO_mortality_ICD10_sourcepart2_chunk5.csv",
+          "WHO_mortality_ICD10_sourcepart3_chunk1.csv",
+          "WHO_mortality_ICD10_sourcepart3_chunk2.csv",
+          "WHO_mortality_ICD10_sourcepart3_chunk3.csv",
+          "WHO_mortality_ICD10_sourcepart3_chunk4.csv",
+          "WHO_mortality_ICD10_sourcepart3_chunk5.csv",
+          "WHO_mortality_ICD10_sourcepart4_chunk1.csv",
+          "WHO_mortality_ICD10_sourcepart4_chunk2.csv",
+          "WHO_mortality_ICD10_sourcepart4_chunk3.csv",
+          "WHO_mortality_ICD10_sourcepart4_chunk4.csv",
+          "WHO_mortality_ICD10_sourcepart5_chunk1.csv",
+          "WHO_mortality_ICD10_sourcepart5_chunk2.csv",
+          "WHO_mortality_ICD10_sourcepart5_chunk3.csv",
+          "WHO_mortality_ICD10_sourcepart5_chunk4.csv",
+          "WHO_mortality_ICD10_sourcepart6_chunk1.csv",
+          "WHO_mortality_ICD7.csv",
+          "WHO_mortality_ICD8_part1.csv",
+          "WHO_mortality_ICD8_part2.csv",
+          "WHO_mortality_ICD9_part1.csv",
+          "WHO_mortality_ICD9_part3.csv",
+          "WHO_mortality_ICD9_part4.csv"
+        ],
+        "errores": [
+          "WHO_mortality_ICD10_add_Germany.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
+          "WHO_mortality_ICD10_add_Norway.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package."
+        ],
+        "rango": [
+          1950,
+          2024
+        ],
+        "nota": "Magnitud de cambio biológico; no interpreta muerte como progreso."
       }
     }
   },
   "H3_v7_replicacion": {
     "familias_totales": 6,
-    "evaluables": 0,
+    "evaluables": 3,
     "con_senal": 0,
-    "sin_senal": 0,
-    "no_evaluables": 6,
+    "sin_senal": 3,
+    "no_evaluables": 3,
     "familias_con_senal": [],
-    "familias_sin_senal": [],
-    "familias_no_evaluables": [
+    "familias_sin_senal": [
       "conflicto",
       "geofísica",
+      "biológica"
+    ],
+    "familias_no_evaluables": [
       "económica",
       "ecológica",
-      "tecnológica",
-      "biológica"
+      "tecnológica"
     ],
     "veredicto": "SÍNTESIS, NO VEREDICTO UNIVERSAL"
   },
