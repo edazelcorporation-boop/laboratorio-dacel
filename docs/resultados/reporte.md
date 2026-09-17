@@ -111,9 +111,11 @@ Error fuera de muestra (menor es mejor):
   - datos_fuente/WHO_country_codes.csv
 - WHO disponibilidad: OK — 1 archivo(s)
   - datos_fuente/WHO_mortality_availability_feb2026.xls
-- WHO ICD: OK — 30 archivo(s)
+- WHO ICD: OK — 35 archivo(s)
   - datos_fuente/WHO_mortality_ICD10_add_Germany.xlsx
   - datos_fuente/WHO_mortality_ICD10_add_Norway.xlsx
+  - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk1 (1).csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk2 (1).csv
   - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk3.csv
   - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk4.csv
   - datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk5.csv
@@ -136,10 +138,13 @@ Error fuera de muestra (menor es mejor):
   - datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk3.csv
   - datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk4.csv
   - datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk1.csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv
+  - datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk3 (1).csv
   - datos_fuente/WHO_mortality_ICD7.csv
   - datos_fuente/WHO_mortality_ICD8_part1.csv
   - datos_fuente/WHO_mortality_ICD8_part2.csv
   - datos_fuente/WHO_mortality_ICD9_part1.csv
+  - datos_fuente/WHO_mortality_ICD9_part2.csv
   - datos_fuente/WHO_mortality_ICD9_part3.csv
   - datos_fuente/WHO_mortality_ICD9_part4.csv
 ## Motor Daçel multiescala v6 — formulación v1.2
@@ -162,6 +167,9 @@ Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como
 ### Biológico
 WHO aporta una serie de transformación biológica de 67 años. Se integra en H3-v6 como familia independiente; no se interpreta mortalidad como progreso.
 
+### Ecológico
+WDI aporta 15 años de señal ecológica evaluable en H3-v6.
+
 ### Físico / cosmológico
 **SIN DATOS específicos en esta corrida.** No se extrapola desde sismos terrestres al origen del universo.
 
@@ -181,20 +189,20 @@ Especificación congelada: horizonte primario h=3 años. Cada familia de perturb
   - n=48; rho=-0.336; IC95 descriptivo [-0.593, -0.082]; p circular=0.6875; **NO SUPERA LA PRUEBA**
 - geofísica: 73 años (1953–2025)
   - n=48; rho=+0.308; IC95 descriptivo [+0.017, +0.579]; p circular=0.3333; **NO SUPERA LA PRUEBA**
-- económica: ERROR
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- ecológica: ERROR
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
-- tecnológica: ERROR
-  - resultado: **SIN DATOS SUFICIENTES** (intersección n=0)
+- económica: 11 años (2015–2025)
+  - resultado: **SIN DATOS SUFICIENTES** (intersección n=8)
+- ecológica: 15 años (2009–2023)
+  - n=14; rho=-0.367; IC95 descriptivo [-0.808, +0.227]; p circular=0.9286; **NO SUPERA LA PRUEBA**
+- tecnológica: 17 años (2009–2025)
+  - n=14; rho=-0.134; IC95 descriptivo [-0.706, +0.580]; p circular=0.8571; **NO SUPERA LA PRUEBA**
 - biológica: 67 años (1958–2024)
-  - n=48; rho=-0.290; IC95 descriptivo [-0.567, +0.043]; p circular=0.8333; **NO SUPERA LA PRUEBA**
+  - n=48; rho=-0.382; IC95 descriptivo [-0.649, -0.059]; p circular=0.9167; **NO SUPERA LA PRUEBA**
 ## H3-v7 — Replicación entre familias independientes
 
-- Familias evaluables: 3/6
+- Familias evaluables: 5/6
 - Con señal según criterio preregistrado: 0/6
-- Sin señal: 3/6
-- No evaluables: 3/6
+- Sin señal: 5/6
+- No evaluables: 1/6
 H3-v7 no convierte una mayoría en 'teoría demostrada'. Su función es mostrar replicación, heterogeneidad y límites sin ocultar resultados negativos.
 
 ## Resumen

@@ -1,19 +1,19 @@
 {
   "familias_totales": 6,
-  "evaluables": 3,
+  "evaluables": 5,
   "con_senal": 0,
-  "sin_senal": 3,
-  "no_evaluables": 3,
+  "sin_senal": 5,
+  "no_evaluables": 1,
   "familias_con_senal": [],
   "familias_sin_senal": [
     "conflicto",
     "geofísica",
+    "ecológica",
+    "tecnológica",
     "biológica"
   ],
   "familias_no_evaluables": [
-    "económica",
-    "ecológica",
-    "tecnológica"
+    "económica"
   ],
   "veredicto": "SÍNTESIS, NO VEREDICTO UNIVERSAL"
 }

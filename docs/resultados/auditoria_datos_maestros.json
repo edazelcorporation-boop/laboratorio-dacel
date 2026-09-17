@@ -23,6 +23,8 @@
   "WHO ICD": [
     "datos_fuente/WHO_mortality_ICD10_add_Germany.xlsx",
     "datos_fuente/WHO_mortality_ICD10_add_Norway.xlsx",
+    "datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk1 (1).csv",
+    "datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk2 (1).csv",
     "datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk3.csv",
     "datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk4.csv",
     "datos_fuente/WHO_mortality_ICD10_sourcepart1_chunk5.csv",
@@ -45,10 +47,13 @@
     "datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk3.csv",
     "datos_fuente/WHO_mortality_ICD10_sourcepart5_chunk4.csv",
     "datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk1.csv",
+    "datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv",
+    "datos_fuente/WHO_mortality_ICD10_sourcepart6_chunk3 (1).csv",
     "datos_fuente/WHO_mortality_ICD7.csv",
     "datos_fuente/WHO_mortality_ICD8_part1.csv",
     "datos_fuente/WHO_mortality_ICD8_part2.csv",
     "datos_fuente/WHO_mortality_ICD9_part1.csv",
+    "datos_fuente/WHO_mortality_ICD9_part2.csv",
     "datos_fuente/WHO_mortality_ICD9_part3.csv",
     "datos_fuente/WHO_mortality_ICD9_part4.csv"
   ]

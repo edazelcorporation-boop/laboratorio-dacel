@@ -30,6 +30,8 @@
     "auditoria": {
       "estado": "OK",
       "archivos": [
+        "WHO_mortality_ICD10_sourcepart1_chunk1 (1).csv",
+        "WHO_mortality_ICD10_sourcepart1_chunk2 (1).csv",
         "WHO_mortality_ICD10_sourcepart1_chunk3.csv",
         "WHO_mortality_ICD10_sourcepart1_chunk4.csv",
         "WHO_mortality_ICD10_sourcepart1_chunk5.csv",
@@ -52,10 +54,13 @@
         "WHO_mortality_ICD10_sourcepart5_chunk3.csv",
         "WHO_mortality_ICD10_sourcepart5_chunk4.csv",
         "WHO_mortality_ICD10_sourcepart6_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv",
+        "WHO_mortality_ICD10_sourcepart6_chunk3 (1).csv",
         "WHO_mortality_ICD7.csv",
         "WHO_mortality_ICD8_part1.csv",
         "WHO_mortality_ICD8_part2.csv",
         "WHO_mortality_ICD9_part1.csv",
+        "WHO_mortality_ICD9_part2.csv",
         "WHO_mortality_ICD9_part3.csv",
         "WHO_mortality_ICD9_part4.csv"
       ],
@@ -71,8 +76,12 @@
     }
   },
   "ecológico": {
-    "estado": "SIN DATOS",
-    "error": "WDI detectado pero no interpretable: name 're' is not defined"
+    "estado": "DATOS DISPONIBLES",
+    "n": 15,
+    "auditoria": {
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
+    }
   },
   "físico / cosmológico": {
     "estado": "SIN DATOS"

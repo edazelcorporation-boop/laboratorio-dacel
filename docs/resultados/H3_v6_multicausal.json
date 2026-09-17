@@ -30,26 +30,44 @@
     },
     "económica": {
       "estado": "SIN DATOS",
-      "n": 0
+      "n": 8
     },
     "ecológica": {
-      "estado": "SIN DATOS",
-      "n": 0
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 14,
+      "desde": 2009,
+      "hasta": 2022,
+      "rho": -0.367032967032967,
+      "p_circular": 0.9285714285714286,
+      "ic95_rho": [
+        -0.8080620941558443,
+        0.22728287337662334
+      ],
+      "n_placebos": 13
     },
     "tecnológica": {
-      "estado": "SIN DATOS",
-      "n": 0
+      "estado": "NO SUPERA LA PRUEBA",
+      "n": 14,
+      "desde": 2009,
+      "hasta": 2022,
+      "rho": -0.13406593406593406,
+      "p_circular": 0.8571428571428571,
+      "ic95_rho": [
+        -0.7055322030497594,
+        0.5803571428571428
+      ],
+      "n_placebos": 13
     },
     "biológica": {
       "estado": "NO SUPERA LA PRUEBA",
       "n": 48,
       "desde": 1975,
       "hasta": 2022,
-      "rho": -0.2896922329621801,
-      "p_circular": 0.8333333333333334,
+      "rho": -0.38189318280503687,
+      "p_circular": 0.9166666666666666,
       "ic95_rho": [
-        -0.5667940761758171,
-        0.04299251159818291
+        -0.6486427399009668,
+        -0.059116046038308605
       ],
       "n_placebos": 47
     }
@@ -82,20 +100,22 @@
       ]
     },
     "económica": {
-      "estado": "ERROR",
-      "error": "WDI detectado pero no interpretable: name 're' is not defined"
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
     },
     "ecológica": {
-      "estado": "ERROR",
-      "error": "WDI detectado pero no interpretable: name 're' is not defined"
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
     },
     "tecnológica": {
-      "estado": "ERROR",
-      "error": "WDI detectado pero no interpretable: name 're' is not defined"
+      "estado": "OK",
+      "fuente": "P_Data_Extract_From_World_Development_Indicators%20%283%29.zip"
     },
     "biológica": {
       "estado": "OK",
       "archivos": [
+        "WHO_mortality_ICD10_sourcepart1_chunk1 (1).csv",
+        "WHO_mortality_ICD10_sourcepart1_chunk2 (1).csv",
         "WHO_mortality_ICD10_sourcepart1_chunk3.csv",
         "WHO_mortality_ICD10_sourcepart1_chunk4.csv",
         "WHO_mortality_ICD10_sourcepart1_chunk5.csv",
@@ -118,10 +138,13 @@
         "WHO_mortality_ICD10_sourcepart5_chunk3.csv",
         "WHO_mortality_ICD10_sourcepart5_chunk4.csv",
         "WHO_mortality_ICD10_sourcepart6_chunk1.csv",
+        "WHO_mortality_ICD10_sourcepart6_chunk2 (1).csv",
+        "WHO_mortality_ICD10_sourcepart6_chunk3 (1).csv",
         "WHO_mortality_ICD7.csv",
         "WHO_mortality_ICD8_part1.csv",
         "WHO_mortality_ICD8_part2.csv",
         "WHO_mortality_ICD9_part1.csv",
+        "WHO_mortality_ICD9_part2.csv",
         "WHO_mortality_ICD9_part3.csv",
         "WHO_mortality_ICD9_part4.csv"
       ],
