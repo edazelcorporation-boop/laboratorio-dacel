@@ -1,0 +1,16 @@
+{
+  "n": 27,
+  "r_parcial": 0.21903954054851577,
+  "p": 0.18518518518518517,
+  "r_simple": 0.17630115222664694,
+  "fuente_ia": {
+    "estado": "OK",
+    "fuente": "owid",
+    "anios": [
+      1950,
+      2025
+    ]
+  },
+  "veredicto": "NO SUPERA LA PRUEBA",
+  "registrada": "2026-09-17"
+}

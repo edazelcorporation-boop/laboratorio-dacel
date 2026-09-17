@@ -1,6 +1,6 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-17 07:24 UTC",
+  "fecha_ejecucion": "2026-09-17 08:15 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
@@ -10,13 +10,13 @@
     "Ecuación General": "SUPERA LA PRUEBA",
     "H3 (postulado base)": "CUMPLE EL POSTULADO BASE (100%)",
     "H3-v9 (intensidad)": "NO SUPERA LA PRUEBA",
-    "H5 (IA y vacío humano)": "NO CONCLUYENTE"
+    "H5 (IA y vacío humano)": "NO SUPERA LA PRUEBA"
   },
   "H3_postulado_base": {
     "version": "H3-base (antes v8)",
     "tipo": "postulado base",
     "paso_anual": 1,
-    "tolerancia_numerica": 7.096267449079806e-14,
+    "tolerancia_numerica": 7.098558982632604e-14,
     "observaciones_totales": 53,
     "transformaciones_observadas": 53,
     "proporcion_global": 1.0,
@@ -31,13 +31,13 @@
         "n_transformacion_observable": 23,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.06692229941446808,
-        "T_media": 0.09247821199717662,
-        "T_max": 0.5706387854231945,
+        "T_media": 0.09193623985766199,
+        "T_max": 0.5688550112172135,
         "persistencia_3_pasos": 1.0,
-        "tolerancia_numerica": 7.096267449079806e-14,
+        "tolerancia_numerica": 7.098558982632604e-14,
         "direccion_relativa": {
-          "expansion_acelerada": 7,
-          "contraccion_relativa": 16,
+          "expansion_acelerada": 8,
+          "contraccion_relativa": 15,
           "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
@@ -49,11 +49,11 @@
         "n_perturbaciones_con_respuesta_observable": 11,
         "n_transformacion_observable": 11,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.11616700862529866,
-        "T_media": 0.14153267651297347,
-        "T_max": 0.6184630708070813,
+        "T_mediana": 0.11134837875821142,
+        "T_media": 0.1398887434154369,
+        "T_max": 0.6166394422987655,
         "persistencia_3_pasos": 1.0,
-        "tolerancia_numerica": 7.096267449079806e-14,
+        "tolerancia_numerica": 7.098558982632604e-14,
         "direccion_relativa": {
           "expansion_acelerada": 9,
           "contraccion_relativa": 2,
@@ -68,11 +68,11 @@
         "n_perturbaciones_con_respuesta_observable": 3,
         "n_transformacion_observable": 3,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.2018126622837295,
-        "T_media": 0.29523210256196214,
-        "T_max": 0.5706387854231945,
+        "T_mediana": 0.19238193879672838,
+        "T_media": 0.29843397012963563,
+        "T_max": 0.5688550112172135,
         "persistencia_3_pasos": 1.0,
-        "tolerancia_numerica": 7.096267449079806e-14,
+        "tolerancia_numerica": 7.098558982632604e-14,
         "direccion_relativa": {
           "expansion_acelerada": 0,
           "contraccion_relativa": 3,
@@ -95,14 +95,14 @@
         "n_perturbaciones_con_respuesta_observable": 16,
         "n_transformacion_observable": 16,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.1384834489372691,
-        "T_media": 0.16459209875671724,
-        "T_max": 0.6184630708070813,
+        "T_mediana": 0.13521818295339186,
+        "T_media": 0.16208652937201187,
+        "T_max": 0.6166394422987655,
         "persistencia_3_pasos": 1.0,
-        "tolerancia_numerica": 7.096267449079806e-14,
+        "tolerancia_numerica": 7.098558982632604e-14,
         "direccion_relativa": {
-          "expansion_acelerada": 7,
-          "contraccion_relativa": 9,
+          "expansion_acelerada": 5,
+          "contraccion_relativa": 11,
           "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
@@ -200,6 +200,10 @@
     }
   },
   "H5": {
+    "n": 27,
+    "r_parcial": 0.21903954054851577,
+    "p": 0.18518518518518517,
+    "r_simple": 0.17630115222664694,
     "fuente_ia": {
       "estado": "OK",
       "fuente": "owid",
@@ -208,7 +212,8 @@
         2025
       ]
     },
-    "n": 17
+    "veredicto": "NO SUPERA LA PRUEBA",
+    "registrada": "2026-09-17"
   },
   "anios": {
     "CIDI": [
@@ -216,7 +221,7 @@
       2023
     ],
     "vacio_humano": [
-      2005,
+      1990,
       2023
     ],
     "perturbaciones": [
