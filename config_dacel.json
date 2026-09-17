@@ -1,0 +1,111 @@
+{
+  "_nota": "Definido ANTES de ver resultados reales (16-sep-2026). Si cambias algo, anótalo en 'cambios'.",
+  "cambios": [
+    "16-sep-2026: Corrección técnica de la fuente I: búsqueda de columna actualizada de 'flop' a 'Computational capacity'. Indicador, fuente e hipótesis sin cambios.",
+    "16-sep-2026: A y Dp cambian solo el mecanismo de adquisición: de OWID bloqueado (HTTP 403) a archivos descargados directamente de IHME GBD 2023. Definición de variables e hipótesis sin cambios.",
+    "16-sep-2026: Corrección de reproducibilidad: H2 y H3 usan flujos aleatorios independientes derivados de la misma semilla fija. No se modificaron hipótesis, datos, umbral de significancia ni criterios de falsación.",
+    "16-sep-2026: Desarrollo exploratorio H3 sistémica: reorganización se define como magnitud del cambio de régimen post/pre en dominios Daçel, no como aceleración positiva de una sola variable. Se conserva H3a histórica basada en I para auditoría.",
+    "16-sep-2026: Se amplía la evidencia histórica de H3 con telefonía fija (Banco Mundial/ITU, IT.MLT.MAIN.P2) como proxy adicional de externalización/conectividad y solicitudes de patentes de residentes (Banco Mundial/WIPO, IP.PAT.RESD) como proxy adicional de conocimiento. H1, H2, H4 y la Ecuación General no cambian.",
+    "16-sep-2026: H3-v3 reemplaza como prueba principal la selección manual de perturbaciones por una prueba continua anual. La perturbación externa S(t) se define ANTES de ejecutar esta versión como dos dimensiones independientes con igual peso: (1) riesgo geopolítico anual AI-GPR (Iacoviello y Tong) y (2) disrupción macroeconómica, medida por la desviación absoluta del crecimiento anual del PIB mundial respecto de su mediana histórica (Banco Mundial, NY.GDP.MKTP.KD.ZG). Cada dimensión se transforma a rango percentil y S(t) es su promedio. La reorganización R(t) usa los dominios Daçel. Estadístico preregistrado: Spearman positivo S(t)-R(t), nulo de todos los desplazamientos circulares no nulos de S(t), alfa=0.05. H3-v2 queda para auditoría; H1, H2, H4 y la Ecuación General no cambian.",
+    "16-sep-2026: Daçel-v4 separa perturbación, memoria, capacidad adaptativa y reorganización. H3-v4 define P_ext con AI-GPR + disrupción macro ex-ante; M como memoria exponencial de vida media 3 años; A_cap como capacidad previa basada en energía, externalización/conectividad y conocimiento (I excluida para evitar circularidad); Q=M×A_cap; R como magnitud multidominio del cambio de régimen. La Ecuación General dinámica predice gI(t+1) con predictores fechados en t y Q sustituye al antiguo P binario. H3-v2/v3 y la ecuación anterior quedan preservadas en el historial; esta modificación no borra sus resultados.",
+    "16-sep-2026: Motor multiescala v6 compatible con actualizar_datos.py y actualizar.yml. Se conserva fuentes/perturbaciones/modelo_dinamico para reproducibilidad histórica y se añade la arquitectura v1.2 por dominios. No se fabrican datos faltantes.",
+    "17-sep-2026: Corrección de datos en 'conexion'. El agregado mundial oficial del Banco Mundial (WLD, IT.NET.USER.ZS) solo existe desde 2005, lo que cortaba H2 y H5. Se sustituye por el promedio de países ponderado por población (SP.POP.TOTL), con el mismo método para todos los años y solo en años donde los países con dato suman al menos 80% de la población mundial. No se inventan datos ni se mezcla con el agregado oficial. H2 y H5 se recalculan y se acepta su resultado. Limitación declarada: las series de ansiedad y depresión del IHME son estimaciones modeladas y muy suaves, lo que puede inflar las correlaciones de cambios anuales en H2 y H5.",
+    "17-sep-2026: H3-v8 se reformula como postulado base con calificación por familia (solo años de perturbación alta de cada familia). Se registran H3-v9 (intensidad) y H5 (IA y vacío humano) antes de correrse con datos reales.",
+    "17-sep-2026: Se registran H2-países y H5-países antes de correrse con datos reales. Datos: prevalencia de ansiedad y depresión por país (IHME GBD 2023, 204 países y territorios, 1990–2023; nombres del IHME emparejados con códigos ISO3 en datos_fuente/ihme_ubicaciones_iso3.csv) y usuarios de internet por país (Banco Mundial). H2-países: pendiente del cambio anual del vacío humano (promedio de ansiedad y depresión) sobre el cambio anual de internet, con efectos fijos de país y de año, panel balanceado, cada país con igual peso; nulo: 1000 intercambios aleatorios de historias de internet entre países; supera si la pendiente es positiva y p < 0.05. H5-países: mismo diseño con uso de IA por país (datos_fuente/ia_uso_paises.csv), efecto al año siguiente y descontando internet; se activa cuando existan esos datos. H2 y H5 mundiales no cambian."
+  ],
+  "fuentes": {
+    "E": {
+      "nombre": "Consumo mundial de energía primaria (TWh)",
+      "tipo": "owid_github_energia",
+      "columna": "primary_energy_consumption"
+    },
+    "I": {
+      "nombre": "Potencia del supercomputador más rápido (FLOPS)",
+      "tipo": "owid",
+      "slug": "supercomputer-power-flops",
+      "palabra": "Computational capacity"
+    },
+    "X_fija": {
+      "nombre": "Suscripciones de telefonía fija por cada 100 personas",
+      "tipo": "banco_mundial",
+      "codigo": "IT.MLT.MAIN.P2"
+    },
+    "X": {
+      "nombre": "Suscripciones móviles por cada 100 personas",
+      "tipo": "banco_mundial",
+      "codigo": "IT.CEL.SETS.P2"
+    },
+    "K": {
+      "nombre": "Artículos científicos y técnicos publicados",
+      "tipo": "banco_mundial",
+      "codigo": "IP.JRN.ARTC.SC"
+    },
+    "K_patentes": {
+      "nombre": "Solicitudes de patentes de residentes",
+      "tipo": "banco_mundial",
+      "codigo": "IP.PAT.RESD"
+    },
+    "A": {
+      "nombre": "Población con trastornos de ansiedad (%)",
+      "tipo": "ihme_local",
+      "archivo": "datos_fuente/ihme_ansiedad_1990_2023.csv"
+    },
+    "Dp": {
+      "nombre": "Población con trastornos depresivos (%)",
+      "tipo": "ihme_local",
+      "archivo": "datos_fuente/ihme_depresion_1990_2023.csv"
+    },
+    "conexion": {
+      "nombre": "Población usuaria de internet (%) — promedio mundial ponderado por población desde datos por país",
+      "tipo": "banco_mundial_ponderado",
+      "codigo": "IT.NET.USER.ZS",
+      "cobertura_min": 0.8
+    },
+    "G_mundo": {
+      "nombre": "Crecimiento anual del PIB mundial (%)",
+      "tipo": "banco_mundial",
+      "codigo": "NY.GDP.MKTP.KD.ZG"
+    }
+  },
+  "perturbaciones": {
+    "1973": "Crisis del petróleo",
+    "1987": "Lunes Negro bursátil",
+    "1991": "Disolución de la URSS",
+    "2001": "Atentados del 11 de septiembre",
+    "2008": "Crisis financiera global",
+    "2020": "Pandemia de COVID-19"
+  },
+  "modelo_dinamico": {
+    "version": "Daçel-v4",
+    "definiciones": {
+      "P_ext": "Perturbación externa continua: promedio de percentiles ex-ante de AI-GPR y disrupción del crecimiento mundial.",
+      "M": "Memoria acumulada de P_ext con decaimiento exponencial.",
+      "A_cap": "Capacidad adaptativa previa: energía + externalización/conectividad + conocimiento; excluye I.",
+      "Q": "Presión adaptativa Q(t)=M(t)*A_cap(t).",
+      "R": "Magnitud multidominio del cambio de régimen pre/post; no crecimiento neto."
+    },
+    "vida_media_memoria_anios": 3,
+    "ventana_reorganizacion_anios": 5,
+    "alfa": 0.05,
+    "criterio_ecuacion": "Debe reducir RMSE fuera de muestra >10% frente al mejor rival simple."
+  },
+  "motor_multiescala_v6": {
+    "base_teorica": "Formulación científica Daçel v1.2",
+    "R": "R_s(t→t+h)=d_s[x(t),x(t+h)]/h",
+    "modelo": "R_s(t+h)=α+β1P+β2P²+β3E+β4(P×E)+β5IOE(t−1)+β6L+γZ+ε",
+    "horizonte_anios": 3,
+    "entrenamiento": 0.8,
+    "reglas": [
+      "R mide magnitud de reorganización, no progreso",
+      "P puede ser externa o interna según dominio",
+      "No comparar IOE absolutas entre dominios",
+      "Módulos sin datos reales se reportan SIN DATOS",
+      "Resultados H3-v2/v3/v4/v5 se conservan como historial"
+    ]
+  },
+  "panel_paises": {
+    "ihme_archivo": "datos_fuente/ihme_paises_1990_2023.csv",
+    "codigo_conexion": "IT.NET.USER.ZS",
+    "mapa_ubicaciones": "datos_fuente/ihme_ubicaciones_iso3.csv"
+  }
+}
