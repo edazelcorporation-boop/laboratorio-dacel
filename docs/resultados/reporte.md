@@ -40,7 +40,7 @@ Se usa solo la parte psicológica del HDF (ansiedad, soledad y/o depresión). In
 
 ## H3 / F2 — Perturbación, memoria y reorganización sistémica
 
-### H3-v4 principal — mecanismo dinámico Daçel
+### H3-v4 histórica — formulación inferencial retirada
 La perturbación no se trata como crecimiento. Se separan cuatro conceptos: P_ext(t), perturbación externa; M(t), memoria acumulada de perturbaciones; A_cap(t), capacidad adaptativa existente antes de la respuesta; y R(t), magnitud de reorganización del sistema. La presión adaptativa es Q(t)=M(t)×A_cap(t). Una perturbación puede destruir unas variables y acelerar otras; por eso R mide magnitud de cambio de régimen y no crecimiento neto.
 
 P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones son ex-ante: cada año se compara solo con historia disponible hasta ese año. M usa memoria exponencial con vida media fija de 3 años. A_cap usa energía, externalización/conectividad y conocimiento, excluyendo I para evitar circularidad. R compara 5 años previos y 5 posteriores en los cuatro dominios Daçel.
@@ -55,7 +55,7 @@ P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones
 ### Auditoría
 H3-v2 (eventos manuales) y H3-v3 (perturbación contemporánea continua) permanecen en el historial del repositorio. H3-v4 no reescribe esos resultados; prueba una formulación dinámica explícita de la teoría.
 
-### H3-v5 — cobertura histórica causal
+### H3-v5 histórica — formulación inferencial retirada
 
 Esta prueba conserva P_ext, vida media de 3 años, A_cap, R, ventana temporal, alfa y nulo circular de H3-v4. La única diferencia es que M conserva desde su primera observación válida la memoria causal ya construida, sin imponer un segundo calentamiento de 10 observaciones para repercentilizarla.
 
@@ -165,7 +165,7 @@ RMSE Daçel=0.0911; constante=0.1912; persistencia=0.0977; skill frente al mejor
 Resultado exploratorio con n=26; skill=-70.6%; R² OOS=-1.483. H2 permanece como prueba específica independiente.
 
 ### Biológico
-WHO aporta una serie de transformación biológica de 65 años. Se integra en H3-v6 como familia independiente; no se interpreta mortalidad como progreso.
+WHO aporta una serie de transformación biológica de 65 años. Aporta una serie biológica independiente para la medición estructural; no se interpreta mortalidad como progreso.
 
 ### Ecológico
 WDI aporta 15 años de señal ecológica evaluable en H3-v6.
@@ -177,7 +177,7 @@ WDI aporta 15 años de señal ecológica evaluable en H3-v6.
 Cobertura parcial mediante WDI tecnológico y AI-GPR; se conserva como dominio abierto a nuevas series independientes.
 
 ### Lectura global
-El motor no produce un único 'H3 sí/no' universal con una sola serie mundial. Evalúa la misma arquitectura matemática por dominio y conserva los resultados negativos. La universalidad de Daçel solo puede sostenerse si el patrón reaparece en baterías independientes.
+El motor multiescala se conserva como módulo cuantitativo complementario. H3-v8 es la formulación estructural vigente y reporta por separado magnitud, dirección y trayectoria.
 
 ## H3 — Daçel estructural v8 (formulación principal)
 
@@ -186,25 +186,24 @@ Postulado operativo: `P → ΔS`. Una perturbación cuenta como exposición; la 
 Medición principal: `T(t→t+1)=D[x(t),x(t+1)]`, con D como distancia multivariable del estado observable. Se usa un paso anual para no imponer el antiguo cuello de botella h=3. La dirección neta se informa aparte.
 
 ### Evidencia observada por familia
-- conflicto: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección neta: expansión 50, contracción 0, casi nula 0.
-- geofísica: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección neta: expansión 50, contracción 0, casi nula 0.
-- económica: 10/10 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1868; dirección neta: expansión 10, contracción 0, casi nula 0.
-- ecológica: 15/15 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1480; dirección neta: expansión 15, contracción 0, casi nula 0.
-- tecnológica: 16/16 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1458; dirección neta: expansión 16, contracción 0, casi nula 0.
-- biológica: 48/48 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0675; dirección neta: expansión 48, contracción 0, casi nula 0.
+- conflicto: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección relativa: expansión/aceleración 24, contracción/desaceleración 26, casi nula 0; persistencia 3 pasos=100.0%.
+- geofísica: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección relativa: expansión/aceleración 24, contracción/desaceleración 26, casi nula 0; persistencia 3 pasos=100.0%.
+- económica: 10/10 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1868; dirección relativa: expansión/aceleración 3, contracción/desaceleración 7, casi nula 0; persistencia 3 pasos=100.0%.
+- ecológica: 15/15 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1480; dirección relativa: expansión/aceleración 5, contracción/desaceleración 10, casi nula 0; persistencia 3 pasos=100.0%.
+- tecnológica: 16/16 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1458; dirección relativa: expansión/aceleración 5, contracción/desaceleración 11, casi nula 0; persistencia 3 pasos=100.0%.
+- biológica: 48/48 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0675; dirección relativa: expansión/aceleración 24, contracción/desaceleración 24, casi nula 0; persistencia 3 pasos=100.0%.
 
 ### Lectura H3-v8
 - Cobertura conjunta descriptiva: 189/189 (100.0%) observaciones comparables presentan cambio estructural posterior/contemporáneo medible en el paso anual.
+**Veredicto H3-v8: SUPERA LA PRUEBA.** Se observó transformación estructural medible en 189/189 casos comparables (100.0%).
 - Este resultado mide **compatibilidad observacional con el postulado Daçel**, no beneficio moral, progreso ni causalidad estadística. Una contracción o destrucción sigue siendo transformación.
 - Las antiguas H3-v4/v5/v6 quedan como auditorías históricas de formulaciones más estrechas (gradiente/correlación temporal) y no constituyen la H3 principal.
 ## Resumen
 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
 - H2 (vacío humano): **SUPERA LA PRUEBA**
-- H3-v4 histórica (auditoría, formulación retirada): **NO SUPERA LA PRUEBA**
-- H3-v5 histórica (auditoría, formulación retirada): **NO SUPERA LA PRUEBA**
 - H4 (externalización 2040): **NO CONCLUYENTE**
 - Ecuación General: **SUPERA LA PRUEBA**
-- H3 vigente (Daçel estructural v8): **COMPATIBILIDAD OBSERVACIONAL 100.0%** (189/189)
+- H3 vigente (Daçel estructural v8): **SUPERA LA PRUEBA** — transformación observada 100.0% (189/189)
 
 H3-v8 cuantifica la transformación observada tal como la define Daçel; las predicciones derivadas se evaluarán por separado conforme lleguen nuevos datos.

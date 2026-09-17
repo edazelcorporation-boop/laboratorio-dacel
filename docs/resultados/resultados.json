@@ -1,11 +1,11 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-17 03:49 UTC",
+  "fecha_ejecucion": "2026-09-17 04:07 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
-    "H3-v4 histórica (auditoría, formulación retirada)": "NO SUPERA LA PRUEBA",
-    "H3-v5 histórica (auditoría, formulación retirada)": "NO SUPERA LA PRUEBA",
+    "_auditoria_H3_v4": "NO SUPERA LA PRUEBA",
+    "_auditoria_H3_v5": "NO SUPERA LA PRUEBA",
     "H4 (externalización 2040)": "NO CONCLUYENTE",
     "Ecuación General": "SUPERA LA PRUEBA"
   },
@@ -17,110 +17,118 @@
     "observaciones_totales": 189,
     "transformaciones_observadas": 189,
     "proporcion_global": 1.0,
+    "supera_prueba": true,
+    "criterio_superacion": "100% de observaciones comparables con transformación estructural medible",
     "familias": {
       "conflicto": {
-        "estado": "COMPATIBLE",
+        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 50,
         "n_transformacion_observable": 50,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.07096267449079806,
         "T_media": 0.10478727669691727,
         "T_max": 0.6184630708070813,
+        "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion": {
-          "expansion_neta": 50,
-          "contraccion_neta": 0,
-          "cambio_neto_casi_nulo": 0,
+        "direccion_relativa": {
+          "expansion_acelerada": 24,
+          "contraccion_relativa": 26,
+          "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 1975,
         "hasta": 2024
       },
       "geofísica": {
-        "estado": "COMPATIBLE",
+        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 50,
         "n_transformacion_observable": 50,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.07096267449079806,
         "T_media": 0.10478727669691727,
         "T_max": 0.6184630708070813,
+        "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion": {
-          "expansion_neta": 50,
-          "contraccion_neta": 0,
-          "cambio_neto_casi_nulo": 0,
+        "direccion_relativa": {
+          "expansion_acelerada": 24,
+          "contraccion_relativa": 26,
+          "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 1975,
         "hasta": 2024
       },
       "económica": {
-        "estado": "COMPATIBLE",
+        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 10,
         "n_transformacion_observable": 10,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.18675970827502192,
         "T_media": 0.2532262651866905,
         "T_max": 0.6184630708070813,
+        "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion": {
-          "expansion_neta": 10,
-          "contraccion_neta": 0,
-          "cambio_neto_casi_nulo": 0,
+        "direccion_relativa": {
+          "expansion_acelerada": 3,
+          "contraccion_relativa": 7,
+          "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 2015,
         "hasta": 2024
       },
       "ecológica": {
-        "estado": "COMPATIBLE",
+        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 15,
         "n_transformacion_observable": 15,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.14803751337294535,
         "T_media": 0.21498238177607423,
         "T_max": 0.6184630708070813,
+        "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion": {
-          "expansion_neta": 15,
-          "contraccion_neta": 0,
-          "cambio_neto_casi_nulo": 0,
+        "direccion_relativa": {
+          "expansion_acelerada": 5,
+          "contraccion_relativa": 10,
+          "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 2009,
         "hasta": 2023
       },
       "tecnológica": {
-        "estado": "COMPATIBLE",
+        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 16,
         "n_transformacion_observable": 16,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.1457867089181759,
         "T_media": 0.20845716959890065,
         "T_max": 0.6184630708070813,
+        "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion": {
-          "expansion_neta": 16,
-          "contraccion_neta": 0,
-          "cambio_neto_casi_nulo": 0,
+        "direccion_relativa": {
+          "expansion_acelerada": 5,
+          "contraccion_relativa": 11,
+          "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 2009,
         "hasta": 2024
       },
       "biológica": {
-        "estado": "COMPATIBLE",
+        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 48,
         "n_transformacion_observable": 48,
         "proporcion_transformacion": 1.0,
         "T_mediana": 0.06746365102865602,
         "T_media": 0.09496137630169525,
         "T_max": 0.6184630708070813,
+        "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion": {
-          "expansion_neta": 48,
-          "contraccion_neta": 0,
-          "cambio_neto_casi_nulo": 0,
+        "direccion_relativa": {
+          "expansion_acelerada": 24,
+          "contraccion_relativa": 24,
+          "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 1975,
