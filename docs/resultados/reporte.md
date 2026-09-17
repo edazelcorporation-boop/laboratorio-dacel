@@ -179,31 +179,64 @@ Cobertura parcial mediante WDI tecnológico y AI-GPR; se conserva como dominio a
 ### Lectura global
 El motor multiescala se conserva como módulo cuantitativo complementario. H3-v8 es la formulación estructural vigente y reporta por separado magnitud, dirección y trayectoria.
 
-## H3 — Daçel estructural v8 (formulación principal)
+## H3 — Postulado base de reestructuración (verificación con datos)
+
+Postulado Daçel: todo sistema perturbado se reestructura y se transforma, para bien o para mal. Aquí se verifica con datos reales si, en los años de perturbación alta de cada familia, el estado del sistema mundial cambió de forma medible.
+
+Estatus: es el principio base de la teoría, no una hipótesis que compita contra un rival. Su calificación es la cobertura observada (escala 0–100%: porcentaje de años de perturbación alta con transformación medible). La prueba de intensidad, que sí puede fallar, es H3-v9.
 
 Postulado operativo: `P → ΔS`. Una perturbación cuenta como exposición; la evidencia observacional es un cambio independiente del estado del sistema. Expansión, contracción, deterioro, sustitución, adaptación, recuperación o colapso cuentan como transformación. El signo normativo no decide H3.
 
 Medición principal: `T(t→t+1)=D[x(t),x(t+1)]`, con D como distancia multivariable del estado observable. Se usa un paso anual para no imponer el antiguo cuello de botella h=3. La dirección neta se informa aparte.
 
 ### Evidencia observada por familia
-- conflicto: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección relativa: expansión/aceleración 24, contracción/desaceleración 26, casi nula 0; persistencia 3 pasos=100.0%.
-- geofísica: 50/50 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0710; dirección relativa: expansión/aceleración 24, contracción/desaceleración 26, casi nula 0; persistencia 3 pasos=100.0%.
-- económica: 10/10 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1868; dirección relativa: expansión/aceleración 3, contracción/desaceleración 7, casi nula 0; persistencia 3 pasos=100.0%.
-- ecológica: 15/15 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1480; dirección relativa: expansión/aceleración 5, contracción/desaceleración 10, casi nula 0; persistencia 3 pasos=100.0%.
-- tecnológica: 16/16 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.1458; dirección relativa: expansión/aceleración 5, contracción/desaceleración 11, casi nula 0; persistencia 3 pasos=100.0%.
-- biológica: 48/48 observaciones (100.0%) muestran transformación estructural medible; T mediana=0.0675; dirección relativa: expansión/aceleración 24, contracción/desaceleración 24, casi nula 0; persistencia 3 pasos=100.0%.
+- conflicto: 23/23 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.0669; dirección relativa: expansión/aceleración 7, contracción/desaceleración 16, casi nula 0; persistencia 3 pasos=100.0%.
+- geofísica: 11/11 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1162; dirección relativa: expansión/aceleración 9, contracción/desaceleración 2, casi nula 0; persistencia 3 pasos=100.0%.
+- económica: 3/3 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.2018; dirección relativa: expansión/aceleración 0, contracción/desaceleración 3, casi nula 0; persistencia 3 pasos=100.0%.
+- ecológica: **SIN DATOS COMPARABLES**
+- tecnológica: **SIN DATOS COMPARABLES**
+- biológica: 16/16 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1385; dirección relativa: expansión/aceleración 7, contracción/desaceleración 9, casi nula 0; persistencia 3 pasos=100.0%.
 
-### Lectura H3-v8
-- Cobertura conjunta descriptiva: 189/189 (100.0%) observaciones comparables presentan cambio estructural posterior/contemporáneo medible en el paso anual.
-**Veredicto H3-v8: SUPERA LA PRUEBA.** Se observó transformación estructural medible en 189/189 casos comparables (100.0%).
+### Calificación del postulado base
+- Cobertura observada: 53/53 (100.0%) años de perturbación alta presentan cambio estructural medible en el paso anual.
+**H3 postulado base: CUMPLE EL POSTULADO BASE (100.0%).** Los datos reales muestran transformación en 53 de 53 años de perturbación alta.
 - Este resultado mide **compatibilidad observacional con el postulado Daçel**, no beneficio moral, progreso ni causalidad estadística. Una contracción o destrucción sigue siendo transformación.
-- Las antiguas H3-v4/v5/v6 quedan como auditorías históricas de formulaciones más estrechas (gradiente/correlación temporal) y no constituyen la H3 principal.
+- Historial: H3-v2 a v5 no superaron sus pruebas y se conservan como registro. H3-v8 se reformuló como postulado base el 17-sep-2026. H3-v9 es la prueba de intensidad.
+## H3-v9 — Perturbación contra años normales (prueba vigente)
+
+Registrada el 17-sep-2026 antes de correrse con datos reales. Pregunta si después de los años más perturbados hay más transformación que después de años tranquilos. La transformación se mide como cuánto se aparta el crecimiento de su trayectoria reciente, hacia arriba o hacia abajo. Ambas series se analizan sin tendencia para que el simple paso del tiempo no genere la relación.
+
+- Años analizados: 42 (1983–2024)
+- Correlación perturbación → transformación (sin tendencia): rho = -0.010
+- Nulo con 41 desplazamientos circulares: p = 0.4762
+- Transformación mediana tras años muy perturbados (1): 2.1587; tras años tranquilos (13): 1.7326
+
+**Veredicto H3-v9: NO SUPERA LA PRUEBA.** La transformación tras años perturbados no se distingue de la de años tranquilos una vez quitada la tendencia.
+
+Por familia (solo informativo; con 6 familias se esperan resultados "significativos" por azar, así que no deciden el veredicto):
+
+- conflicto: n = 42, rho = +0.059, p = 0.381
+- geofísica: n = 42, rho = -0.106, p = 0.714
+- económica: menos de 20 años comparables.
+- ecológica: menos de 20 años comparables.
+- tecnológica: menos de 20 años comparables.
+- biológica: n = 40, rho = +0.048, p = 0.375
+
+## H5 — La IA aumenta el vacío humano (más allá de internet)
+
+Registrada el 17-sep-2026 antes de correrse con datos reales. Pregunta si en los años en que la IA crece más rápido, el año siguiente sube más la ansiedad o depresión mundial, después de descontar el efecto del crecimiento de internet (que ya mide H2).
+
+- Años con IA, vacío humano y conexión a la vez: 17
+**Veredicto H5: NO CONCLUYENTE.** Se necesitan al menos 20.
+
 ## Resumen
 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
 - H2 (vacío humano): **SUPERA LA PRUEBA**
 - H4 (externalización 2040): **NO CONCLUYENTE**
 - Ecuación General: **SUPERA LA PRUEBA**
-- H3 vigente (Daçel estructural v8): **SUPERA LA PRUEBA** — transformación observada 100.0% (189/189)
+- H3 (postulado base): **CUMPLE EL POSTULADO BASE (100%)**
+- H3-v9 (intensidad): **NO SUPERA LA PRUEBA**
+- H5 (IA y vacío humano): **NO CONCLUYENTE**
 
-H3-v8 cuantifica la transformación observada tal como la define Daçel; las predicciones derivadas se evaluarán por separado conforme lleguen nuevos datos.
+H3 postulado base: verificación con datos del principio de reestructuración (calificación = % de años de perturbación alta con transformación medible). H3-v9 y H5 fueron registradas el 17-sep-2026 antes de correrse con datos reales. H3-v2 a v5 permanecen en el historial.

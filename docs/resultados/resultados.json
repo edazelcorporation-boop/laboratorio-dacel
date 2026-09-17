@@ -1,38 +1,43 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-17 04:07 UTC",
+  "fecha_ejecucion": "2026-09-17 07:24 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
     "_auditoria_H3_v4": "NO SUPERA LA PRUEBA",
     "_auditoria_H3_v5": "NO SUPERA LA PRUEBA",
     "H4 (externalización 2040)": "NO CONCLUYENTE",
-    "Ecuación General": "SUPERA LA PRUEBA"
+    "Ecuación General": "SUPERA LA PRUEBA",
+    "H3 (postulado base)": "CUMPLE EL POSTULADO BASE (100%)",
+    "H3-v9 (intensidad)": "NO SUPERA LA PRUEBA",
+    "H5 (IA y vacío humano)": "NO CONCLUYENTE"
   },
-  "H3_v8_estructural": {
-    "version": "H3-v8",
-    "tipo": "compatibilidad estructural",
+  "H3_postulado_base": {
+    "version": "H3-base (antes v8)",
+    "tipo": "postulado base",
     "paso_anual": 1,
     "tolerancia_numerica": 7.096267449079806e-14,
-    "observaciones_totales": 189,
-    "transformaciones_observadas": 189,
+    "observaciones_totales": 53,
+    "transformaciones_observadas": 53,
     "proporcion_global": 1.0,
-    "supera_prueba": true,
+    "cumple_postulado": true,
+    "calificacion_pct": 100.0,
+    "es_postulado_base": true,
     "criterio_superacion": "100% de observaciones comparables con transformación estructural medible",
     "familias": {
       "conflicto": {
         "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
-        "n_perturbaciones_con_respuesta_observable": 50,
-        "n_transformacion_observable": 50,
+        "n_perturbaciones_con_respuesta_observable": 23,
+        "n_transformacion_observable": 23,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.07096267449079806,
-        "T_media": 0.10478727669691727,
-        "T_max": 0.6184630708070813,
+        "T_mediana": 0.06692229941446808,
+        "T_media": 0.09247821199717662,
+        "T_max": 0.5706387854231945,
         "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
         "direccion_relativa": {
-          "expansion_acelerada": 24,
-          "contraccion_relativa": 26,
+          "expansion_acelerada": 7,
+          "contraccion_relativa": 16,
           "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
@@ -41,97 +46,67 @@
       },
       "geofísica": {
         "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
-        "n_perturbaciones_con_respuesta_observable": 50,
-        "n_transformacion_observable": 50,
+        "n_perturbaciones_con_respuesta_observable": 11,
+        "n_transformacion_observable": 11,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.07096267449079806,
-        "T_media": 0.10478727669691727,
+        "T_mediana": 0.11616700862529866,
+        "T_media": 0.14153267651297347,
         "T_max": 0.6184630708070813,
         "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
         "direccion_relativa": {
-          "expansion_acelerada": 24,
-          "contraccion_relativa": 26,
+          "expansion_acelerada": 9,
+          "contraccion_relativa": 2,
           "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
-        "desde": 1975,
-        "hasta": 2024
+        "desde": 1994,
+        "hasta": 2021
       },
       "económica": {
         "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
-        "n_perturbaciones_con_respuesta_observable": 10,
-        "n_transformacion_observable": 10,
+        "n_perturbaciones_con_respuesta_observable": 3,
+        "n_transformacion_observable": 3,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.18675970827502192,
-        "T_media": 0.2532262651866905,
-        "T_max": 0.6184630708070813,
+        "T_mediana": 0.2018126622837295,
+        "T_media": 0.29523210256196214,
+        "T_max": 0.5706387854231945,
         "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
         "direccion_relativa": {
-          "expansion_acelerada": 3,
-          "contraccion_relativa": 7,
+          "expansion_acelerada": 0,
+          "contraccion_relativa": 3,
           "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
         "desde": 2015,
-        "hasta": 2024
-      },
-      "ecológica": {
-        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
-        "n_perturbaciones_con_respuesta_observable": 15,
-        "n_transformacion_observable": 15,
-        "proporcion_transformacion": 1.0,
-        "T_mediana": 0.14803751337294535,
-        "T_media": 0.21498238177607423,
-        "T_max": 0.6184630708070813,
-        "persistencia_3_pasos": 1.0,
-        "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion_relativa": {
-          "expansion_acelerada": 5,
-          "contraccion_relativa": 10,
-          "cambio_relativo_casi_nulo": 0,
-          "sin_direccion": 0
-        },
-        "desde": 2009,
         "hasta": 2023
       },
+      "ecológica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
       "tecnológica": {
+        "estado": "SIN DATOS",
+        "n": 0
+      },
+      "biológica": {
         "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
         "n_perturbaciones_con_respuesta_observable": 16,
         "n_transformacion_observable": 16,
         "proporcion_transformacion": 1.0,
-        "T_mediana": 0.1457867089181759,
-        "T_media": 0.20845716959890065,
+        "T_mediana": 0.1384834489372691,
+        "T_media": 0.16459209875671724,
         "T_max": 0.6184630708070813,
         "persistencia_3_pasos": 1.0,
         "tolerancia_numerica": 7.096267449079806e-14,
         "direccion_relativa": {
-          "expansion_acelerada": 5,
-          "contraccion_relativa": 11,
+          "expansion_acelerada": 7,
+          "contraccion_relativa": 9,
           "cambio_relativo_casi_nulo": 0,
           "sin_direccion": 0
         },
-        "desde": 2009,
-        "hasta": 2024
-      },
-      "biológica": {
-        "estado": "TRANSFORMACION_OBSERVADA_EN_TODOS_LOS_CASOS",
-        "n_perturbaciones_con_respuesta_observable": 48,
-        "n_transformacion_observable": 48,
-        "proporcion_transformacion": 1.0,
-        "T_mediana": 0.06746365102865602,
-        "T_media": 0.09496137630169525,
-        "T_max": 0.6184630708070813,
-        "persistencia_3_pasos": 1.0,
-        "tolerancia_numerica": 7.096267449079806e-14,
-        "direccion_relativa": {
-          "expansion_acelerada": 24,
-          "contraccion_relativa": 24,
-          "cambio_relativo_casi_nulo": 0,
-          "sin_direccion": 0
-        },
-        "desde": 1975,
+        "desde": 1977,
         "hasta": 2022
       }
     },
@@ -223,6 +198,17 @@
         "nota": "All-cause; cambios dentro de país; cobertura anual no se interpreta como mortalidad."
       }
     }
+  },
+  "H5": {
+    "fuente_ia": {
+      "estado": "OK",
+      "fuente": "owid",
+      "anios": [
+        1950,
+        2025
+      ]
+    },
+    "n": 17
   },
   "anios": {
     "CIDI": [
