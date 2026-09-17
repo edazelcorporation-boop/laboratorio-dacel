@@ -236,6 +236,18 @@ Registrada el 17-sep-2026 antes de correrse con datos reales. Pregunta si en los
 
 Límite actual: las series mundiales de salud mental suelen terminar años antes del presente, y antes de 2022 la IA llegaba poco al público. El periodo de IA masiva entrará a la prueba conforme se publiquen nuevos datos.
 
+## H2-países — El vacío humano sube donde y cuando crece internet
+
+Registrada el 17-sep-2026 antes de correrse con datos reales. Compara, dentro de cada país, los años de mayor crecimiento de internet con los cambios de ansiedad y depresión. Se descuentan las tendencias propias de cada país y cualquier cambio que afecte a todo el mundo el mismo año.
+
+**Veredicto H2-países: NO CONCLUYENTE.** Solo 34 países con todos los años; se necesitan 50.
+
+## H5-países — La IA aumenta el vacío humano, país por país
+
+Registrada el 17-sep-2026. Diseño fijo: se activa cuando existan datos de uso de IA por país y años de salud mental que los cubran.
+
+**Veredicto H5-países: NO CONCLUYENTE.** Registrada; esperando datos de uso de IA por país (datos_fuente/ia_uso_paises.csv).
+
 ## Resumen
 
 - H1 (CIDI exponencial): **SUPERA LA PRUEBA**
@@ -245,5 +257,7 @@ Límite actual: las series mundiales de salud mental suelen terminar años antes
 - H3 (postulado base): **CUMPLE EL POSTULADO BASE (100%)**
 - H3-v9 (intensidad): **NO SUPERA LA PRUEBA**
 - H5 (IA y vacío humano): **NO SUPERA LA PRUEBA**
+- H2-países (vacío humano): **NO CONCLUYENTE**
+- H5-países (IA): **NO CONCLUYENTE**
 
 H3 postulado base: verificación con datos del principio de reestructuración (calificación = % de años de perturbación alta con transformación medible). H3-v9 y H5 fueron registradas el 17-sep-2026 antes de correrse con datos reales. H3-v2 a v5 permanecen en el historial.

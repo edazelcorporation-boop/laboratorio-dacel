@@ -85,6 +85,16 @@
         1961,
         2025
       ]
+    },
+    "panel_paises": {
+      "ok": true,
+      "paises": 200,
+      "filas_completas": 5804,
+      "anios": [
+        1990,
+        2023
+      ],
+      "nombre": "Panel por países (IHME + Banco Mundial)"
     }
   },
   "perturbaciones": {
@@ -105,6 +115,7 @@
     "16-sep-2026: Daçel-v4 separa perturbación, memoria, capacidad adaptativa y reorganización. H3-v4 define P_ext con AI-GPR + disrupción macro ex-ante; M como memoria exponencial de vida media 3 años; A_cap como capacidad previa basada en energía, externalización/conectividad y conocimiento (I excluida para evitar circularidad); Q=M×A_cap; R como magnitud multidominio del cambio de régimen. La Ecuación General dinámica predice gI(t+1) con predictores fechados en t y Q sustituye al antiguo P binario. H3-v2/v3 y la ecuación anterior quedan preservadas en el historial; esta modificación no borra sus resultados.",
     "16-sep-2026: Motor multiescala v6 compatible con actualizar_datos.py y actualizar.yml. Se conserva fuentes/perturbaciones/modelo_dinamico para reproducibilidad histórica y se añade la arquitectura v1.2 por dominios. No se fabrican datos faltantes.",
     "17-sep-2026: Corrección de datos en 'conexion'. El agregado mundial oficial del Banco Mundial (WLD, IT.NET.USER.ZS) solo existe desde 2005, lo que cortaba H2 y H5. Se sustituye por el promedio de países ponderado por población (SP.POP.TOTL), con el mismo método para todos los años y solo en años donde los países con dato suman al menos 80% de la población mundial. No se inventan datos ni se mezcla con el agregado oficial. H2 y H5 se recalculan y se acepta su resultado. Limitación declarada: las series de ansiedad y depresión del IHME son estimaciones modeladas y muy suaves, lo que puede inflar las correlaciones de cambios anuales en H2 y H5.",
-    "17-sep-2026: H3-v8 se reformula como postulado base con calificación por familia (solo años de perturbación alta de cada familia). Se registran H3-v9 (intensidad) y H5 (IA y vacío humano) antes de correrse con datos reales."
+    "17-sep-2026: H3-v8 se reformula como postulado base con calificación por familia (solo años de perturbación alta de cada familia). Se registran H3-v9 (intensidad) y H5 (IA y vacío humano) antes de correrse con datos reales.",
+    "17-sep-2026: Se registran H2-países y H5-países antes de correrse con datos reales. Datos: prevalencia de ansiedad y depresión por país (IHME GBD 2023, 204 países y territorios, 1990–2023; nombres del IHME emparejados con códigos ISO3 en datos_fuente/ihme_ubicaciones_iso3.csv) y usuarios de internet por país (Banco Mundial). H2-países: pendiente del cambio anual del vacío humano (promedio de ansiedad y depresión) sobre el cambio anual de internet, con efectos fijos de país y de año, panel balanceado, cada país con igual peso; nulo: 1000 intercambios aleatorios de historias de internet entre países; supera si la pendiente es positiva y p < 0.05. H5-países: mismo diseño con uso de IA por país (datos_fuente/ia_uso_paises.csv), efecto al año siguiente y descontando internet; se activa cuando existan esos datos. H2 y H5 mundiales no cambian."
   ]
 }
