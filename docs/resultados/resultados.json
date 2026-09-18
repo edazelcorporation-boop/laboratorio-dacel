@@ -1,6 +1,6 @@
 {
   "etiqueta": "datos reales",
-  "fecha_ejecucion": "2026-09-17 15:57 UTC",
+  "fecha_ejecucion": "2026-09-18 03:01 UTC",
   "veredictos": {
     "H1 (CIDI exponencial)": "SUPERA LA PRUEBA",
     "H2 (vacío humano)": "SUPERA LA PRUEBA",
@@ -203,9 +203,9 @@
   },
   "H5": {
     "n": 27,
-    "r_parcial": 0.21903954054851577,
+    "r_parcial": 0.21903954054851585,
     "p": 0.18518518518518517,
-    "r_simple": 0.17630115222664694,
+    "r_simple": 0.176301152226647,
     "fuente_ia": {
       "estado": "OK",
       "fuente": "owid",
