@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dacel.edazelfernandez.com/sitemap.xml
