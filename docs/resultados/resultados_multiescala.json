@@ -1,19 +1,19 @@
 {
   "civilizacional_tecnologico": {
     "estado": "NO SUPERA BASELINE",
-    "rho_P_R": 0.27042861547949426,
-    "skill": -0.1830891918805866,
-    "r2_oos": 0.11467373135618208,
-    "rmse_dacel": 0.10652609888586931,
-    "rmse_constante": 0.19615333056843226,
-    "rmse_persistencia": 0.09004063228448576,
+    "rho_P_R": 0.2651248843663274,
+    "skill": -0.333347699614565,
+    "r2_oos": 0.07178350034574943,
+    "rmse_dacel": 0.10013941425657952,
+    "rmse_constante": 0.1827579766383997,
+    "rmse_persistencia": 0.07510375147122325,
     "coeficientes": {
-      "intercept": 0.05091405612610857,
-      "P": 0.11408551348042552,
-      "P2": -0.09766377993470093,
-      "Ecap": 0.027983637082199746,
-      "PxE": 0.051167437662980764,
-      "IOEprev": 0.02164939877650708,
+      "intercept": 0.04530725688253512,
+      "P": 0.1131251044539044,
+      "P2": -0.09680033814196196,
+      "Ecap": 0.028941717035219004,
+      "PxE": 0.04774483154416202,
+      "IOEprev": 0.01566654477035012,
       "Lcap": 0.0
     },
     "n": 46
@@ -21,8 +21,8 @@
   "humano_cognitivo": {
     "estado": "EXPLORATORIO",
     "n": 31,
-    "skill": -0.8914156139346314,
-    "r2_oos": -1.4036717240051169
+    "skill": -0.8914156139346299,
+    "r2_oos": -1.403671724005112
   },
   "biológico": {
     "estado": "DATOS DISPONIBLES",
@@ -59,8 +59,8 @@
         "WHO_mortality_ICD9_part4.csv"
       ],
       "errores": [
-        "WHO_mortality_ICD10_add_Germany.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
-        "WHO_mortality_ICD10_add_Norway.xlsx: `Import openpyxl` failed.  Use pip or conda to install the openpyxl package.",
+        "WHO_mortality_ICD10_add_Germany.xlsx: `Import openpyxl` failed.  Use pip, conda, or your preferred package management tool to install the openpyxl package.",
+        "WHO_mortality_ICD10_add_Norway.xlsx: `Import openpyxl` failed.  Use pip, conda, or your preferred package management tool to install the openpyxl package.",
         "WHO_mortality_ICD10_sourcepart1_chunk4.csv: sin registro all-cause",
         "WHO_mortality_ICD10_sourcepart1_chunk5.csv: sin registro all-cause",
         "WHO_mortality_ICD10_sourcepart2_chunk4.csv: sin registro all-cause",

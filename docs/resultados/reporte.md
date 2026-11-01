@@ -47,8 +47,8 @@ P_ext combina AI-GPR y disrupción del crecimiento mundial. Sus transformaciones
 
 - Años evaluables: 35 (1986–2020)
 - Dominios de R por año: mediana 4.0; rango 2–4
-- Asociación Q(t)=M×A_cap → R(t): rho = +0.240
-- Nulo temporal: 34 desplazamientos circulares; p = 0.2000
+- Asociación Q(t)=M×A_cap → R(t): rho = +0.265
+- Nulo temporal: 34 desplazamientos circulares; p = 0.1429
 
 **Veredicto H3-v4: NO SUPERA LA PRUEBA.** La dirección es la prevista, pero no se distingue del nulo temporal al 5%.
 
@@ -65,8 +65,8 @@ Esta prueba conserva P_ext, vida media de 3 años, A_cap, R, ventana temporal, a
 - A_cap: 49 años (1977–2025)
 - R: 45 años (1976–2020)
 - Intersección R ∩ M ∩ A_cap: 44 años (1977–2020)
-- Asociación Q(t)=M_hist×A_cap → R(t): rho = +0.034
-- Nulo temporal: 43 desplazamientos circulares; p = 0.3864
+- Asociación Q(t)=M_hist×A_cap → R(t): rho = +0.052
+- Nulo temporal: 43 desplazamientos circulares; p = 0.3636
 - Dominios de R: mediana 3.0; rango 2–4
 **Veredicto H3-v5: NO SUPERA LA PRUEBA.** La dirección es la prevista, pero no se distingue del nulo temporal al 5%.
 
@@ -88,10 +88,10 @@ Parámetros estimados solo con el tramo de entrenamiento:
 - δ (pérdidas) = +0.0000
 
 Error fuera de muestra (menor es mejor):
-- Ecuación Daçel dinámica: 39.090
+- Ecuación Daçel dinámica: 39.079
 - Crecimiento constante: 43.821
 - Persistencia: 82.004
-- R² fuera de muestra: 0.204
+- R² fuera de muestra: 0.205
 
 **Veredicto Ecuación General dinámica: SUPERA LA PRUEBA.** Reduce el error 11% frente al mejor rival simple.
 
@@ -155,9 +155,9 @@ Modelo: `R_s(t+h)=α+β1P+β2P²+β3E+β4(P×E)+β5IOE(t−1)+β6L+ε`. No se ex
 
 ### Civilizacional / tecnológico
 
-Años completos del modelo: 46 (entrenamiento 36, prueba 10). Spearman descriptivo P→R: rho=+0.270.
+Años completos del modelo: 46 (entrenamiento 36, prueba 10). Spearman descriptivo P→R: rho=+0.265.
 
-RMSE Daçel=0.1065; constante=0.1962; persistencia=0.0900; skill frente al mejor baseline=-18.3%; R² fuera de muestra=+0.115.
+RMSE Daçel=0.1001; constante=0.1828; persistencia=0.0751; skill frente al mejor baseline=-33.3%; R² fuera de muestra=+0.072.
 
 **Resultado del módulo: NO SUPERA BASELINE.**
 
@@ -191,11 +191,11 @@ Medición principal: `T(t→t+1)=D[x(t),x(t+1)]`, con D como distancia multivari
 
 ### Evidencia observada por familia
 - conflicto: 23/23 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.0669; dirección relativa: expansión/aceleración 8, contracción/desaceleración 15, casi nula 0; persistencia 3 pasos=100.0%.
-- geofísica: 11/11 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1113; dirección relativa: expansión/aceleración 9, contracción/desaceleración 2, casi nula 0; persistencia 3 pasos=100.0%.
-- económica: 3/3 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1924; dirección relativa: expansión/aceleración 0, contracción/desaceleración 3, casi nula 0; persistencia 3 pasos=100.0%.
+- geofísica: 11/11 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1110; dirección relativa: expansión/aceleración 9, contracción/desaceleración 2, casi nula 0; persistencia 3 pasos=100.0%.
+- económica: 3/3 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1744; dirección relativa: expansión/aceleración 0, contracción/desaceleración 3, casi nula 0; persistencia 3 pasos=100.0%.
 - ecológica: **SIN DATOS COMPARABLES**
 - tecnológica: **SIN DATOS COMPARABLES**
-- biológica: 16/16 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1352; dirección relativa: expansión/aceleración 5, contracción/desaceleración 11, casi nula 0; persistencia 3 pasos=100.0%.
+- biológica: 16/16 años de perturbación alta (100.0%) muestran transformación estructural medible; T mediana=0.1324; dirección relativa: expansión/aceleración 6, contracción/desaceleración 10, casi nula 0; persistencia 3 pasos=100.0%.
 
 ### Calificación del postulado base
 - Cobertura observada: 53/53 (100.0%) años de perturbación alta presentan cambio estructural medible en el paso anual.
@@ -207,20 +207,20 @@ Medición principal: `T(t→t+1)=D[x(t),x(t+1)]`, con D como distancia multivari
 Registrada el 17-sep-2026 antes de correrse con datos reales. Pregunta si después de los años más perturbados hay más transformación que después de años tranquilos. La transformación se mide como cuánto se aparta el crecimiento de su trayectoria reciente, hacia arriba o hacia abajo. Ambas series se analizan sin tendencia para que el simple paso del tiempo no genere la relación.
 
 - Años analizados: 42 (1983–2024)
-- Correlación perturbación → transformación (sin tendencia): rho = +0.011
-- Nulo con 41 desplazamientos circulares: p = 0.4286
-- Transformación mediana tras años muy perturbados (1): 2.1587; tras años tranquilos (13): 1.5807
+- Correlación perturbación → transformación (sin tendencia): rho = +0.023
+- Nulo con 41 desplazamientos circulares: p = 0.4048
+- Transformación mediana tras años muy perturbados (1): 2.2607; tras años tranquilos (13): 1.5807
 
 **Veredicto H3-v9: NO SUPERA LA PRUEBA.** La transformación tras años perturbados no se distingue de la de años tranquilos una vez quitada la tendencia.
 
 Por familia (solo informativo; con 6 familias se esperan resultados "significativos" por azar, así que no deciden el veredicto):
 
-- conflicto: n = 42, rho = +0.001, p = 0.429
+- conflicto: n = 42, rho = +0.015, p = 0.405
 - geofísica: n = 42, rho = -0.112, p = 0.786
 - económica: menos de 20 años comparables.
 - ecológica: menos de 20 años comparables.
 - tecnológica: menos de 20 años comparables.
-- biológica: n = 40, rho = +0.122, p = 0.225
+- biológica: n = 40, rho = +0.140, p = 0.200
 
 ## H5 — La IA aumenta el vacío humano (más allá de internet)
 
